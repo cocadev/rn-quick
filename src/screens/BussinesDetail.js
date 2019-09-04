@@ -121,14 +121,13 @@ export default class BussinesDetail extends Component {
     const params = {
       lat: latitude,
       lon: longitude,
-      i: idNegocio,
+      n: idNegocio,
     };
-    console.log(params);
     ApiClient.getBusinessDetail(params)
     .then(response => {
       var response = response[0];
       var services;
-      if (response.services === null || response.services === [] || response.services === ''){
+      if (response.services === null || Object.entries(response.services).length === 0 || response.services === ''){
         services = 'SIN SERVICIOS REGISTRADOS'
       } else {
         for (cont = 1; cont < response.services.length; cont ++){

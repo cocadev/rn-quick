@@ -36,20 +36,6 @@ export default class Count extends Component {
   }
 
   static navigationOptions = ({ navigation }) => {
-    var idUser, imageProfile = '';
-    AsyncStorage.getItem('user').then((response) => {
-      idUser = JSON.parse(response);
-    });
-    const params = {
-      i: idUser
-    };
-    fetch('http://192.168.43.230:19001/src/objects/ImageCount.json').then(response => {
-      return response.json();
-    }).then(response => {
-      imageProfile = response.image;
-    }).catch(error => {
-      console.log("Error Reading data " + error);
-    });
     return {
       headerTitle: (
         <Text style={styles.titleContainer} type="CaviarDreams">Cuenta</Text>
@@ -92,8 +78,8 @@ export default class Count extends Component {
       this.setState({ idUser: user.idUser })
     });
     AsyncStorage.getItem('social').then((response) => {
-      var user = JSON.parse(response);
-      this.setState({ idUser: user.idUser })
+      var social = JSON.parse(response);
+      this.setState({ social: social.social })
     });
   }
 

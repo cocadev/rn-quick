@@ -83,6 +83,7 @@ export default class Message extends Component {
     };
     ApiClient.getMessages(params)
     .then(response => {
+      return console.log(response);
       var isLastPage = false, 
           pageNumber = response.length / 10,
           pageConstant = Math.ceil(pageNumber);

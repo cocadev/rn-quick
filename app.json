@@ -23,6 +23,9 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.quickb.quickb"
+    },
     "ios": {
       "supportsTablet": true
     },

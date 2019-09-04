@@ -29,7 +29,13 @@ const Images = {
   more: require('../assets/images/plusIcon.png'),
   less: require('../assets/images/lessIcon.png'),
   ok: require('../assets/images/okIcon.png'),
-  messageSend: require('../assets/images/messageSendIcon.png')
+  messageSend: require('../assets/images/messageSendIcon.png'),
+  trash: require('../assets/images/trashIcon.png'),
+
+  a: require('../assets/images/a.png'),
+  aa: require('../assets/images/aa.png'),
+  colorpad: require('../assets/images/color.png'),
+
 };
   
 /**

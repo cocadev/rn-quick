@@ -6,11 +6,12 @@
  * @version v1.1
  */
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Platform, Image, AsyncStorage, FlatList, ImageBackground, Alert } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Platform, Image, AsyncStorage, FlatList, ImageBackground, Alert, ScrollView } from 'react-native';
 import Text  from '../components/CustomText';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Loader from '../components/Loader';
 import Images from '../constants/Images';
+import { AccordionList } from 'accordion-collapse-react-native';
 import { SearchBar } from 'react-native-elements';
 import StarRating from 'react-native-star-rating';
 
@@ -76,7 +77,6 @@ export default class Favorite extends Component {
       search: '',
       isSearching: false,
       dataSource: [],
-      expanded: []
     }
   }
 
@@ -138,8 +138,8 @@ export default class Favorite extends Component {
   getFavorites() {
     this.setState({
       isLoading: false,
-      loading: false,
-      dataSource: data
+      dataSource: data,
+      loading: false
     });
     /*
     const { idUser, dataSource, latitude, longitude, search } = this.state;
@@ -174,15 +174,6 @@ export default class Favorite extends Component {
     */
   }
 
-  iterationArray() {
-    var { dataSource } = this.state;
-    var check = [];
-    dataSource.forEach(() => {
-      check.push(true);
-    });
-    this.setState({ expanded: check });
-  }
-
   handleSearch = (text) => {
     if (!text || text === '' || text === null){
       clearTimeout(this.timer);
@@ -203,93 +194,159 @@ export default class Favorite extends Component {
       dataSource: [],
       loading: false
     });
-    this.timer = setTimeout(() => this.getBusinessList(), WAIT_INTERVAL); 
+    this.timer = setTimeout(() => this.getData(), WAIT_INTERVAL); 
   };
-
-  _getFavoriteCategoryStyle(idCategoria) {
-    var categoryColor = this.getColorCategory(idCategoria);
-    var categoryContainer = {
-      backgroundColor: categoryColor,
-      width: wp('85%'),
-      height: hp('12%'),
-      alignItems: 'stretch',
-      marginVertical: 5,
-      padding: 15,
-      borderRadius: 15,
-      flexDirection: 'row',
-    }
-    return categoryContainer;
-  }
-
-  _getBussinesStyle(idCategoria) {
-    var categoryColor = this.getColorCategory(idCategoria);
-    var labelBussines = {
-      padding: 5,
-      borderRadius: 15,
-      borTopColor: categoryColor,
-      borderTopWidth: 3,
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      height: hp('10%'),
-      width: wp('60%'),
-      marginTop: 22,
-      marginBottom: 22
-    }
-    return labelBussines;
-  }
-
-  getColorCategory(idCategoria) {
-    let color = '';
-    switch (idCategoria) {
-      case 'CAT_G4S':
-        color = '#577D68';
-        break;
-      case 'CAT_EBT':
-        color = '#FFEA2E';
-        break;
-      case 'CAT_RMF':
-        color = '#D60B7B';
-        break;
-      case 'CAT_RK1':
-        color = '#D12E28';
-        break;
-      case 'CAT_W9O':
-        color = '#DE6225';
-        break;
-      case 'CAT_05M':
-        color = '#009EDC';
-        break;
-      case 'CAT_3WB':
-        color = '#A12D86';
-        break;
-      case 'CAT_SRO':
-        color = '#D61F50';
-        break;
-      case 'CAT_Y4G':
-        color = '#A7C349'
-        break;
-      default:
-        return null;
-    }
-    return color
-  }
-
-  _collapsible(index) {
-    var {expanded} = this.state;
-    var newExpanded = expanded;
-    newExpanded[index] = !expanded[index]
-    this.setState({expanded: newExpanded})
-  }
 
   continueAction(idNegocio) {
     return console.log('LLege');
   }
 
+  _head(item) {
+    var categoryColor;
+    switch (item.idCategory) {
+      case 'CAT_G4S':
+        categoryColor = '#577D68';
+        break;
+      case 'CAT_EBT':
+        categoryColor = '#FFEA2E';
+        break;
+      case 'CAT_RMF':
+        categoryColor = '#D60B7B';
+        break;
+      case 'CAT_RK1':
+        categoryColor = '#D12E28';
+        break;
+      case 'CAT_W9O':
+        categoryColor = '#DE6225';
+        break;
+      case 'CAT_05M':
+        categoryColor = '#009EDC';
+        break;
+      case 'CAT_3WB':
+        categoryColor = '#A12D86';
+        break;
+      case 'CAT_SRO':
+        categoryColor = '#D61F50';
+        break;
+      case 'CAT_Y4G':
+        categoryColor = '#A7C349'
+        break;
+      default:
+        categoryColor = 'nada';
+    }
+    return (
+      <View style={styles.generalListContainer}>
+        <View  style={[styles.categoryContainer, {backgroundColor: categoryColor}]}>
+          <Image
+            source={{uri: item.imagen}}
+            fadeDuration={0}
+            style={styles.categoryImage}
+          />
+          <Text style={styles.categoryText} type="CaviarDreams">{item.nameCategory}</Text>
+        </View>
+      </View>
+    );
+  }
+
+  _body(item) {
+    var categoryColor;
+    switch (item.idCategory) {
+      case 'CAT_G4S':
+        categoryColor = '#577D68';
+        break;
+      case 'CAT_EBT':
+        categoryColor = '#FFEA2E';
+        break;
+      case 'CAT_RMF':
+        categoryColor = '#D60B7B';
+        break;
+      case 'CAT_RK1':
+        categoryColor = '#D12E28';
+        break;
+      case 'CAT_W9O':
+        categoryColor = '#DE6225';
+        break;
+      case 'CAT_05M':
+        categoryColor = '#009EDC';
+        break;
+      case 'CAT_3WB':
+        categoryColor = '#A12D86';
+        break;
+      case 'CAT_SRO':
+        categoryColor = '#D61F50';
+        break;
+      case 'CAT_Y4G':
+        categoryColor = '#A7C349'
+        break;
+      default:
+        categoryColor = null;
+    }
+    return (
+      <View style={styles.bussinesContainer}>
+        <FlatList
+          data={item.list}
+          renderItem={({item}) => (
+            <View style={styles.bussinesIndependientContainer}>
+              <TouchableOpacity style={[styles.labelBussines, {borderTopColor: categoryColor}]} onPress={() => this.continueAction(item.idNegocio)}>
+                <View style = {styles.imageBussines}>
+                  <ImageBackground style={styles.bussinesImage} source = {{ uri: item.logo }} />
+                </View>
+                <View style={styles.dataContainer}>
+                  <Text type="CaviarDreams" style={styles.bussinesName}>
+                    {item.nombreNegocio}{' '}
+                    <Text type="CaviarDreams" style={styles.bussinesDetail}>
+                      ({item.distancia}km)
+                    </Text>
+                  </Text>
+                  <Text type="CaviarDreams" style={styles.bussinesDetail}>
+                    {item.direccion}
+                  </Text>
+                  <Text type="CaviarDreams" style={styles.bussinesDetail}>
+                    {item.telefonos}
+                  </Text>
+                  <View style={styles.raitingContainer}>
+                    <StarRating
+                      disabled={true}
+                      maxStars={5}
+                      rating={parseFloat(item.rating)}
+                      fullStarColor={'gold'}
+                      starSize={15}
+                      starStyle={styles.start}
+                    />
+                    <Text type="CaviarDreams" style={styles.bussinesDetail}>
+                      ({item.reviews})
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity  style={styles.iconContainer}>
+                <Image
+                  source={Images.share}
+                  fadeDuration={0}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity  style={styles.iconContainer}>
+                <Image
+                  source={Images.trash}
+                  fadeDuration={0}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+          keyExtractor={item => item.idNegocio.toString()}
+        />
+      </View>
+    );
+  }
+
   render() {
     var { search, dataSource, loading, expanded } = this.state;
+    console.log(expanded);
     if (!loading) {
       return (
-        <View style={ styles.container }>
+        <View style={styles.container}>
           <View style={ styles.searchContainer }>
             <SearchBar
               lightTheme
@@ -310,63 +367,19 @@ export default class Favorite extends Component {
               />
             </TouchableOpacity>
           </View>
-          <View style={ styles.listContainer }>
-            <FlatList
-              data={dataSource}
-              renderItem={({item, index}) => (
-                <View>
-                  <TouchableOpacity  style={this._getFavoriteCategoryStyle(item.idCategory)} onPress={() => this._collapsible(index)}>
-                    <Image
-                      source={{uri: item.imagen}}
-                      fadeDuration={0}
-                      style={styles.categoryImage}
-                    />
-                    <Text style={styles.categoryText} type="CaviarDreams">{item.nameCategory}</Text>
-                  </TouchableOpacity>
-                  <FlatList
-                    data={item.list}
-                    renderItem={({item}) => (
-                      <TouchableOpacity style={this._getBussinesStyle(item.idCategory)} onPress={() => this.continueAction(item.idNegocio)}>
-                        <View style = {styles.imageBussines}>
-                          <ImageBackground style={styles.bussinesImage} source = {{ uri: item.logo }} />
-                        </View>
-                        <View style={styles.dataContainer}>
-                          <Text type="CaviarDreams" style={styles.bussinesName}>
-                            {item.nombreNegocio}{' '}
-                            <Text type="CaviarDreams" style={styles.bussinesDetail}>
-                              ({item.distancia}km)
-                            </Text>
-                          </Text>
-                          <Text type="CaviarDreams" style={styles.bussinesDetail}>
-                            {item.direccion}
-                          </Text>
-                          <Text type="CaviarDreams" style={styles.bussinesDetail}>
-                            {item.telefonos}
-                          </Text>
-                          <View style={styles.raitingContainer}>
-                            <StarRating
-                              disabled={true}
-                              maxStars={5}
-                              rating={parseFloat(item.rating)}
-                              fullStarColor={'gold'}
-                              starSize={15}
-                              starStyle={styles.start}
-                            />
-                            <Text type="CaviarDreams" style={styles.bussinesDetail}>
-                              ({item.reviews})
-                            </Text>
-                          </View>
-                        </View>
-                      </TouchableOpacity>
-                    )}
-                    keyExtractor={item => item.idNegocio.toString()}
-                  />
-                </View>
-              )}
-              keyExtractor={item => item.idCategory.toString()}
+          <ScrollView
+            style={styles.listContainer}
+            contentContainerStyle={styles.scrollview}
+            scrollEnabled={true}
+          >
+            <AccordionList
+              list={dataSource}
+              header={this._head}
+              body={this._body}
             />
-          </View>
+          </ScrollView>
         </View>
+          
       );
     } else {
       return (
@@ -398,6 +411,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: Platform.OS === 'ios' ? hp('4%') : hp('7%'),
     paddingLeft: 15
+  },
+  scrollview: {
+    flexGrow: 1,
   },
   container: {
     flex: 1,
@@ -438,10 +454,14 @@ const styles = StyleSheet.create({
     height: hp('5%'),
     width: wp('7.5%')
   },
+  generalListContainer: {
+    alignItems: 'center',
+    width: wp('100%')
+  },
   listContainer: {
     flex: 0.96,
-    padding: 20,
-    alignItems: 'center'
+    paddingVertical: 20,
+    width: '100%'
   },
   categoryImage: {
     resizeMode: "contain",
@@ -452,6 +472,11 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     color: '#fff',
     fontSize: hp('5%')
+  },
+  bussinesContainer: {
+    alignItems: 'flex-start',
+    width: wp('100%'),
+    paddingHorizontal: 40
   },
   imageBussines: {
     flex: 0.4,
@@ -482,6 +507,40 @@ const styles = StyleSheet.create({
   },
   start: {
     paddingRight: 5
+  },
+  categoryContainer: {
+    width: wp('85%'),
+    height: hp('12%'),
+    marginVertical: 5,
+    alignItems: 'center',
+    padding: 15,
+    borderRadius: 15,
+    flexDirection: 'row',
+  },
+  labelBussines: {
+    padding: 5,
+    borderRadius: 15,
+    borderTopWidth: 3,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    height: hp('10%'),
+    width: wp('60%'),
+    marginTop: 22,
+    marginBottom: 22
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  icon: {
+    resizeMode: 'contain',
+    marginHorizontal: 6,
+    width: wp('6%'),
+    height: hp('6%')
+  },
+  bussinesIndependientContainer: {
+    alignItems: 'center',
+    flexDirection: 'row'
   }
 });
 
