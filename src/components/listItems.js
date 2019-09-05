@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { p } from './normalize';
 import StarRating from 'react-native-star-rating';
 import * as ICON from './Icons'
+import { AntDesign } from '@expo/vector-icons';
 
 export const Likes = props => {
   count = props.count % 2;
@@ -77,6 +78,76 @@ export const Mis = props => {
   )
 }
 
+export const Comentarios = props => {
+  return (
+    <TouchableOpacity
+      style={[styles.misContainer, { height: p(60), marginHorizontal: p(12) }]}
+      onPress={props.onClick}
+    >
+      <Image style={styles.img} source={{ uri: props.item.img }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+        <View style={{ justifyContent: 'space-between', height: p(50) }}>
+          <View>
+            <Text style={styles.h1}>{props.item.name}</Text>
+            <Text style={styles.h2}>{props.item.address}</Text>
+          </View>
+          <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={parseFloat(5)}
+              fullStarColor={'gold'}
+              starSize={p(11)}
+              starStyle={styles.start}
+            />
+          </View>
+        </View>
+
+      </View>
+
+      <View style={{ alignItems: 'center', width: p(40) }}>
+          <AntDesign name={'delete'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
+        </View>
+
+    </TouchableOpacity>
+  )
+}
+
+export const MISComentariosItem = props => {
+  return (
+    <TouchableOpacity
+      style={[styles.misContainer, { height: p(60), marginHorizontal: p(12) }]}
+      onPress={props.onClick}
+    >
+      <Image style={styles.img} source={{ uri: props.item.img }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+        <View style={{ justifyContent: 'space-between', height: p(50) }}>
+          <View>
+            <Text style={styles.h1}>{props.item.name}</Text>
+            <Text style={styles.h2}>{props.item.address}</Text>
+          </View>
+          <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={parseFloat(5)}
+              fullStarColor={'gold'}
+              starSize={p(11)}
+              starStyle={styles.start}
+            />
+          </View>
+        </View>
+
+      </View>
+
+      <View style={{ alignItems: 'center', width: p(40) }}>
+          <AntDesign name={'delete'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
+        </View>
+
+    </TouchableOpacity>
+  )
+}
+
 export const VisaCard = props => {
   return (
     <TouchableOpacity
@@ -101,8 +172,8 @@ export const Messages = props => {
   const read = props.item.read
   return (
     <TouchableOpacity
-      style={[styles.msgContainer, 
-        (read && { backgroundColor: '#E6E7E9' })
+      style={[styles.msgContainer,
+      (read && { backgroundColor: '#E6E7E9' })
       ]}
       onPress={props.onClick}
     >

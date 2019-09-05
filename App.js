@@ -12,6 +12,21 @@ import _Productos from './src/screens/_Productos';
 import _Promociones from './src/screens/_Promociones';
 import _Promoción from './src/screens/_Promoción';
 import _Vistaprevia from './src/screens/_Vistaprevia';
+import _Paquetes from './src/screens/_Paquetes';
+import _Ayuda from './src/screens/_Ayuda';
+import _Registrar from './src/screens/Registrar/_Registrar';
+import _BuscaTuNegocio from './src/screens/Registrar/_BuscaTuNegocio';
+import _Resultados from './src/screens/Registrar/_Resultados';
+import _Agregar from './src/screens/Registrar/_Agregar';
+import _Map from './src/screens/Registrar/_Map';
+import _Registrar2 from './src/screens/Registrar/_Registrar2';
+import _Verificación from './src/screens/Registrar/_Verificación';
+import _Registrar4 from './src/screens/Registrar/_Registrar4';
+import _Registrar5 from './src/screens/Registrar/_Registrar5';
+import _FotoPortada from './src/screens/_FotoPortada';
+import _FotodePerfil from './src/screens/_FotoDePerfil';
+import _EditarPerfil from './src/screens/_EditarPerfil';
+import _MisComentarios from './src/screens/_MisComentarios';
 
 /*
 Name: App
@@ -74,7 +89,7 @@ export default class App extends React.Component {
   render() {
       return (
         this.state.fontLoaded ? (
-          <_Likes />
+          // <_Likes />
           // <_MisNegocios />
           // <_Pagos />
           // <_Mensajes />
@@ -83,6 +98,27 @@ export default class App extends React.Component {
           // <_Promociones />
           // <_Promoción />
           // <_Vistaprevia />
+
+          <_Paquetes />
+          // <_Ayuda />
+
+          // <_Registrar />
+          // <_BuscaTuNegocio />
+          // <_Resultados />
+          // <_Agregar />
+          // <_Map />
+          // <_Registrar2 />
+          // <_Verificación />
+          // <_Registrar4 />
+          // <_Registrar5 />
+          // <_FotoPortada />
+          // <_FotodePerfil />
+          // <_EditarPerfil />
+
+          // <_MisComentarios />
+
+
+
           // <MainNavigation/>
         ) : (
           <View style={styles.appContainer}>

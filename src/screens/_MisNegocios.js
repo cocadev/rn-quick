@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text } from 'react-native';
+import { StyleSheet, View, FlatList, Text } from 'react-native';
 import { Header } from '../components/Headers'
-import Images from '../constants/Images';
 import { p } from '../components/normalize';
 import { Mis } from '../components/listItems';
 import * as ICON from '../components/Icons'

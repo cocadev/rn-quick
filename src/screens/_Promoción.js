@@ -1,13 +1,9 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, TextInput, Image, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Image } from 'react-native';
 import { Header } from '../components/Headers'
-
 import { p } from '../components/normalize';
-import { MaterialCommunityIcons, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
 import Images from '../constants/Images';
-
-
 
 export default class _Promoción extends Component {
 
@@ -116,5 +112,6 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     padding: p(20)
   },
+
 
 })

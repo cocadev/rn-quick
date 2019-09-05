@@ -6,8 +6,6 @@ import { Header } from '../components/Headers'
 import { p } from '../components/normalize';
 import { MaterialCommunityIcons, EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
 
-
-
 export default class _Promociones extends Component {
 
   static navigationOptions = () => ({

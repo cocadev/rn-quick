@@ -1,27 +1,15 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text } from 'react-native';
-import { Header } from '../components/Headers'
+import { Header } from '../../components/Headers'
 import { SearchBar } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { p } from '../components/normalize';
+import { p } from '../../components/normalize';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Images from '../constants/Images';
+import { RESULTADOS } from '../../config/staticData';
+import Images from '../../constants/Images';
 
-const ProfileItem = props => (
-  <View style={styles.item}>
-    <View style={{ flex: 1 }}>
-      <Text style={styles.h1}>{props.name}</Text>
-    </View>
-    <View style={{ width: p(50) }}>
-      <Text style={styles.note}>Cantidad</Text>
-      <MaterialCommunityIcons name={'square'} size={p(30)} color={'#D1D2D4'} style={{ marginTop: -10 }} />
-    </View>
-    <MaterialCommunityIcons name={'close'} size={p(30)} color={'#6D6E71'} />
-  </View>
-)
-
-export default class _Editor extends Component {
+export default class _Resultados extends Component {
 
   static navigationOptions = () => ({
     header: null
@@ -37,17 +25,41 @@ export default class _Editor extends Component {
     };
   };
 
+  _renderItem({ item, index }) {
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: p(12) }}>
+        <View style={styles.board}>
+          <Image source={{ uri: item.avatar}} style={styles.Img} />
+          <View style={{ marginLeft: p(12) }}>
+            <Text style={styles.h1}>{item.name}</Text>
+            <Text style={styles.h2}>{item.address}</Text>
+            <Text style={styles.h3}>{item.title}</Text>
+          </View>
+        </View>
+
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+          <View style={styles.circle}>
+            <MaterialCommunityIcons name={'plus'} size={p(30)} color={'#111'} />
+          </View>
+          <View style={styles.circle}>
+            <MaterialCommunityIcons name={'minus'} size={p(30)} color={'#111'} />
+          </View>
+        </View>
+      </View>
+    )
+  }
+
   render() {
     const { loading, search } = this.state;
 
     if (!loading) {
       return (
         <View style={styles.container}>
-          <Header
-            title={'Editar Perfil'}
+          <Header 
+            title={'Registrar'} 
             right={(
               <View style={styles.rightHeader}>
-                  <Image source={Images.ok} style={styles.headerImg} />
+                <Image source={Images.ok} style={styles.headerImg} />
               </View>
             )}
           />
@@ -56,7 +68,7 @@ export default class _Editor extends Component {
               <View style={styles.searchBarContainer}>
                 <SearchBar
                   lightTheme
-                  placeholder="Buscar"
+                  placeholder="Argentinos"
                   onChangeText={this.handleSearch}
                   value={search}
                   searchIcon={false}
@@ -74,27 +86,15 @@ export default class _Editor extends Component {
                   />
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.filterContainer} onPress={() => this._filter()}>
-                <Image
-                  source={Images.filter}
-                  fadeDuration={0}
-                  style={styles.searchFilterImage}
-                />
-              </TouchableOpacity>
             </View>
 
-            <ProfileItem name={'Tornillos'} />
-            <ProfileItem name={'Hamburguesas'} />
+            <Text style={styles.h0}>Resultados</Text>
 
-            <View style={[styles.item, { justifyContent: 'center', borderBottomColor: '#fafafa', borderBottomWidth: p(3) }]}>
-              <Text style={styles.h1}>Editar</Text>
-            </View>
-
-            <View style={styles.circleView}>
-              <View style={styles.circle}>
-                <MaterialCommunityIcons name={'plus'} size={p(30)} color={'#111'} />
-              </View>
-            </View>
+            <FlatList
+              data={RESULTADOS}
+              keyExtractor={(item, i) => String(i)}
+              renderItem={this._renderItem}
+            />
 
           </View>
         </View>
@@ -105,42 +105,52 @@ export default class _Editor extends Component {
   }
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   view: {
     flex: 1,
+    // paddingHorizontal: p(22),
     justifyContent: 'flex-start',
+  },
+  hoy: {
+    fontFamily: 'GeosansLight',
+    fontSize: p(22),
+    alignSelf: 'flex-end',
+    marginTop: p(15),
+    marginRight: p(22)
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: p(25),
-
     paddingVertical: p(12)
   },
   searchBarContainer: {
-    flex: 8,
+    marginHorizontal: p(22),
+    flex: 11,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   containerStyle: {
+    width: p(300),
     padding: 0,
     borderRadius: 30,
   },
   filterContainer: {
     flex: 2,
+    width: p(300),
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 15,
-    // borderLeftWidth: 1,
-    // borderLeftColor: '#AAAAAA'
+    borderLeftWidth: 1,
+    borderLeftColor: '#AAAAAA'
   },
   searchButton: {
     padding: 5,
-    marginLeft: p(22),
+    marginLeft: p(12),
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -152,31 +162,13 @@ const styles = StyleSheet.create({
   searchbar: {
     borderRadius: 30,
     height: hp('5%'),
-    width: wp('60%'),
+    width: p(300),
     backgroundColor: '#DFDEDE'
   },
   searchbarText: {
     textAlign: 'center',
     fontFamily: 'GeosansLight',
     fontSize: p(16),
-  },
-
-  item: {
-    flexDirection: 'row',
-    borderTopColor: '#fafafa',
-    borderTopWidth: p(3),
-    alignItems: 'center',
-    height: p(50),
-    paddingHorizontal: p(26)
-  },
-  note: {
-    fontFamily: 'GeosansLight',
-    fontSize: p(8),
-    color: '#D1D2D4',
-  },
-  h1: {
-    fontFamily: 'GeosansLight',
-    fontSize: p(18),
   },
   circle: {
     width: p(30),
@@ -186,11 +178,39 @@ const styles = StyleSheet.create({
     borderRadius: p(15),
     backgroundColor: '#939598'
   },
-  circleView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginBottom: p(30)
+  h1: {
+    fontFamily: 'GeosansLight',
+    fontSize: p(16),
+  },
+  h2: {
+    fontFamily: 'GeosansLight',
+    fontSize: p(12),
+  },
+  h3: {
+    fontFamily: 'GeosansLight',
+    fontSize: p(10),
+  },
+  h0:{
+    fontFamily: 'GeosansLight',
+    fontSize: p(22),
+    marginBottom: p(10),
+    marginLeft: p(18)
+  },
+  board: {
+    width: p(240),
+    height: p(60),
+    padding: p(5),
+    flexDirection: 'row',
+    marginVertical: p(7),
+    borderColor: '#f26D03',
+    borderWidth: p(2),
+    borderTopWidth: p(6),
+    borderTopRightRadius: p(12),
+    borderTopLeftRadius: p(12)
+  },
+  Img: {
+    width: p(60),
+    height: p(46)
   },
   rightHeader: {
     alignItems: 'flex-end',
