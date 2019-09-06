@@ -103,7 +103,27 @@ export const REGISTER_CATEGORIA = [
 
 export const MISComentarios = [{
     title: 'Viajes',
-    img: '',
+    img: 'http://www.pngmart.com/files/7/Modern-Plane-PNG-Picture.png',
+    color: '#a7ce38',
+    full: true,
+    content: [{
+        img: 'https://media-cdn.tripadvisor.com/media/photo-s/0f/46/01/9b/kyo-kaiseki.jpg',
+        name: 'Garufa',
+        address: 'Excelente servicio, limpio, la comida deliciosa',
+    },
+    {
+        img: 'https://airlinesfleet.com/wp-content/uploads/2018/09/United-Airlines-Aircraft-Fleet-Boeing-777-300ER-Polaris-Business-Class-Cabin-Inflight-Amenities-Food-Meal-Services-Menu-Photos-@rewardflying.jpg',
+        name: 'Tierra Roja',
+        address: 'Las bebidas no estaban frías, pero el servicio y la comida muy ricas, nos encantó el servicio',
+        phone: '01 492 924 29 10',
+        rating: 15
+    }]
+},
+{
+    title: 'Restaurantes',
+    img: 'http://www.clipartquery.com/images/27/pics-photos-clipart-spoon-and-fork-BKPJrF.jpg',
+    color: '#f26d03',
+    full: false,
     content: [{
         img: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png',
         name: 'Garufa',
@@ -116,19 +136,106 @@ export const MISComentarios = [{
         phone: '01 492 924 29 10',
         rating: 15
     }]
+}
+
+]
+
+export const NOTIFIcaciones = [
+    {
+        avatar: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2017/08/09/10/istock-516799356.jpg',
+        name: 'Garufa (3.8kms)',
+        address: 'Botellas 2x1',
+        title: '*Aplican Restricciones',
+        note: 'Vigencia',
+        time: '25 Feb - 28 Mar',
+        color: '#f26d03',
+    },
+    {
+        avatar: 'https://ak4.picdn.net/shutterstock/videos/15734434/thumb/8.jpg',
+        name: 'El chopo (10kms)',
+        address: '50% Análisis de Glucosa\n20% Química Sanguínea',
+        title: '*Aplican Restricciones',
+        note: 'Vigencia',
+        time: '1 Mar - 28 Mar ',
+        color: '#04afee',
+    },
+    {
+        avatar: 'https://dailytimes.com.pk/assets/uploads/2018/11/21/howcuttingdo.jpg',
+        name: 'Volaris (50kms)',
+        address: '10% Viajes Nacionales',
+        title: '',
+        note: 'Vigencia',
+        time: '15 Abr -1 May',
+        color: '#a7ce38',
+    },
+]
+
+export const RECIENTES = [
+    { 
+        name: 'Hoy',
+        content: [
+            {
+                avatar: 'https://dailytimes.com.pk/assets/uploads/2018/11/21/howcuttingdo.jpg',
+                name: 'Garufa (3.8kms)',
+                address: 'Jardín Juárez, 135, Centro',
+                title: '01 492 924 29 10',
+                rate: 20,
+                color: '#f26d03',
+            },
+            {
+                avatar: 'https://dailytimes.com.pk/assets/uploads/2018/11/21/howcuttingdo.jpg',
+                name: 'Tierra Roja (10kms)',
+                address: 'José López Portillo, 224, Las Arboledas',
+                title: '01 492 924 29 10',
+                rate: 20,
+                color: '#f26d03',
+            }
+        ]
+    },
+    { 
+        name: 'Ayer',
+        content: [
+            {
+                avatar: 'https://dailytimes.com.pk/assets/uploads/2018/11/21/howcuttingdo.jpg',
+                name: 'Garufa (3.8kms)',
+                address: 'Jardín Juárez, 135, Centro',
+                title: '01 492 924 29 10',
+                rate: 20,
+                color: '#a8aaad'
+            },
+            {
+                avatar: 'https://dailytimes.com.pk/assets/uploads/2018/11/21/howcuttingdo.jpg',
+                name: 'Tierra Roja (10kms)',
+                address: 'José López Portillo, 224, Las Arboledas',
+                title: '01 492 924 29 10',
+                rate: 20,
+                color: '#a8aaad'
+            }
+        ]
+    }
+]
+
+export const FAVORITOS = [{
+    title: 'Deportes',
+    img: 'https://www.trzcacak.rs/file/max/8/81410_basketball-player-png.png',
+    color: '#3c8577',
+    full: true,
 },
 {
     title: 'Restaurantes',
-    img: '',
+    img: 'http://www.clipartquery.com/images/27/pics-photos-clipart-spoon-and-fork-BKPJrF.jpg',
+    color: '#f26d03',
+    full: false,
     content: [{
         img: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png',
         name: 'Garufa',
-        address: 'Excelente servicio, limpio, la comida deliciosa',
+        phone: '01 492 924 29 10',
+        address: 'Jardín Juárez, 135, Centro',
     },
     {
         img: 'https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png',
         name: 'Tierra Roja',
-        address: 'Las bebidas no estaban frías, pero el servicio y la comida muy ricas, nos encantó el servicio',
+        address: 'José López Portillo, 224, Las Arboledas',
         phone: '01 492 924 29 10',
         rating: 15
     }]

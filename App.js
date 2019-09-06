@@ -27,6 +27,11 @@ import _FotoPortada from './src/screens/_FotoPortada';
 import _FotodePerfil from './src/screens/_FotoDePerfil';
 import _EditarPerfil from './src/screens/_EditarPerfil';
 import _MisComentarios from './src/screens/_MisComentarios';
+import _Notificaciones from './src/screens/_Notificaciones';
+import _Recientes from './src/screens/_Recientes';
+import _Contacto from './src/screens/_Contacto';
+import _Favoritos from './src/screens/_Favoritos';
+import _Cuenta from './src/screens/_Cuenta';
 
 /*
 Name: App
@@ -99,7 +104,7 @@ export default class App extends React.Component {
           // <_Promoción />
           // <_Vistaprevia />
 
-          <_Paquetes />
+          // <_Paquetes />
           // <_Ayuda />
 
           // <_Registrar />
@@ -116,6 +121,11 @@ export default class App extends React.Component {
           // <_EditarPerfil />
 
           // <_MisComentarios />
+          // <_Notificaciones />
+          // <_Recientes />
+          // <_Contacto />
+          // <_Favoritos />
+          <_Cuenta />
 
 
 

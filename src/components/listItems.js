@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { p } from './normalize';
 import StarRating from 'react-native-star-rating';
 import * as ICON from './Icons'
-import { AntDesign } from '@expo/vector-icons';
 
 export const Likes = props => {
   count = props.count % 2;
@@ -106,43 +105,64 @@ export const Comentarios = props => {
       </View>
 
       <View style={{ alignItems: 'center', width: p(40) }}>
-          <AntDesign name={'delete'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
-        </View>
+        <ICON.Trash left={p(12)} />
+      </View>
 
     </TouchableOpacity>
   )
 }
 
-export const MISComentariosItem = props => {
+export const FavoritosItem = props => {
   return (
     <TouchableOpacity
-      style={[styles.misContainer, { height: p(60), marginHorizontal: p(12) }]}
+      style={{ flexDirection: 'row'}}
+      onPress={props.onClick}
+    >
+      <View style={[styles.misContainer, { height: p(60), marginHorizontal: p(12), flex: 1 }]}>
+        <Image style={styles.img3} source={{ uri: props.item.img }} />
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+          <View style={{ justifyContent: 'space-between', height: p(50) }}>
+            <View>
+              <Text style={styles.h1}>{props.item.name}</Text>
+              <Text style={styles.h2}>{props.item.address}</Text>
+            </View>
+            <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={parseFloat(5)}
+                fullStarColor={'gold'}
+                starSize={p(11)}
+                starStyle={styles.start}
+              />
+            </View>
+          </View>
+
+        </View>
+      </View>
+
+      <View style={{ width: p(90), alignItems: 'center', flexDirection: 'row' }}>
+        <ICON.Share left={p(12)} />
+        <ICON.Trash left={p(12)} />
+      </View>
+
+    </TouchableOpacity>
+  )
+}
+
+
+
+export const MISComentariosItem = props => {
+  full = props.item.full;
+  return (
+    <TouchableOpacity
+      style={[styles.misContainer, full && { backgroundColor: props.item.color }, { height: p(60), marginHorizontal: p(4), borderColor: props.item.color, }]}
       onPress={props.onClick}
     >
       <Image style={styles.img} source={{ uri: props.item.img }} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
-        <View style={{ justifyContent: 'space-between', height: p(50) }}>
-          <View>
-            <Text style={styles.h1}>{props.item.name}</Text>
-            <Text style={styles.h2}>{props.item.address}</Text>
-          </View>
-          <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
-            <StarRating
-              disabled={true}
-              maxStars={5}
-              rating={parseFloat(5)}
-              fullStarColor={'gold'}
-              starSize={p(11)}
-              starStyle={styles.start}
-            />
-          </View>
-        </View>
-
+        <Text style={[styles.h4, full && { color: '#fff' }]}>{props.item.title}</Text>
       </View>
-
-      <View style={{ alignItems: 'center', width: p(40) }}>
-          <AntDesign name={'delete'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
-        </View>
 
     </TouchableOpacity>
   )
@@ -192,6 +212,56 @@ export const Messages = props => {
   )
 }
 
+export const NotificacionesItem = props => {
+  return (
+    <TouchableOpacity
+      style={[styles.misContainer, { height: p(60), marginTop: p(8), borderColor: props.item.color, marginHorizontal: p(5), borderTopWidth: p(5) }]}
+    >
+      <Image style={styles.img2} source={{ uri: props.item.avatar }} />
+      <View style={{ justifyContent: 'space-between', flex: 5, marginLeft: p(12) }}>
+        <Text style={styles.h2}>{props.item.name}</Text>
+        <Text style={styles.h3}>{props.item.address}</Text>
+        <Text style={styles.h3}>{props.item.title}</Text>
+      </View>
+      <View style={{ justifyContent: 'space-between', flex: 4 }}>
+        <Text style={styles.h6}>{props.item.note}</Text>
+        <Text style={styles.h14}>{props.item.time}</Text>
+      </View>
+
+    </TouchableOpacity>
+  )
+}
+
+export const RecientesItem = props => {
+  return (
+    <TouchableOpacity
+      style={[styles.misContainer, { height: p(60), marginTop: p(8), borderColor: props.item.color, marginHorizontal: p(5), borderTopWidth: p(5) }]}
+    >
+      <Image style={styles.img2} source={{ uri: props.item.avatar }} />
+      <View style={{ justifyContent: 'space-between', flex: 5, marginLeft: p(12) }}>
+        <Text style={styles.h2}>{props.item.name}</Text>
+        <Text style={styles.h3}>{props.item.address}</Text>
+        <Text style={styles.h3}>{props.item.title}</Text>
+        <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={parseFloat(5)}
+            fullStarColor={'gold'}
+            starSize={p(11)}
+            starStyle={styles.start}
+          />
+        </View>
+      </View>
+      <View style={{ justifyContent: 'space-between', flex: 4 }}>
+        <Text style={styles.h6}>{props.item.note}</Text>
+        <Text style={styles.h14}>{props.item.time}</Text>
+      </View>
+
+    </TouchableOpacity>
+  )
+}
+
 const styles = StyleSheet.create({
   likesContainer: {
     paddingHorizontal: p(12),
@@ -232,8 +302,18 @@ const styles = StyleSheet.create({
     borderRadius: p(30)
   },
   img: {
-    width: p(60),
-    height: p(40),
+    width: p(72),
+    height: p(45),
+    resizeMode: 'contain'
+  },
+  img2: {
+    width: p(72),
+    height: p(50),
+    resizeMode: 'contain'
+  },
+  img3: {
+    width: p(65),
+    height: p(50),
     resizeMode: 'contain'
   },
   h1: {
@@ -248,6 +328,16 @@ const styles = StyleSheet.create({
     fontSize: p(10),
     fontFamily: 'GeosansLight'
   },
+  h4: {
+    fontSize: p(22),
+    fontFamily: 'GeosansLight',
+    marginLeft: p(12)
+  },
+  h6: {
+    fontSize: p(13),
+    fontFamily: 'GeosansLight',
+    textAlign: 'center'
+  },
   h11: {
     fontSize: p(15),
     fontFamily: 'Caviar_Dreams_Bold'
@@ -258,6 +348,10 @@ const styles = StyleSheet.create({
   },
   h13: {
     fontSize: p(10),
+    fontFamily: 'CaviarDreams'
+  },
+  h14: {
+    fontSize: p(14),
     fontFamily: 'CaviarDreams'
   },
   icon: {

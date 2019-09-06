@@ -31,10 +31,13 @@ const Images = {
   ok: require('../assets/images/okIcon.png'),
   messageSend: require('../assets/images/messageSendIcon.png'),
   trash: require('../assets/images/trashIcon.png'),
+  share: require('../assets/images/shareIcon.png'),
+  paquetesCheck: require('../assets/images/paquetesCheck.png'),
 
   a: require('../assets/images/a.png'),
   aa: require('../assets/images/aa.png'),
   colorpad: require('../assets/images/color.png'),
+
 
 };
   

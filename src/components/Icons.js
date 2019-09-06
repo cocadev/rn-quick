@@ -12,6 +12,14 @@ export const Delete = props => (
   <Image source={Images.mailUnselected} style={{ width: p(22), height: p(22), marginLeft: props.left}}/>
 )
 
+export const Trash = props => (
+  <Image source={Images.trash} style={{ width: p(22), height: p(22), marginLeft: props.left}}/>
+)
+
+export const Share = props => (
+  <Image source={Images.share} style={{ width: p(22), height: p(22), marginLeft: props.left}}/>
+)
+
 const styles = StyleSheet.create({
   
 });
