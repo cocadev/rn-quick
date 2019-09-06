@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Image, Text, ScrollView } from 'rea
 import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
+import { NextBtn } from '../../components/Icons'
 import Images from '../../constants/Images';
 import AwesomeBar from '../../components/awesomeBar';
 
@@ -96,7 +97,8 @@ export default class _Registrar4 extends Component {
 
   render() {
 
-    const { check, innerCheck } = this.state
+    const { innerCheck } = this.state
+    const { navigation } = this.props
 
     return (
       <View style={styles.container}>
@@ -107,6 +109,7 @@ export default class _Registrar4 extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
+          onBack={()=>navigation.pop()}
         />
         <ScrollView>
 
@@ -115,9 +118,8 @@ export default class _Registrar4 extends Component {
           { innerCheck == 1 && this.Board()}
           { innerCheck !== 1 && this.VisaBoard()}
 
-          <View style={styles.bottom}>
-            <Image source={Images.right} style={styles.icon} />
-          </View>
+          <NextBtn onClick={()=>navigation.navigate('registerBussinesScreen5')}/>
+
         </ScrollView>
 
       </View>

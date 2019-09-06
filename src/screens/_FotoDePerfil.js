@@ -23,6 +23,7 @@ export default class _FotodePerfil extends Component {
               <Image source={Images.ok} style={styles.headerImg} />
             </View>
           )}
+          onBack={()=>this.props.navigation.pop()}
         />
         <View style={styles.view}>
           <View style={styles.pan}>

@@ -130,8 +130,8 @@ export default class Comunity extends Component {
   }
 
   getItem(nombreScreen) {
-    return console.log(nombreScreen);
-    //this.state.navigation.navigate(nombreScreen);
+    console.log(nombreScreen);   
+    return this.state.navigation.navigate(nombreScreen);
   }
 
   render() {

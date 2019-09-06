@@ -174,7 +174,7 @@ export const VisaCard = props => {
       style={styles.misContainer}
       onPress={props.onClick}
     >
-      <Image style={styles.img} source={{ uri: 'https://banner2.kisspng.com/20180403/oiw/kisspng-credit-card-visa-mastercard-discover-card-american-visa-5ac429f797f5c8.0621636215228052396224.jpg' }} />
+      <ICON.logoVisa />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
         <View style={{ justifyContent: 'space-between' }}>
           <Text style={styles.h1}>{'********2115'}</Text>

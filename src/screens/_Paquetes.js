@@ -25,7 +25,10 @@ export default class _Paquetes extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Paquetes'} />
+        <Header 
+          title={'Paquetes'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
         <View style={styles.view}>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: p(42)}}>

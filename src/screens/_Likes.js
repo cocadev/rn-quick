@@ -30,13 +30,27 @@ export default class _Likes extends Component {
     )
   }
 
-  render() {
-    const { loading, search } = this.state;
+  handleSearch = (text) => {
+    if (!text || text === '' || text === null){
+      clearTimeout(this.timer);
+      this.setState({ search: text });
+      this.timer = setTimeout(() => this.handleRefresh(), WAIT_INTERVAL);
+      return 
+    }
+    this.setState({ search: text });
+  }
 
-    if (!loading) {
+  render() {
+    const { search } = this.state;
+
       return (
         <View style={styles.container}>
-          <Header title={'Likes'}/>
+
+          <Header 
+            title={'Likes'}
+            onBack={()=>this.props.navigation.pop()}
+          />
+
           <View style={styles.view}>
             <View style={styles.searchContainer}>
               <View style={styles.searchBarContainer}>
@@ -46,13 +60,13 @@ export default class _Likes extends Component {
                   onChangeText={this.handleSearch}
                   value={search}
                   searchIcon={false}
-                  onSubmitEditing={() => this._search()}
+                  // onSubmitEditing={() => this._search()}
                   inputContainerStyle={styles.searchbar}
                   inputStyle={styles.searchbarText}
                   containerStyle={styles.containerStyle}
 
                 />
-                <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
+                <TouchableOpacity style={styles.searchButton} >
                   <Image
                     source={Images.search}
                     fadeDuration={0}
@@ -60,7 +74,7 @@ export default class _Likes extends Component {
                   />
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity style={styles.filterContainer} onPress={() => this._filter()}>
+              <TouchableOpacity style={styles.filterContainer} >
                 <Image
                   source={Images.filter}
                   fadeDuration={0}
@@ -82,7 +96,7 @@ export default class _Likes extends Component {
 
       )
 
-    }
+    
   }
 }
 

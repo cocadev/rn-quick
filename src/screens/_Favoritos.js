@@ -18,10 +18,7 @@ export default class _Favoritos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      filteredData: [],
       search: '',
-      enableScrollViewScroll: true
     };
   };
 
@@ -33,11 +30,15 @@ export default class _Favoritos extends Component {
 
   render() {
 
-    const { loading, search } = this.state;
+    const { search } = this.state;
 
     return (
       <View style={styles.container}>
-        <Header title={'Favoritos'} color={'#FACA0A'} />
+        <Header 
+          title={'Favoritos'}
+          color={'#FACA0A'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
         <View style={styles.view}>
             <View style={styles.searchContainer}>
               <View style={styles.searchBarContainer}>

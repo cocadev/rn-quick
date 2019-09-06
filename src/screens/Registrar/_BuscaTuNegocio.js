@@ -14,13 +14,16 @@ const MyBox = (props) => {
       <View style={{ flex: 1 }}>
         <Text style={styles.h1}>{props.title}</Text>
       </View>
-      <View style={[styles.iconBox, add && { borderLeftWidth: 0 }]}>
+      <TouchableOpacity 
+        style={[styles.iconBox, add && { borderLeftWidth: 0 }]}
+        onPress={props.onClick}
+      >
         {
           !add
             ? <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} />
             : <MaterialCommunityIcons name={'plus'} size={p(23)} color={'#111'} />
         }
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -43,6 +46,7 @@ export default class _BuscaTuNegocio extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
+          onBack={()=>this.props.navigation.pop()}
         />
 
         <AwesomeBar />
@@ -57,14 +61,17 @@ export default class _BuscaTuNegocio extends Component {
 
           <View style={styles.line}>
             <MyBox title={'Subcat'} />
-            <MyBox title={'Agregar'} add={true} />
+            <MyBox title={'Agregar'} add={true} onClick={()=>this.props.navigation.navigate('registerBussinesScreen6')}/>
           </View>
 
         </View>
 
-        <View style={styles.btn}>
+        <TouchableOpacity 
+          style={styles.btn}
+          onPress={()=>this.props.navigation.navigate('registerBussinesScreen3')}
+        >
           <Text style={styles.h1}>{'Buscar'}</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.bottom}>
           <Image source={Images.right} style={styles.icon} />
@@ -80,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   view: {
-    marginTop: p(70),
+    marginTop: p(20),
     padding: p(40),
     paddingTop: p(25)
   },

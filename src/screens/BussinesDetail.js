@@ -65,6 +65,7 @@ export default class BussinesDetail extends Component {
   });
 
   componentDidMount() {
+    
     this._getUserInfo();
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => this.setState({ latitude, longitude }, () => this.getData()),

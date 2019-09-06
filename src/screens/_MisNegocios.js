@@ -34,12 +34,15 @@ export default class _MisNegocios extends Component {
     if (!loading) {
       return (
         <View style={styles.container}>
-          <Header title={'Mis Negocios'}/>
+          <Header 
+            title={'Mis Negocios'}
+            onBack={()=>this.props.navigation.pop()}
+          />
           <View style={styles.view}>
             
             <View style={styles.header}>
               <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                <ICON.Pencil right={p(5)}/>
+                <ICON.MonosEsos right={p(5)}/>
                 <Text style={styles.text}>Negocios Registrados</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center'}}>

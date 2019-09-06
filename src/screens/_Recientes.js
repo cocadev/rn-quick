@@ -22,7 +22,11 @@ export default class _Recientes extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Recientes'} color={'#FACA0A'} />
+        <Header 
+          title={'Recientes'} 
+          color={'#FACA0A'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
 
         <View style={{ margin: p(24)}}>
         {

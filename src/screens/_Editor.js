@@ -50,6 +50,7 @@ export default class _Editor extends Component {
                   <Image source={Images.ok} style={styles.headerImg} />
               </View>
             )}
+            onBack={()=>this.props.navigation.pop()}
           />
           <View style={styles.view}>
             <View style={styles.searchContainer}>

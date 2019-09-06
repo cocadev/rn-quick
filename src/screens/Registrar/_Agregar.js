@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, TextInput, Image, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, TextInput, Image, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Header } from '../../components/Headers'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
-import { REGISTER_CATEGORIA } from '../../config/staticData'
+import * as DATA from '../../config/staticData'
 
 export default class _Agregar extends Component {
 
@@ -20,149 +19,188 @@ export default class _Agregar extends Component {
       loading: false,
       filteredData: [],
       search: '',
-      categoria: 0,
-      dropDown1: false,
-      enableScrollViewScroll: true
+      // categoria: -1,
+      // dropDown1: false,
+
+      nombre: '',
+      dirección: '',
+      telefono: '',
+      categoria: '',
+      subCategoria: '',
+      horarios: '',
+      time: ''
+
+
     };
   };
 
   render() {
-    const { loading, dropDown1, categoria } = this.state;
+    const { 
+      nombre, 
+      dirección, 
+      telefono, 
+      dropDown1, 
+      categoria, 
+      subCategoria, 
+      horarios, 
+      time 
+    } = this.state;
 
-    if (!loading) {
-      return (
-        <View style={styles.container}>
-          <Header
-            title={'Registro'}
-            right={(
-              <View style={styles.rightHeader}>
-                <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
-              </View>
-            )}
+    return (
+      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+
+        <Header
+          title={'Registro'}
+          right={(
+            <View style={styles.rightHeader}>
+              <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
+            </View>
+          )}
+          onBack={()=>this.props.navigation.pop()}
+        />
+        <ScrollView style={styles.view}>
+
+          <Text style={styles.text}>Nombre del negocio</Text>
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            returnKeyType="next"
+            onSubmitEditing={() => this.direcciónInput.focus()}
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            ref={(input) => this.nombreInput = input}
+            onChangeText={value => this.setState({ nombre: value.trim() })}
           />
-          <View style={styles.view}>
 
-            <View style={styles.viewContainer}>
-              <Text style={styles.text}>Nombre del negocio</Text>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={styles.input}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
-              />
-
-              <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={styles.dropDown} >
-                  <Text style={styles.text}>{REGISTER_CATEGORIA[categoria]}</Text>
-                </View>
-                <SimpleLineIcons
-                  onPress={() => this.setState({ dropDown1: !dropDown1 })}
-                  name={dropDown1 ? 'arrow-up' : 'arrow-down'}
-                  size={p(19)}
-                  color={'#111'}
-                  style={{ marginLeft: p(6), marginRight: p(30) }}
-                />
-              </View>
-
-              {
-                dropDown1 &&
-                <View style={{ marginTop: 0 }}>
-                  {REGISTER_CATEGORIA.map((item, key) => (
-                    <TouchableOpacity onPress={() => this.setState({ categoria: key, dropDown1: false })} style={styles.dropDown} key={key}>
-                      <Text style={styles.text}>{item}</Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
+          <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.dropDown} >
+              <Text style={styles.text}>{categoria}</Text>
+            </View>
+            <SimpleLineIcons
+              onPress={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Categoria',
+                  data: DATA.CATEGORIES_CATEGORIA,
+                  update: (x) => this.setState({ categoria: x })
+                })
               }
+              name={'arrow-down'}
+              size={p(19)}
+              color={'#111'}
+              style={{ marginLeft: p(6), marginRight: p(30) }}
+            />
+          </View>
 
-              <Text style={[styles.text, { marginTop: p(4) }]}>SubCategoria</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <TextInput
-                  placeTextColor="rgba(44, 62, 80,0.9)"
-                  returnKeyType="next"
-                  onSubmitEditing={() => this.lastNameInput.focus()}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  style={[styles.input, { width: p(150) }]}
-                  ref={(input) => this.nameInput = input}
-                  onChangeText={value => this.setState({ name: value.trim() })}
-                />
-                <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
+          {/* {
+              dropDown1 &&
+              <View style={{ marginTop: 0 }}>
+                {REGISTER_CATEGORIA.map((item, key) => (
+                  <TouchableOpacity onPress={() => this.setState({ categoria: key, dropDown1: false })} style={styles.dropDown} key={key}>
+                    <Text style={styles.text}>{item}</Text>
+                  </TouchableOpacity>
+                ))}
               </View>
+            } */}
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>Horarios</Text>
-              <View style={{ flexDirection: 'row' }}>
-                <TextInput
-                  placeTextColor="rgba(44, 62, 80,0.9)"
-                  returnKeyType="next"
-                  onSubmitEditing={() => this.lastNameInput.focus()}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  style={[styles.input, { width: p(70) }]}
-                  ref={(input) => this.nameInput = input}
-                  onChangeText={value => this.setState({ name: value.trim() })}
-                />
+          <Text style={[styles.text, { marginTop: p(4) }]}>SubCategoria</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.dropDown} >
+              <Text style={styles.text}>{subCategoria}</Text>
+            </View>
+            <SimpleLineIcons
+              name={'arrow-down'}
+              onPress={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Subcategoria',
+                  data: DATA.CATEGORIES_SUBCATEGORIA,
+                  update: (x) => this.setState({ subCategoria: x })
+                })
+              }
+              size={p(19)}
+              color={'#111'}
+              style={{ marginLeft: p(6), marginRight: p(30) }}
+            />
+          </View>
 
-                <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
-
-                <TextInput
-                  placeTextColor="rgba(44, 62, 80,0.9)"
-                  returnKeyType="next"
-                  onSubmitEditing={() => this.lastNameInput.focus()}
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  style={[styles.input, { width: p(70) }]}
-                  ref={(input) => this.nameInput = input}
-                  onChangeText={value => this.setState({ name: value.trim() })}
-                />
-                <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
-
-              </View>
-
-              <Text style={[styles.text, { marginTop: p(2) }]}>Dirección del negocio</Text>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={styles.input}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
-              />
-
-              <Text style={[styles.text, { marginTop: p(2) }]}>Telefono del negocio</Text>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={styles.input}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
-              />
-
-              <View style={styles.btn}>
-                <Text style={styles.text}>{'GPS Location'}</Text>
-              </View>
-
+          <Text style={[styles.text, { marginTop: p(2) }]}>Horarios</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={[styles.dropDown, { width: p(70) }]} >
+              <Text style={styles.text}>{horarios}</Text>
             </View>
 
-          </View>
-          <View style={styles.bottom}>
-            <Image source={Images.right} style={styles.icon} />
-          </View>
-        </View>
+            <SimpleLineIcons
+              name={'arrow-down'}
+              size={p(19)}
+              color={'#111'}
+              style={{ marginLeft: p(6), marginRight: p(30) }}
+              onPress={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Horarios',
+                  data: DATA.CATEGORIES_HORARIOS,
+                  update: (x) => this.setState({ horarios: x })
+                })
+              }
+            />
 
-      )
+            <View style={[styles.dropDown, { width: p(70) }]} >
+              <Text style={styles.text}>{time}</Text>
+            </View>
 
-    }
+            <SimpleLineIcons
+              name={'arrow-down'}
+              size={p(19)}
+              color={'#111'}
+              style={{ marginLeft: p(6), marginRight: p(30) }}
+              onPress={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Horarios',
+                  data: DATA.CATEGORIES_HORARIOS,
+                  update: (x) => this.setState({ time: x })
+                })
+              }
+            />
+
+          </View>
+
+          <Text style={[styles.text, { marginTop: p(2) }]}>Dirección del negocio</Text>
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            returnKeyType="next"
+            onSubmitEditing={() => this.telefonoInput.focus()}
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            ref={(input) => this.direcciónInput = input}
+            onChangeText={value => this.setState({ dirección: value.trim() })}
+          />
+
+          <Text style={[styles.text, { marginTop: p(2) }]}>Telefono del negocio</Text>
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            returnKeyType="next"
+            // onSubmitEditing={() => this.telefonoInput.focus()}
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            ref={(input) => this.telefonoInput = input}
+            onChangeText={value => this.setState({ telefono: value.trim() })}
+          />
+
+          <TouchableOpacity style={styles.btn} onPress={() => alert('jey')}>
+            <Text style={styles.text}>{'GPS Location'}</Text>
+          </TouchableOpacity>
+
+        </ScrollView>
+
+        <TouchableOpacity 
+          style={styles.bottom}
+          onPress={()=>this.props.navigation.navigate('mapScreen')}
+        >
+          <Image source={Images.right} style={styles.icon} />
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    )
   }
 }
 
@@ -171,9 +209,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   view: {
-    flex: 1,
+    // flex: 1,
     padding: p(22),
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
   },
 
   h1: {

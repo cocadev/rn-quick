@@ -36,6 +36,7 @@ export default class _Productos extends Component {
                 <Image source={Images.ok} style={styles.headerImg} />
               </View>
             )}
+            onBack={()=>this.props.navigation.pop()}
           />
           <View style={styles.view}>
 

@@ -16,17 +16,23 @@ export default class _Registrar extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Registrar'} />
+        <Header 
+          title={'Registrar'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
         <View style={styles.view}>
           <Text style={styles.h1}>{REGISTRAR.title}</Text>
           <Image source={Images.logo} style={styles.logo}/>
           <Text style={styles.h2}>{REGISTRAR.description1}</Text>
           <Text style={styles.h2}>{REGISTRAR.description2}</Text>
         </View>
-        <View style={styles.bottom}>
+        <TouchableOpacity 
+          style={styles.bottom}
+          onPress={()=>this.props.navigation.navigate("registerBussinesScreen2")}
+        >
           <Text style={styles.h1}>Continuar</Text>
           <Image source={Images.right} style={styles.icon}/>
-        </View>
+        </TouchableOpacity>
       </View>
     )
 

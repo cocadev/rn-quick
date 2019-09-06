@@ -104,6 +104,7 @@ export default class _Registrar5 extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
+          onBack={()=>this.props.navigation.pop()}
         />
         <ScrollView>
 

@@ -1,10 +1,10 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, TextInput, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Text, ScrollView } from 'react-native';
 import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
-import Images from '../../constants/Images';
+import { NextBtn } from '../../components/Icons'
 import AwesomeBar from '../../components/awesomeBar';
 
 export default class _Verificación extends Component {
@@ -13,10 +13,38 @@ export default class _Verificación extends Component {
     header: null
   });
 
+  constructor(){
+    super();
+    this.state = {
+      nombre:'',
+      apellido: '',
+      género: '',
+      dirección: '',
+      estado:'',
+      municipio: '',
+      telefónico: '',
+      email: '',
+      curp: ''
+    }
+  }
+
   render() {
 
+    const { navigation } = this.props
+    const { 
+      nombre,
+      apellido,
+      género,
+      dirección,
+      estado,
+      municipio,
+      telefónico,
+      email,
+      curp 
+    } = this.state
+
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
         <Header
           title={'Registrar'}
           right={(
@@ -24,123 +52,124 @@ export default class _Verificación extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
+          onBack={() => navigation.pop()}
         />
         <ScrollView>
-        <AwesomeBar check={2}/>
-        <View style={styles.view}>
+          <AwesomeBar check={2} />
+          <View style={styles.view}>
 
-          <Text style={styles.h2}>Verificación de Datos</Text>
+            <Text style={styles.h2}>Verificación de Datos</Text>
 
-          <View style={styles.viewContainer}>
-            <Text style={styles.text}>Nombre</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
+            <View style={styles.viewContainer}>
+              <Text style={styles.text}>Nombre</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.nombreInput = input}
+                onChangeText={value => this.setState({ nombre: value.trim() })}
+              />
 
-            <Text style={[styles.text, { marginTop: p(2) }]}>Apellido</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
+              <Text style={[styles.text, { marginTop: p(2) }]}>Apellido</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.apellidoInput = input}
+                onChangeText={value => this.setState({ apellido: value.trim() })}
+              />
 
-            <View style={styles.board}>
-              <Text style={[styles.text, { marginTop: p(2) }]}>Género</Text>
-              <TouchableOpacity style={styles.check}>
-                <Text style={[styles.text, { marginTop: p(2) }]}>F</Text>
-                <FontAwesome name={'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
-              </TouchableOpacity>
+              <View style={styles.board}>
+                <Text style={[styles.text, { marginTop: p(2) }]}>Género</Text>
+                <TouchableOpacity style={styles.check}>
+                  <Text style={[styles.text, { marginTop: p(2) }]}>F</Text>
+                  <FontAwesome name={'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
+                </TouchableOpacity>
 
-              <TouchableOpacity style={styles.check}>
-                <Text style={[styles.text, { marginTop: p(2) }]}>M</Text>
-                <FontAwesome name={'circle'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
-              </TouchableOpacity>
+                <TouchableOpacity style={styles.check}>
+                  <Text style={[styles.text, { marginTop: p(2) }]}>M</Text>
+                  <FontAwesome name={'circle'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
+                </TouchableOpacity>
+              </View>
+
+              <Text style={[styles.text, { marginTop: p(5) }]}>Dirección</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.direcciónInput = input}
+                onChangeText={value => this.setState({ dirección: value.trim() })}
+              />
+
+              <Text style={[styles.text, { marginTop: p(2) }]}>Municipio</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.estadoInput = input}
+                onChangeText={value => this.setState({ estado: value.trim() })}
+              />
+
+              <Text style={[styles.text, { marginTop: p(2) }]}>Número telefónico</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.municipioInput = input}
+                onChangeText={value => this.setState({ municipio: value.trim() })}
+              />
+
+              <Text style={[styles.text, { marginTop: p(2) }]}>Estado</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.telefónicoInput = input}
+                onChangeText={value => this.setState({ telefónico: value.trim() })}
+              />
+
+              <Text style={[styles.text, { marginTop: p(2) }]}>E-mail</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.emailInput = input}
+                onChangeText={value => this.setState({ email: value.trim() })}
+              />
+
+              <Text style={[styles.text, { marginTop: p(2) }]}>CURP</Text>
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                style={styles.input}
+                ref={(input) => this.curpInput = input}
+                onChangeText={value => this.setState({ curp: value.trim() })}
+              />
+
             </View>
-
-            <Text style={[styles.text, { marginTop: p(5) }]}>Dirección</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
-
-            <Text style={[styles.text, { marginTop: p(2) }]}>Municipio</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
-
-            <Text style={[styles.text, { marginTop: p(2) }]}>Número telefónico</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
-
-            <Text style={[styles.text, { marginTop: p(2) }]}>Estado</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
-
-            <Text style={[styles.text, { marginTop: p(2) }]}>E-mail</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
-
-            <Text style={[styles.text, { marginTop: p(2) }]}>CURP</Text>
-            <TextInput
-              placeTextColor="rgba(44, 62, 80,0.9)"
-              returnKeyType="next"
-              autoCapitalize="none"
-              autoCorrect={false}
-              style={styles.input}
-              ref={(input) => this.nameInput = input}
-              onChangeText={value => this.setState({ name: value.trim() })}
-            />
 
           </View>
 
-        </View>
-        <View style={styles.bottom}>
-          <Image source={Images.right} style={styles.icon} />
-        </View>
+          <NextBtn onClick={() => navigation.navigate('registerBussinesScreen4')} />
+
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
 
     )
 

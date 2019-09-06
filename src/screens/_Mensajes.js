@@ -36,7 +36,10 @@ export default class _Mensajes extends Component {
     if (!loading) {
       return (
         <View style={styles.container}>
-          <Header title={'Mensajes'}/>
+          <Header 
+            title={'Mensajes'}
+            onBack={()=>this.props.navigation.pop()}
+          />
           <View style={styles.view}>
             <View style={styles.searchContainer}>
               <View style={styles.searchBarContainer}>

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Text, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Header } from '../components/Headers'
 import { EvilIcons } from '@expo/vector-icons';
 import { p } from '../components/normalize';
@@ -25,15 +25,18 @@ export default class _Cuenta extends Component {
   };
 
   render() {
+    const { nombre, apellido, email, contraseña } = this.state
     return (
-      <View style={styles.container}>
+       <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+
         <Header
           title={'Cuenta'}
           right={(
-            <View style={styles.rightHeader}>
+            <TouchableOpacity style={styles.rightHeader}>
               <Image source={{ uri: 'https://cdn.pixabay.com/photo/2016/03/26/20/35/young-man-1281282__340.jpg'}} style={styles.headerImg} />
-            </View>
+            </TouchableOpacity>
           )}
+          onBack={()=>this.props.navigation.pop()}
         />
         <ScrollView style={styles.view}>
 
@@ -42,12 +45,12 @@ export default class _Cuenta extends Component {
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
+                onSubmitEditing={() => this.apellidoInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={[styles.input, { flex: 1}]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+                ref={(input) => this.nombreInput = input}
+                onChangeText={value => this.setState({ nombre: value.trim() })}
               />
               <EvilIcons name={'pencil'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
               <Text style={styles.h2}>Editar</Text>
@@ -59,12 +62,12 @@ export default class _Cuenta extends Component {
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
+                onSubmitEditing={() => this.emailInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={[styles.input, { flex: 1}]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+                ref={(input) => this.apellidoInput = input}
+                onChangeText={value => this.setState({ apellido: value.trim() })}
               />
               <EvilIcons name={'pencil'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
               <Text style={styles.h2}>Editar</Text>
@@ -76,12 +79,12 @@ export default class _Cuenta extends Component {
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
+                onSubmitEditing={() => this.contraseñaInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={[styles.input, { flex: 1}]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+                ref={(input) => this.emailInput = input}
+                onChangeText={value => this.setState({ email: value.trim() })}
               />
               <EvilIcons name={'pencil'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
               <Text style={styles.h2}>Editar</Text>
@@ -92,24 +95,28 @@ export default class _Cuenta extends Component {
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
                 style={[styles.input, { flex: 1}]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+                ref={(input) => this.contraseñaInput = input}
+                onChangeText={value => this.setState({ contraseña: value.trim() })}
               />
               <EvilIcons name={'pencil'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
               <Text style={styles.h2}>Editar</Text>
             </View>
 
-           <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'center', marginTop: p(30)}}>
+           <TouchableOpacity 
+              style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'center', marginTop: p(30)}}
+              onPress={()=>alert(JSON.stringify({
+                nombre, apellido, email, contraseña
+              }))}
+           >
               <Text style={styles.h1}>{'Mantener sesion abierta'}</Text>
               <Image source={Images.paquetesCheck} style={{ width: p(25), height: p(25), marginLeft: p(12)}}/>
-           </View>
+           </TouchableOpacity>
 
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
 
     )
 

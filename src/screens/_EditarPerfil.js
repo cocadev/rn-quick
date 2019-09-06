@@ -37,6 +37,7 @@ export default class _EditarPerfil extends Component {
               <Image source={Images.ok} style={styles.headerImg} />
             </View>
           )}
+          onBack={()=>this.props.navigation.pop()}
         />
         <ScrollView style={styles.view}>
 

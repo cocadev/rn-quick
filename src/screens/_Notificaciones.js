@@ -22,7 +22,12 @@ export default class _Notificaciones extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Notificaciones'} color={'#FACA0A'} />
+        
+        <Header 
+          title={'Notificaciones'} 
+          color={'#FACA0A'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
 
         <FlatList
           data={NOTIFIcaciones}

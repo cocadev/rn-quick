@@ -32,6 +32,7 @@ import _Recientes from './src/screens/_Recientes';
 import _Contacto from './src/screens/_Contacto';
 import _Favoritos from './src/screens/_Favoritos';
 import _Cuenta from './src/screens/_Cuenta';
+import _DropDown from './src/components/_DropDown';
 
 /*
 Name: App
@@ -95,8 +96,6 @@ export default class App extends React.Component {
       return (
         this.state.fontLoaded ? (
           // <_Likes />
-          // <_MisNegocios />
-          // <_Pagos />
           // <_Mensajes />
           // <_Editor />
           // <_Productos />
@@ -107,12 +106,8 @@ export default class App extends React.Component {
           // <_Paquetes />
           // <_Ayuda />
 
-          // <_Registrar />
-          // <_BuscaTuNegocio />
           // <_Resultados />
-          // <_Agregar />
           // <_Map />
-          // <_Registrar2 />
           // <_Verificación />
           // <_Registrar4 />
           // <_Registrar5 />
@@ -125,11 +120,22 @@ export default class App extends React.Component {
           // <_Recientes />
           // <_Contacto />
           // <_Favoritos />
-          <_Cuenta />
+          // <_Cuenta />
+
+          // <_Pagos />
+          // <_MisNegocios />
+          // <_Registrar />
+          // <_BuscaTuNegocio />
+          // <_Agregar />
+          // <_Registrar2 />
+
+          // <_DropDown />
 
 
 
-          // <MainNavigation/>
+
+
+          <MainNavigation/>
         ) : (
           <View style={styles.appContainer}>
             <ActivityIndicator size="large" />

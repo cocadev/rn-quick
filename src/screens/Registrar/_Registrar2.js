@@ -6,6 +6,7 @@ import { p } from '../../components/normalize';
 import { PAQUETES } from '../../config/staticData'
 import Images from '../../constants/Images';
 import AwesomeBar from '../../components/awesomeBar';
+import { NextBtn } from '../../components/Icons'
 
 export default class _Registrar2 extends Component {
 
@@ -18,23 +19,24 @@ export default class _Registrar2 extends Component {
     this.state = {
       check: 2,
       _check: 2
-
     }
   }
 
   render() {
 
     const { check, _check } = this.state
+    const { navigation } = this.props
 
     return (
       <View style={styles.container}>
-        <Header title={'Registrar'} />
+        <Header 
+          title={'Registrar'} 
+          onBack={()=>navigation.pop()}
+        />
 
         <ScrollView>
 
           <AwesomeBar check={1} />
-
-          <View style={{ marginTop: p(70) }}></View>
 
           <Text style={[styles.h1, { textAlign: 'left', marginVertical: p(20), marginLeft: p(20) }]}>Mis Negocios</Text>
 
@@ -146,10 +148,7 @@ export default class _Registrar2 extends Component {
 
           </View>
 
-
-          <View style={{ height: p(70), justifyContent: 'center', alignItems: 'flex-end', marginRight: p(20) }}>
-            <Image source={Images.right} style={{ width: p(30), height: p(30) }} />
-          </View>
+          <NextBtn onClick={()=>navigation.navigate('registerBussinesScreen8')}/>
 
         </ScrollView>
       </View>

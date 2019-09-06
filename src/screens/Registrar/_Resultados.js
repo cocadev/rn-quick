@@ -18,14 +18,11 @@ export default class _Resultados extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      filteredData: [],
       search: '',
-      enableScrollViewScroll: true
     };
   };
 
-  _renderItem({ item, index }) {
+  _renderItem({ item }, props) {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: p(12) }}>
         <View style={styles.board}>
@@ -39,7 +36,12 @@ export default class _Resultados extends Component {
 
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
           <View style={styles.circle}>
-            <MaterialCommunityIcons name={'plus'} size={p(30)} color={'#111'} />
+            <MaterialCommunityIcons 
+              name={'plus'} 
+              size={p(30)} 
+              color={'#111'} 
+              onPress={()=>props.navigation.navigate('registerBussinesScreen7')}
+            />
           </View>
           <View style={styles.circle}>
             <MaterialCommunityIcons name={'minus'} size={p(30)} color={'#111'} />
@@ -50,9 +52,8 @@ export default class _Resultados extends Component {
   }
 
   render() {
-    const { loading, search } = this.state;
+    const { search } = this.state;
 
-    if (!loading) {
       return (
         <View style={styles.container}>
           <Header 
@@ -62,6 +63,7 @@ export default class _Resultados extends Component {
                 <Image source={Images.ok} style={styles.headerImg} />
               </View>
             )}
+            onBack={()=>this.props.navigation.pop()}
           />
           <View style={styles.view}>
             <View style={styles.searchContainer}>
@@ -93,15 +95,13 @@ export default class _Resultados extends Component {
             <FlatList
               data={RESULTADOS}
               keyExtractor={(item, i) => String(i)}
-              renderItem={this._renderItem}
-            />
+              renderItem={(item) => this._renderItem(item, this.props)}
+              extraData={this.props}
+              />
 
           </View>
         </View>
-
       )
-
-    }
   }
 }
 

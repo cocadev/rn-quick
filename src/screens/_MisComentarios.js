@@ -22,7 +22,11 @@ export default class _MisComentarios extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Mis Comentarios'} color={'#FACA0A'} />
+        <Header 
+          title={'Mis Comentarios'} 
+          color={'#FACA0A'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
         <View style={styles.view}>
 
           {

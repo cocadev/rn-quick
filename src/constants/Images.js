@@ -31,8 +31,23 @@ const Images = {
   ok: require('../assets/images/okIcon.png'),
   messageSend: require('../assets/images/messageSendIcon.png'),
   trash: require('../assets/images/trashIcon.png'),
+  lapiz: require('../assets/images/lapiz.png'),
+
+  logoVisa: require('../assets/images/logoVisa.png'),
+
+  
+
+  
   share: require('../assets/images/shareIcon.png'),
   paquetesCheck: require('../assets/images/paquetesCheck.png'),
+
+  tarjetaCredito: require('../assets/images/tarjetaCredito.png'),
+  monosEsos: require('../assets/images/monosEsos.png'),
+
+  
+
+
+  
 
   a: require('../assets/images/a.png'),
   aa: require('../assets/images/aa.png'),

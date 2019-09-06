@@ -35,6 +35,7 @@ export default class _Promoción extends Component {
                 <Image source={Images.ok} style={styles.headerImg} />
               </View>
             )}
+            onBack={()=>this.props.navigation.pop()}
           />
 
           <View style={styles.view}>

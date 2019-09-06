@@ -10,7 +10,7 @@ export const Header = props => {
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', paddingHorizontal: p(15) }}>
         <View style={{ flexDirection: 'row', flex: 1 }}>
-          <TouchableOpacity style={styles.leftHeader} onPress={() => this.state.navigation.pop()}>
+          <TouchableOpacity style={styles.leftHeader} onPress={props.onBack}>
             <Image
               source={Images.left}
               fadeDuration={0}

@@ -15,7 +15,10 @@ export default class _Ayuda extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title={'Ayuda'} />
+        <Header 
+          title={'Ayuda'} 
+          onBack={()=>this.props.navigation.pop()}
+        />
         <View style={styles.view}>
           <Text style={styles.h1}>{AYUDA.title}</Text>
           <View style={{ marginTop: p(30), marginBottom: p(40), padding: p(5)}}>

@@ -30,12 +30,13 @@ export default class _Pagos extends Component {
   }
 
   render() {
-    const { loading, search } = this.state;
 
-    if (!loading) {
       return (
         <View style={styles.container}>
-          <Header title={'Pagos'}/>
+          <Header 
+            title={'Pagos'} 
+            onBack={()=>this.props.navigation.pop()}
+          />
           <View style={styles.view}>
 
             <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: p(8)}}>
@@ -48,7 +49,7 @@ export default class _Pagos extends Component {
 
             <View style={styles.header}>
               <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                <ICON.Pencil right={p(5)}/>
+                <ICON.TarjetaCredito right={p(5)}/>
                 <Text style={styles.text}>Método de Pago</Text>
               </View>
             </View>
@@ -57,7 +58,7 @@ export default class _Pagos extends Component {
             
             <View style={styles.header}>
               <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                <ICON.Pencil right={p(5)}/>
+                <ICON.MonosEsos right={p(5)}/>
                 <Text style={styles.text}>Negocios Registrados</Text>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center'}}>
@@ -74,7 +75,6 @@ export default class _Pagos extends Component {
         </View>
       )
     }
-  }
 }
 
 const FILTERDATA = [

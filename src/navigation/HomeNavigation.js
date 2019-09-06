@@ -26,6 +26,24 @@ import BussinesListFilterScreen from '../screens/BussinesListFilter';
 import DistanceFilterScreen from '../screens/DistanceFilter';
 import SubcategoryFilterScreen from '../screens/SubcategoryFilter';
 import ComentariesScreen from '../screens/Comentaries';
+import _Pagos from '../screens/_Pagos';
+import _MisNegocios from '../screens/_MisNegocios';
+import _Likes from '../screens/_Likes';
+import _Registrar from '../screens/Registrar/_Registrar';
+import _BuscaTuNegocio from '../screens/Registrar/_BuscaTuNegocio';
+import _Registrar5 from '../screens/Registrar/_Registrar5';
+import _Registrar4 from '../screens/Registrar/_Registrar4';
+import _Resultados from '../screens/Registrar/_Resultados';
+import _Agregar from '../screens/Registrar/_Agregar';
+import _DropDown from '../components/_DropDown';
+import _Map from '../screens/Registrar/_Map';
+import _Registrar2 from '../screens/Registrar/_Registrar2';
+import _Verificación from '../screens/Registrar/_Verificación';
+import _Paquetes from '../screens/_Paquetes';
+import _Ayuda from '../screens/_Ayuda';
+import _Promociones from '../screens/_Promociones';
+import _Promoción from '../screens/_Promoción';
+import _Vistaprevia from '../screens/_Vistaprevia';
 
 /**
  * @proyect QuickB
@@ -40,7 +58,7 @@ const HomeStack = createStackNavigator({
     Comentaries: ComentariesScreen,
     DistanceFilter: DistanceFilterScreen,
     SubcategoryFilter: SubcategoryFilterScreen,
-    MessageSc: MessageScreen
+    MessageSc: MessageScreen,
 });
 
 HomeStack.navigationOptions = {
@@ -80,7 +98,31 @@ SideMenuStack.navigationOptions = {
  */
 const ComunityStack = createStackNavigator({
   Comunity: ComunityScreen,
-  Map: MapScreen
+  Map: MapScreen,
+
+
+  paysBussinesScreen: _Pagos,
+  myBussinesScreen: _MisNegocios,
+  likeBussinesScreen: _Likes,
+  registerBussinesScreen: _Registrar,
+  registerBussinesScreen2: _BuscaTuNegocio,
+  registerBussinesScreen3: _Resultados,
+  registerBussinesScreen4: _Registrar4,
+  registerBussinesScreen5: _Registrar5,
+
+  registerBussinesScreen6: _Agregar,
+  registerBussinesScreen7: _Registrar2,
+  registerBussinesScreen8: _Verificación,
+
+  dropDownScreen: _DropDown,
+  mapScreen: _Map,
+
+  packageBussinesScreen: _Paquetes,
+  helpBussinesScreen: _Ayuda,
+  promotionsBussinesScreen: _Promociones,
+  vistapreviaScreen: _Vistaprevia
+
+
 });
 
 ComunityStack.navigationOptions = {
