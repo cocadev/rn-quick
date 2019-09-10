@@ -33,7 +33,7 @@ export default class _DropDown extends Component {
             <TouchableOpacity 
               style={styles.rightHeader}
               onPress={()=> {
-                 navigation.state.params.update(data[mykey])
+                 navigation.state.params.update(title == 'Categoria' ? data[mykey].nombre : data[mykey])
                  navigation.pop()
               }}
             >
@@ -51,7 +51,7 @@ export default class _DropDown extends Component {
             data.map((item, key) => (
               <View style={styles.board} key={key}>
                 <View style={styles.input}>
-                  <Text style={styles.h1}>{item}</Text>
+                  <Text style={styles.h1}>{item.nombre ? item.nombre: item}</Text>
                 </View>
                 <TouchableOpacity onPress={()=>{
                   this.setState({ mykey: key})

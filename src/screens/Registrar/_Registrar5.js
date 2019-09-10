@@ -16,11 +16,38 @@ export default class _Registrar5 extends Component {
     super();
     this.state = {
       check: false,
-      cvv: ''
+      cvv: '',
+      caduca: '',
+      card: ''
     }
   }
 
+  handleCard = (text) => {
+    let formattedText = text.split(' ').join('');
+    if (formattedText.length > 16) {
+      return false
+    }
+    if (formattedText.length > 0) {
+      formattedText = formattedText.match(new RegExp('.{1,4}', 'g')).join(' ');
+    }
+    this.setState({ card: formattedText });
+    return formattedText;
+  }
+
+  handleCaduca = (text) => {
+    let formattedText = text.split(' ').join('');
+    if (formattedText.length > 4) {
+      return false
+    }
+    if (formattedText.length > 0) {
+      formattedText = formattedText.match(new RegExp('.{1,2}', 'g')).join(' ');
+    }
+    this.setState({ caduca: formattedText });
+    return formattedText;
+  }
+
   Board() {
+    const { caduca, cvv, card } = this.state
     return (
       <View style={styles.view}>
 
@@ -72,16 +99,41 @@ export default class _Registrar5 extends Component {
           </View>
           <View style={styles.board}>
             <Text style={styles.h0}>Número</Text>
-            <Text style={styles.h4}>**** / **** / ****/ 7856</Text>
+            <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                keyboardType='numeric'
+                autoCorrect={false}
+                secureTextEntry={true} 
+                style={[styles.input, { flex: 1 }]}
+                ref={(input) => this.cardInput = input}
+                // onChangeText={value => this.setState({ cvv: value.trim() })}
+                onChangeText={this.handleCard}
+                value={card}
+
+              />
           </View>
           <View style={{ flexDirection: 'row' }}>
             <View style={[styles.board, { flex: 1 }]}>
               <Text style={styles.h0}>Caduca</Text>
-              <Text style={styles.h4}>10/21</Text>
+              {/* <Text style={styles.h4}>10/21</Text> */}
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                keyboardType='numeric'
+                autoCorrect={false}
+                style={[styles.input, { flex: 1 }]}
+                ref={(input) => this.caducaInput = input}
+                // onChangeText={value => this.setState({ cvv: value.trim() })}
+                onChangeText={this.handleCaduca}
+                value={caduca}
+
+              />
             </View>
             <View style={[styles.board, { flex: 1 }]}>
               <Text style={styles.h0}>CVV</Text>
-              {/* <Text style={styles.h4}>***</Text> */}
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -91,6 +143,7 @@ export default class _Registrar5 extends Component {
                 style={[styles.input, { flex: 1 }]}
                 ref={(input) => this.cvvInput = input}
                 onChangeText={value => this.setState({ cvv: value.trim() })}
+                value={cvv}
               />
             </View>
           </View>
@@ -109,7 +162,7 @@ export default class _Registrar5 extends Component {
   render() {
     const { check } = this.state
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+      <KeyboardAvoidingView style={styles.container} enabled>
 
         <Header
           title={'Registrar'}
@@ -259,6 +312,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey'
   },
   input: {
-    paddingLeft: p(12)
+    paddingLeft: p(8)
   }
 })

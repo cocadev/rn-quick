@@ -44,6 +44,7 @@ const Images = {
 
   tarjetaCredito: require('../assets/images/tarjetaCredito.png'),
   monosEsos: require('../assets/images/monosEsos.png'),
+  marker: require('../assets/images/marker.png'),
 
   
 

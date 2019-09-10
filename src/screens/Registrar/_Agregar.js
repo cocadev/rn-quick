@@ -6,6 +6,8 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
 import * as DATA from '../../config/staticData'
+import axios from 'axios';
+
 
 export default class _Agregar extends Component {
 
@@ -28,11 +30,21 @@ export default class _Agregar extends Component {
       categoria: '',
       subCategoria: '',
       horarios: '',
-      time: ''
+      time: '',
+      Mycategories: []
 
 
     };
   };
+
+  componentDidMount() {
+    axios.get(`https://admin.quickb.mx/Apis/Category/List`)
+      .then(res => {
+        const Mycategories = res.data;
+        console.log( ' **** data', Mycategories)
+        this.setState({ Mycategories });
+      })
+  }
 
   render() {
     const { 
@@ -43,11 +55,12 @@ export default class _Agregar extends Component {
       categoria, 
       subCategoria, 
       horarios, 
-      time 
+      time,
+      Mycategories
     } = this.state;
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled >
+      <KeyboardAvoidingView style={styles.container} enabled >
 
         <Header
           title={'Registro'}
@@ -81,7 +94,7 @@ export default class _Agregar extends Component {
               onPress={
                 () => this.props.navigation.navigate('dropDownScreen', {
                   title: 'Categoria',
-                  data: DATA.CATEGORIES_CATEGORIA,
+                  data: Mycategories,
                   update: (x) => this.setState({ categoria: x })
                 })
               }
@@ -207,6 +220,7 @@ export default class _Agregar extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column'
   },
   view: {
     // flex: 1,

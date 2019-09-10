@@ -44,7 +44,7 @@ export default class _Verificación extends Component {
     } = this.state
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+      <KeyboardAvoidingView style={styles.container} enabled>
         <Header
           title={'Registrar'}
           right={(

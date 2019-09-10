@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, FlatList, Image, Text, ActivityIndicator } from 'react-native';
 import { Header } from '../../components/Headers'
 import { SearchBar } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -19,28 +19,38 @@ export default class _Resultados extends Component {
     super(props);
     this.state = {
       search: '',
+      refreshing: false,
+      dataSource: [],
+      page: 1,
+      seed: 1,
+      isLoading: true,
+
     };
   };
+
+  componentDidMount() {
+    this.fetchData()
+  }
 
   _renderItem({ item }, props) {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: p(12) }}>
         <View style={styles.board}>
-          <Image source={{ uri: item.avatar}} style={styles.Img} />
+          <Image source={{ uri: item.picture.medium }} style={styles.Img} />
           <View style={{ marginLeft: p(12) }}>
-            <Text style={styles.h1}>{item.name}</Text>
-            <Text style={styles.h2}>{item.address}</Text>
-            <Text style={styles.h3}>{item.title}</Text>
+            <Text style={styles.h1}>{item.name.first}</Text>
+            <Text style={styles.h2}>{item.name.last}</Text>
+            <Text style={styles.h3}>{item.location.timezone.description}</Text>
           </View>
         </View>
 
         <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
           <View style={styles.circle}>
-            <MaterialCommunityIcons 
-              name={'plus'} 
-              size={p(30)} 
-              color={'#111'} 
-              onPress={()=>props.navigation.navigate('registerBussinesScreen7')}
+            <MaterialCommunityIcons
+              name={'plus'}
+              size={p(30)}
+              color={'#111'}
+              onPress={() => props.navigation.navigate('registerBussinesScreen7')}
             />
           </View>
           <View style={styles.circle}>
@@ -50,58 +60,107 @@ export default class _Resultados extends Component {
       </View>
     )
   }
+  fetchData = () => {
+    const { page, seed } = this.state;
+    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=5`;
+    this.setState({ loading: true });
+    return fetch(url)
+      .then((response) => response.json())
+      .then((response) => {
+        this.setState({
+          dataSource: page == 1 ? response.results : [...this.state.dataSource, ...response.results],
+          isLoading: false,
+          refreshing: false,
+        });
+      })
+      .catch((error) => { console.error(error); })
+  }
+
+  onRefresh = () => {
+    this.setState({
+      dataSource: [],
+      isLoading: false,
+      refreshing: true,
+      seed: 1,
+      page: 1
+    })
+    this.fetchData()
+  }
+  loadMore = () => {
+    this.setState({
+      refreshing: true,
+      page: this.state.page + 1,
+    })
+    this.fetchData()
+  }
 
   render() {
-    const { search } = this.state;
+    const { search, isLoading } = this.state;
 
-      return (
-        <View style={styles.container}>
-          <Header 
-            title={'Registrar'} 
-            right={(
-              <View style={styles.rightHeader}>
-                <Image source={Images.ok} style={styles.headerImg} />
-              </View>
-            )}
-            onBack={()=>this.props.navigation.pop()}
-          />
-          <View style={styles.view}>
-            <View style={styles.searchContainer}>
-              <View style={styles.searchBarContainer}>
-                <SearchBar
-                  lightTheme
-                  placeholder="Argentinos"
-                  onChangeText={this.handleSearch}
-                  value={search}
-                  searchIcon={false}
-                  onSubmitEditing={() => this._search()}
-                  inputContainerStyle={styles.searchbar}
-                  inputStyle={styles.searchbarText}
-                  containerStyle={styles.containerStyle}
-
-                />
-                <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
-                  <Image
-                    source={Images.search}
-                    fadeDuration={0}
-                    style={styles.searchFilterImage}
-                  />
-                </TouchableOpacity>
-              </View>
+    return (
+      <View style={styles.container}>
+        <Header
+          title={'Registrar'}
+          right={(
+            <View style={styles.rightHeader}>
+              <Image source={Images.ok} style={styles.headerImg} />
             </View>
+          )}
+          onBack={() => this.props.navigation.pop()}
+        />
+        <View style={styles.view}>
+          <View style={styles.searchContainer}>
+            <View style={styles.searchBarContainer}>
+              <SearchBar
+                lightTheme
+                placeholder="Argentinos"
+                onChangeText={this.handleSearch}
+                value={search}
+                searchIcon={false}
+                onSubmitEditing={() => this._search()}
+                inputContainerStyle={styles.searchbar}
+                inputStyle={styles.searchbarText}
+                containerStyle={styles.containerStyle}
 
-            <Text style={styles.h0}>Resultados</Text>
+              />
+              <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
+                <Image
+                  source={Images.search}
+                  fadeDuration={0}
+                  style={styles.searchFilterImage}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
 
-            <FlatList
+          <Text style={styles.h0}>Resultados</Text>
+
+          { isLoading && <ActivityIndicator />}
+
+          {/* <FlatList
               data={RESULTADOS}
               keyExtractor={(item, i) => String(i)}
               renderItem={(item) => this._renderItem(item, this.props)}
               extraData={this.props}
-              />
+              /> */}
+          <FlatList
+            style={{ marginTop: 12 }}
+            data={this.state.dataSource}
+            keyExtractor={(item, i) => String(i)}
+            numColumns={1}
+            ItemSeparatorComponent={this.renderSeparator}
+            ListHeaderComponent={this.renderHeader}
+            onRefresh={this.onRefresh}
+            refreshing={this.state.refreshing}
+            onEndReached={this.loadMore}
+            renderItem={(item) => this._renderItem(item, this.props)}
+            extraData={this.state}
 
-          </View>
+          />
+
         </View>
-      )
+      </View>
+    )
   }
 }
 
@@ -190,7 +249,7 @@ const styles = StyleSheet.create({
     fontFamily: 'GeosansLight',
     fontSize: p(10),
   },
-  h0:{
+  h0: {
     fontFamily: 'GeosansLight',
     fontSize: p(22),
     marginBottom: p(10),

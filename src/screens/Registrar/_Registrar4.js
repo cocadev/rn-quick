@@ -4,7 +4,7 @@ import { StyleSheet, View, TouchableOpacity, Image, Text, ScrollView } from 'rea
 import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
-import { NextBtn } from '../../components/Icons'
+import { NextBtn, PrevBtn } from '../../components/Icons'
 import Images from '../../constants/Images';
 import AwesomeBar from '../../components/awesomeBar';
 
@@ -109,16 +109,23 @@ export default class _Registrar4 extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
-          onBack={()=>navigation.pop()}
+          onBack={() => navigation.pop()}
         />
         <ScrollView>
 
           <AwesomeBar check={3} />
 
-          { innerCheck == 1 && this.Board()}
-          { innerCheck !== 1 && this.VisaBoard()}
+          {innerCheck == 1 && this.Board()}
+          {innerCheck !== 1 && this.VisaBoard()}
 
-          <NextBtn onClick={()=>navigation.navigate('registerBussinesScreen5')}/>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+            <View>
+              {innerCheck !== 0 && <PrevBtn onClick={() => this.setState({ innerCheck: 0 })} />}
+            </View>
+
+            <NextBtn onClick={() => navigation.navigate('registerBussinesScreen5')} />
+          </View>
 
         </ScrollView>
 
@@ -145,7 +152,7 @@ const styles = StyleSheet.create({
   },
   h0: {
     fontFamily: 'GeosansLight',
-    fontSize: p(22),
+    fontSize: p(25),
   },
   h2: {
     flex: 1,
@@ -159,7 +166,7 @@ const styles = StyleSheet.create({
   },
   h4: {
     fontFamily: 'GeosansLight',
-    fontSize: p(13),
+    fontSize: p(17),
   },
   rightHeader: {
     alignItems: 'flex-end',

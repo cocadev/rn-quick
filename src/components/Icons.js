@@ -44,3 +44,15 @@ export const NextBtn = props => (
   </TouchableOpacity>
 )
 
+export const PrevBtn = props => (
+  <TouchableOpacity 
+    onPress={props.onClick}
+    style={{ height: p(70), justifyContent: 'center', alignItems: 'flex-end', marginLeft: p(20) }}
+  >
+    <Image
+      source={Images.left}
+      style={{ width: p(30), height: p(30) }}
+    />
+  </TouchableOpacity>
+)
+

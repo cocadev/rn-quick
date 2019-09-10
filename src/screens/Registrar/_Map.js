@@ -20,16 +20,17 @@ export default class _Map extends Component {
     super(props);
     this.state = {
       search: '',
-      location: ''
+      location: '',
+      initialPosition: MAPREGION
     };
   };
 
   handleSearch = (text) => {
-    if (!text || text === '' || text === null){
+    if (!text || text === '' || text === null) {
       clearTimeout(this.timer);
       this.setState({ search: text });
       this.timer = setTimeout(() => this.handleRefresh(), WAIT_INTERVAL);
-      return 
+      return
     }
     this.setState({ search: text });
   }
@@ -38,93 +39,116 @@ export default class _Map extends Component {
     this.setState({ location: text });
   }
 
-  render() {
-    const { search, location } = this.state;
-
-      return (
-        <View style={styles.container}>
-          <Header
-            title={'Registrar'}
-            right={(
-              <TouchableOpacity 
-                style={styles.rightHeader}
-                onPress={()=>this.props.navigation.navigate('registerBussinesScreen7')}
-              >
-                <Image source={Images.ok} style={styles.headerImg} />
-              </TouchableOpacity>
-            )}
-            onBack={()=>this.props.navigation.pop()}
-          />
-          <View style={styles.view}>
-            <Text style={styles.h1}>Dirección</Text>
-            <View style={styles.searchBarContainer}>
-              <SearchBar
-                lightTheme
-                placeholder="Buscar"
-                onChangeText={this.handleSearch}
-                value={search}
-                searchIcon={false}
-                // onSubmitEditing={() => this._search()}
-                inputContainerStyle={styles.searchbar}
-                inputStyle={styles.searchbarText}
-                containerStyle={styles.containerStyle}
-
-              />
-              <TouchableOpacity 
-                style={styles.searchButton} 
-                // onPress={() => this._search()}
-              >
-                <Image
-                  source={Images.search}
-                  fadeDuration={0}
-                  style={styles.searchFilterImage}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.searchBarContainer}>
-              <SearchBar
-                lightTheme
-                placeholder="Usar ubicación actual"
-                onChangeText={this.handleLocation}
-                value={location}
-                searchIcon={false}
-                // onSubmitEditing={() => this._search()}
-                inputContainerStyle={styles.searchbar}
-                inputStyle={styles.searchbarText}
-                containerStyle={styles.containerStyle}
-
-              />
-              <TouchableOpacity 
-                style={styles.searchButton} 
-                // onPress={() => this._search()}
-              >
-                <MaterialCommunityIcons name={'map-marker'} size={p(30)} color={'#111'} />
-              </TouchableOpacity>
-            </View>
-
-
-          </View>
-
-          <View style={{ flex: 1, backgroundColor: 'yellow' }}>
-            <MapView
-              provider="google"
-              style={{ ...styles.map }}
-              showsCompass={false}
-              initialRegion={MAPREGION}
-              showsMyLocationButton={true}
-              showsUserLocation={true}
-              // cacheEnabled={true}
-              loadingEnabled={true}
-              loadingIndicatorColor="#111"
-              loadingBackgroundColor="#eee"
-              // mapType={"satellite"}
-            >
-            </MapView>
-          </View>
-        </View>
-      )
+  onMapPress(e) {
+    let { initialPosition } = this.state
+    initialPosition = {
+      ...initialPosition,
+      latitude: e.nativeEvent.coordinate.latitude,
+      longitude: e.nativeEvent.coordinate.longitude,
     }
+    // this.map.animateToRegion(this.randomRegion(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude));
+    this.setState({
+      initialPosition
+    })
+    alert(JSON.stringify(initialPosition))
+  }
+
+  render() {
+    const { search, location, initialPosition } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <Header
+          title={'Registrar'}
+          right={(
+            <TouchableOpacity
+              style={styles.rightHeader}
+              onPress={() => this.props.navigation.navigate('registerBussinesScreen7')}
+            >
+              <Image source={Images.ok} style={styles.headerImg} />
+            </TouchableOpacity>
+          )}
+          onBack={() => this.props.navigation.pop()}
+        />
+        <View style={styles.view}>
+          <Text style={styles.h1}>Dirección</Text>
+          <View style={styles.searchBarContainer}>
+            <SearchBar
+              lightTheme
+              placeholder="Buscar"
+              onChangeText={this.handleSearch}
+              value={search}
+              searchIcon={false}
+              // onSubmitEditing={() => this._search()}
+              inputContainerStyle={styles.searchbar}
+              inputStyle={styles.searchbarText}
+              containerStyle={styles.containerStyle}
+
+            />
+            <TouchableOpacity
+              style={styles.searchButton}
+            // onPress={() => this._search()}
+            >
+              <Image
+                source={Images.search}
+                fadeDuration={0}
+                style={styles.searchFilterImage}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.searchBarContainer}>
+            <SearchBar
+              lightTheme
+              placeholder="Usar ubicación actual"
+              onChangeText={this.handleLocation}
+              value={location}
+              searchIcon={false}
+              // onSubmitEditing={() => this._search()}
+              inputContainerStyle={styles.searchbar}
+              inputStyle={styles.searchbarText}
+              containerStyle={styles.containerStyle}
+
+            />
+            <TouchableOpacity
+              style={styles.searchButton}
+            // onPress={() => this._search()}
+            >
+              <MaterialCommunityIcons name={'map-marker'} size={p(30)} color={'#111'} />
+            </TouchableOpacity>
+          </View>
+
+
+        </View>
+
+        <View style={{ flex: 1, backgroundColor: 'yellow' }}>
+          <MapView
+            provider="google"
+            style={{ ...styles.map }}
+            showsCompass={false}
+            initialRegion={initialPosition}
+            showsMyLocationButton={true}
+            showsUserLocation={true}
+            // cacheEnabled={true}
+            loadingEnabled={true}
+            loadingIndicatorColor="#111"
+            loadingBackgroundColor="#eee"
+            // mapType={"satellite"}
+            onPress={(e) => this.onMapPress(e)}
+
+          >
+            {this.state.initialPosition.latitude && this.state.initialPosition.longitude &&
+              <MapView.Marker
+                coordinate={{ "latitude": this.state.initialPosition.latitude, "longitude": this.state.initialPosition.longitude }}
+              >
+                <Image source={Images.marker} style={{ width: p(40), height: p(40) }} />
+
+              </MapView.Marker>}
+          </MapView>
+        </View>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
