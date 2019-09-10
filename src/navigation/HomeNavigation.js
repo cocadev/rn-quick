@@ -44,6 +44,17 @@ import _Ayuda from '../screens/_Ayuda';
 import _Promociones from '../screens/_Promociones';
 import _Promoción from '../screens/_Promoción';
 import _Vistaprevia from '../screens/_Vistaprevia';
+import _EditarPerfil from '../screens/_EditarPerfil';
+import _FotoDePerfil from '../screens/_FotoDePerfil';
+import _FotoPortada from '../screens/_FotoPortada';
+import _Mensajes from '../screens/_Mensajes';
+
+import _Cuenta from '../screens/_Cuenta';
+import _Recientes from '../screens/_Recientes';
+import _Notificaciones from '../screens/_Notificaciones';
+import _MisComentarios from '../screens/_MisComentarios';
+import _Favoritos from '../screens/_Favoritos';
+import _Contacto from '../screens/_Contacto';
 
 /**
  * @proyect QuickB
@@ -79,7 +90,15 @@ const SideMenuStack = createStackNavigator({
   SideMenu: SideMenuScreen,
   Favorite: FavoriteScreen,
   Count: CountScreen,
-  Recent: RecentScreen
+  Recent: RecentScreen,
+
+  Cuenta: _Cuenta,
+  Recientes: _Recientes,
+  Notificaciones: _Notificaciones,
+  Comentarios: _MisComentarios,
+  Favoritos: _Favoritos,
+  Calificación: _Contacto
+
 });
 
 SideMenuStack.navigationOptions = {
@@ -104,6 +123,8 @@ const ComunityStack = createStackNavigator({
   paysBussinesScreen: _Pagos,
   myBussinesScreen: _MisNegocios,
   likeBussinesScreen: _Likes,
+  messageBussinesScreen: _Mensajes,
+
   registerBussinesScreen: _Registrar,
   registerBussinesScreen2: _BuscaTuNegocio,
   registerBussinesScreen3: _Resultados,
@@ -120,9 +141,12 @@ const ComunityStack = createStackNavigator({
   packageBussinesScreen: _Paquetes,
   helpBussinesScreen: _Ayuda,
   promotionsBussinesScreen: _Promociones,
-  vistapreviaScreen: _Vistaprevia
+  vistapreviaScreen: _Vistaprevia,
 
+  profileBussinesScreen: _EditarPerfil,
 
+  fotodePerfilScreen: _FotoDePerfil,
+  fotoPortadaScreen: _FotoPortada
 });
 
 ComunityStack.navigationOptions = {

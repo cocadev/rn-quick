@@ -5,7 +5,7 @@ import { Header } from '../components/Headers'
 import { EvilIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { p } from '../components/normalize';
 import Images from '../constants/Images';
-import { REGISTER_CATEGORIA,  } from '../config/staticData'
+import * as DATA from '../config/staticData'
 
 export default class _EditarPerfil extends Component {
 
@@ -16,17 +16,19 @@ export default class _EditarPerfil extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      filteredData: [],
-      search: '',
-      categoria: -1,
-      dropDown1: false,
-      enableScrollViewScroll: true
+      // loading: false,
+      // filteredData: [],
+      categoria: '',
+      // dropDown1: false,
+      subCategoria: '',
+      horarios1: '',
+      horarios2: '',
+      productos: ''
     };
   };
 
   render() {
-    const { loading, dropDown1, categoria } = this.state;
+    const { dropDown1, categoria, subCategoria, horarios1, horarios2, productos } = this.state;
 
     return (
       <View style={styles.container}>
@@ -37,7 +39,7 @@ export default class _EditarPerfil extends Component {
               <Image source={Images.ok} style={styles.headerImg} />
             </View>
           )}
-          onBack={()=>this.props.navigation.pop()}
+          onBack={() => this.props.navigation.pop()}
         />
         <ScrollView style={styles.view}>
 
@@ -57,18 +59,24 @@ export default class _EditarPerfil extends Component {
             <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.dropDown} >
-                <Text style={styles.text}>{REGISTER_CATEGORIA[categoria]}</Text>
+                <Text style={styles.text}>{categoria}</Text>
               </View>
               <SimpleLineIcons
-                onPress={() => this.setState({ dropDown1: !dropDown1 })}
-                name={dropDown1 ? 'arrow-up' : 'arrow-down'}
+                name={'arrow-down'}
                 size={p(19)}
                 color={'#111'}
                 style={{ marginLeft: p(6), marginRight: p(30) }}
+                onPress={
+                  () => this.props.navigation.navigate('dropDownScreen', {
+                    title: 'Categoria',
+                    data: DATA.CATEGORIES_CATEGORIA,
+                    update: (x) => this.setState({ categoria: x })
+                  })
+                }
               />
             </View>
 
-            {
+            {/* {
               dropDown1 &&
               <View style={{ marginTop: 0 }}>
                 {REGISTER_CATEGORIA.map((item, key) => (
@@ -77,49 +85,64 @@ export default class _EditarPerfil extends Component {
                   </TouchableOpacity>
                 ))}
               </View>
-            }
+            } */}
 
             <Text style={[styles.text, { marginTop: p(4) }]}>SubCategoria</Text>
             <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={[styles.input, { width: p(150) }]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+              <View style={styles.dropDown} >
+                <Text style={styles.text}>{subCategoria}</Text>
+              </View>
+              <SimpleLineIcons
+                name={'arrow-down'}
+                size={p(19)}
+                color={'#111'}
+                style={{ marginLeft: p(6), marginRight: p(30) }}
+                onPress={
+                  () => this.props.navigation.navigate('dropDownScreen', {
+                    title: 'SubCategoria',
+                    data: DATA.CATEGORIES_SUBCATEGORIA,
+                    update: (x) => this.setState({ subCategoria: x })
+                  })
+                }
               />
-              <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
             </View>
 
             <Text style={[styles.text, { marginTop: p(2) }]}>Horarios</Text>
             <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={[styles.input, { width: p(70) }]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+              <View style={[styles.dropDown, { width: p(70) }]} >
+                <Text style={styles.text}>{horarios1}</Text>
+              </View>
+
+              <SimpleLineIcons
+                name={'arrow-down'}
+                size={p(19)}
+                color={'#111'}
+                style={{ marginLeft: p(6), marginRight: p(30) }}
+                onPress={
+                  () => this.props.navigation.navigate('dropDownScreen', {
+                    title: 'Horarios',
+                    data: DATA.CATEGORIES_HORARIOS,
+                    update: (x) => this.setState({ horarios1: x })
+                  })
+                }
               />
 
-              <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
-
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={[styles.input, { width: p(70) }]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+              <View style={[styles.dropDown, { width: p(70) }]} >
+                <Text style={styles.text}>{horarios2}</Text>
+              </View>
+              <SimpleLineIcons
+                name={'arrow-down'}
+                size={p(19)}
+                color={'#111'}
+                style={{ marginLeft: p(6), marginRight: p(30) }}
+                onPress={
+                  () => this.props.navigation.navigate('dropDownScreen', {
+                    title: 'Horarios',
+                    data: DATA.CATEGORIES_HORARIOS,
+                    update: (x) => this.setState({ horarios2: x })
+                  })
+                }
               />
-              <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
 
             </View>
 
@@ -131,7 +154,7 @@ export default class _EditarPerfil extends Component {
                 onSubmitEditing={() => this.lastNameInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
-                style={[styles.input, { flex: 1}]}
+                style={[styles.input, { flex: 1 }]}
                 ref={(input) => this.nameInput = input}
                 onChangeText={value => this.setState({ name: value.trim() })}
               />
@@ -146,7 +169,7 @@ export default class _EditarPerfil extends Component {
                 onSubmitEditing={() => this.lastNameInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
-                style={[styles.input, { flex: 1}]}
+                style={[styles.input, { flex: 1 }]}
                 ref={(input) => this.nameInput = input}
                 onChangeText={value => this.setState({ name: value.trim() })}
               />
@@ -161,53 +184,70 @@ export default class _EditarPerfil extends Component {
                 onSubmitEditing={() => this.lastNameInput.focus()}
                 autoCapitalize="none"
                 autoCorrect={false}
-                style={[styles.input, { flex: 1}]}
+                style={[styles.input, { flex: 1 }]}
                 ref={(input) => this.nameInput = input}
                 onChangeText={value => this.setState({ name: value.trim() })}
               />
               <EvilIcons name={'pencil'} size={p(26)} color={'#777'} style={{ marginLeft: p(6), }} />
             </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: p(12)}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: p(12) }}>
               <Text style={[styles.text, { marginTop: p(2), flex: 1 }]}>Foto de Perfil</Text>
-              <View style={{ flexDirection: 'row', flex:1, alignItems: 'flex-end'}}>
-                  <View style={styles.circle}>
-                  </View>
-                  <EvilIcons name={'pencil'} size={p(18)} color={'#777'} style={{ marginLeft: p(6)}} />
+              <View style={{ flexDirection: 'row', flex: 1, alignItems: 'flex-end' }}>
+                <View style={styles.circle}>
+                </View>
+                <EvilIcons 
+                  name={'pencil'} 
+                  size={p(18)} 
+                  color={'#777'} 
+                  style={{ marginLeft: p(6) }} 
+                  onPress={()=>this.props.navigation.navigate('fotodePerfilScreen')}
+                />
               </View>
             </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: p(12)}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: p(12) }}>
               <Text style={[styles.text, { marginTop: p(2), flex: 1 }]}>Foto de Portada</Text>
-              <View style={{ flexDirection: 'row', flex:1, alignItems: 'flex-end'}}>
-                  <View style={[styles.circle, { borderRadius: 0}]}>
-                  </View>
-                  <EvilIcons name={'pencil'} size={p(18)} color={'#777'} style={{ marginLeft: p(6)}} />
+              <View style={{ flexDirection: 'row', flex: 1, alignItems: 'flex-end' }}>
+                <View style={[styles.circle, { borderRadius: 0 }]}>
+                </View>
+                <EvilIcons 
+                  name={'pencil'} 
+                  size={p(18)} 
+                  color={'#777'} 
+                  style={{ marginLeft: p(6) }} 
+                  onPress={()=>this.props.navigation.navigate('fotoPortadaScreen')}
+                />
               </View>
             </View>
 
             <Text style={[styles.text, { marginTop: p(4) }]}>Productos</Text>
             <View style={{ flexDirection: 'row' }}>
-              <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                onSubmitEditing={() => this.lastNameInput.focus()}
-                autoCapitalize="none"
-                autoCorrect={false}
-                style={[styles.input, { width: p(150) }]}
-                ref={(input) => this.nameInput = input}
-                onChangeText={value => this.setState({ name: value.trim() })}
+              <View style={[styles.dropDown, { width: p(180)}]} >
+                <Text style={styles.text}>{productos}</Text>
+              </View>
+              <SimpleLineIcons 
+                name={'arrow-down'} 
+                size={p(19)} 
+                color={'#111'} 
+                style={{ marginLeft: p(6), marginRight: p(30) }} 
+                onPress={
+                  () => this.props.navigation.navigate('dropDownScreen', {
+                    title: 'Productos',
+                    data: DATA.CATEGORIES_CATEGORIA,
+                    update: (x) => this.setState({ productos: x })
+                  })
+                }
               />
-              <SimpleLineIcons name={'arrow-down'} size={p(19)} color={'#111'} style={{ marginLeft: p(6), marginRight: p(30) }} />
             </View>
 
-           
+
 
           </View>
 
           <View style={styles.btn}>
-              <Text style={styles.text}>{'Vista previa'}</Text>
-            </View>
+            <Text style={styles.text}>{'Vista previa'}</Text>
+          </View>
 
         </ScrollView>
       </View>

@@ -50,32 +50,32 @@ export default class SideMenu extends Component {
         "name": "Favoritos",
         "logoAndroid": "md-heart",
         "logoIos": "ios-heart",
-        "screen": "Favorite"
+        "screen": "Favoritos"
       },{
         "name": "Cuenta",
         "logoAndroid": "md-person",
         "logoIos": "ios-person",
-        "screen": "Count"
+        "screen": "Cuenta"
       },{
         "name": "Recientes",
         "logoAndroid": "md-clock",
         "logoIos": "ios-clock",
-        "screen": "Recent"
+        "screen": "Recientes"
       },{
         "name": "Notificaciones",
         "logoAndroid": "md-notifications",
         "logoIos": "ios-notifications",
-        "screen": "Favorite"
+        "screen": "Notificaciones"
       },{
-        "name": "Comentarios",
+        "name": "Mis Comentarios",
         "logoAndroid": "md-chatboxes",
         "logoIos": "ios-chatboxes",
-        "screen": "Favorite"
+        "screen": "Comentarios"
       },{
-        "name": "Calificación",
+        "name": "Contacto/Legal",
         "logoAndroid": "md-star",
         "logoIos": "ios-star",
-        "screen": "Favorite"
+        "screen": "Calificación"
       }     
     ]
     this.setState({menu});
@@ -87,6 +87,7 @@ export default class SideMenu extends Component {
   };
 
   selectionAction(screen) {
+    console.log(' ****** screen ****** ', screen)
     this.state.navigation.navigate(screen);
   }
 
@@ -103,7 +104,10 @@ export default class SideMenu extends Component {
             data={this.state.menu}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) =>
-              <TouchableOpacity style={styles.flatview} onPress={() => this.selectionAction(item.screen)}>
+              <TouchableOpacity 
+                style={styles.flatview} 
+                onPress={() => this.selectionAction(item.screen)}
+              >
                 <Ionicons
                   name={
                     Platform.OS === 'ios'
