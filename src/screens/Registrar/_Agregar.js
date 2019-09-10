@@ -47,7 +47,7 @@ export default class _Agregar extends Component {
     } = this.state;
 
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled >
 
         <Header
           title={'Registro'}
@@ -73,7 +73,7 @@ export default class _Agregar extends Component {
           />
 
           <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{categoria}</Text>
             </View>
@@ -103,8 +103,8 @@ export default class _Agregar extends Component {
               </View>
             } */}
 
-          <Text style={[styles.text, { marginTop: p(4) }]}>SubCategoria</Text>
-          <View style={{ flexDirection: 'row' }}>
+          <Text style={[styles.text, { marginTop: p(12) }]}>SubCategoria</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{subCategoria}</Text>
             </View>
@@ -123,9 +123,9 @@ export default class _Agregar extends Component {
             />
           </View>
 
-          <Text style={[styles.text, { marginTop: p(2) }]}>Horarios</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={[styles.dropDown, { width: p(70) }]} >
+          <Text style={[styles.text, { marginTop: p(12) }]}>Horarios</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={[styles.dropDown, { width: p(100) }]} >
               <Text style={styles.text}>{horarios}</Text>
             </View>
 
@@ -143,7 +143,7 @@ export default class _Agregar extends Component {
               }
             />
 
-            <View style={[styles.dropDown, { width: p(70) }]} >
+            <View style={[styles.dropDown, { width: p(100) }]} >
               <Text style={styles.text}>{time}</Text>
             </View>
 
@@ -163,7 +163,7 @@ export default class _Agregar extends Component {
 
           </View>
 
-          <Text style={[styles.text, { marginTop: p(2) }]}>Dirección del negocio</Text>
+          <Text style={[styles.text, { marginTop: p(12) }]}>Dirección del negocio</Text>
           <TextInput
             placeTextColor="rgba(44, 62, 80,0.9)"
             returnKeyType="next"
@@ -182,14 +182,14 @@ export default class _Agregar extends Component {
             // onSubmitEditing={() => this.telefonoInput.focus()}
             autoCapitalize="none"
             autoCorrect={false}
-            style={styles.input}
+            style={[styles.input, { marginBottom: 30}]}
             ref={(input) => this.telefonoInput = input}
             onChangeText={value => this.setState({ telefono: value.trim() })}
           />
 
-          <TouchableOpacity style={styles.btn} onPress={() => alert('jey')}>
+          {/* <TouchableOpacity style={styles.btn} onPress={() => alert('jey')}>
             <Text style={styles.text}>{'GPS Location'}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
         </ScrollView>
 
@@ -222,19 +222,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
     paddingLeft: p(20)
   },
   text: {
     fontFamily: 'GeosansLight',
-    fontSize: p(13),
+    fontSize: p(17),
   },
   input: {
-    height: p(22),
+    height: p(30),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     marginBottom: 10,
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(14),
+    fontSize: p(17),
     fontFamily: 'GeosansLight',
     paddingHorizontal: 10,
     borderRadius: 20
@@ -253,8 +253,8 @@ const styles = StyleSheet.create({
     padding: p(12)
   },
   btn: {
-    width: p(85),
-    height: p(26),
+    width: p(120),
+    height: p(30),
     marginTop: p(6),
     justifyContent: 'center',
     alignItems: 'center',
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     // paddingHorizontal: p(6)
   },
   dropDown: {
-    height: p(22),
+    height: p(30),
     marginTop: p(3),
     justifyContent: 'center',
     width: p(150),

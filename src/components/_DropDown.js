@@ -11,10 +11,18 @@ export default class _DropDown extends Component {
     header: null
   });
 
+  constructor(){
+    super();
+    this.state = {
+      mykey: -1
+    }
+  }
+
   render() {
     const { navigation } = this.props 
     const data = navigation.state.params.data
     const title = navigation.state.params.title
+    const { mykey } = this.state
 
     return (
       <View style={styles.container}>
@@ -22,7 +30,13 @@ export default class _DropDown extends Component {
         <Header
           title={title}
           right={(
-            <TouchableOpacity style={styles.rightHeader}>
+            <TouchableOpacity 
+              style={styles.rightHeader}
+              onPress={()=> {
+                 navigation.state.params.update(data[mykey])
+                 navigation.pop()
+              }}
+            >
               <Image source={Images.ok} style={styles.headerImg} />
             </TouchableOpacity>
           )}
@@ -31,6 +45,7 @@ export default class _DropDown extends Component {
         <ScrollView style={styles.view}>
 
           <Text style={styles.text}>{title}</Text>
+          {/* <Text style={styles.text}>{mykey}</Text> */}
 
           {
             data.map((item, key) => (
@@ -39,13 +54,20 @@ export default class _DropDown extends Component {
                   <Text style={styles.h1}>{item}</Text>
                 </View>
                 <TouchableOpacity onPress={()=>{
-                  navigation.state.params.update(item)
-                  navigation.pop()
+                  this.setState({ mykey: key})
+                  // navigation.state.params.update(item)
+                  // navigation.pop()
                 }}>
+                 { mykey == key ? 
                   <Image 
                     source={Images.paquetesCheck} 
                     style={{ width: p(25), height: p(25), marginLeft: p(12) }} 
+                  /> :
+                  <Image 
+                    source={Images.paquetesUnCheck} 
+                    style={{ width: p(25), height: p(25), marginLeft: p(12) }} 
                   />
+                }
                 </TouchableOpacity>
               </View>
             ))
@@ -70,7 +92,7 @@ const styles = StyleSheet.create({
 
   h1: {
     fontFamily: 'GeosansLight',
-    fontSize: p(18),
+    fontSize: p(20),
   },
   h2: {
     fontFamily: 'GeosansLight',
@@ -79,28 +101,28 @@ const styles = StyleSheet.create({
   board: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: p(5)
+    marginVertical: p(8)
   },
   rightHeader: {
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
     paddingLeft: p(20)
   },
   text: {
     fontFamily: 'GeosansLight',
-    fontSize: p(16),
+    fontSize: p(20),
     marginLeft: p(6),
-    marginVertical: p(5)
+    marginVertical: p(12)
   },
   input: {
     flex: 1,
-    height: p(27),
+    height: p(32),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     justifyContent: 'center',
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(14),
+    fontSize: p(20),
     fontFamily: 'GeosansLight',
     paddingHorizontal: p(12),
     borderRadius: p(20)

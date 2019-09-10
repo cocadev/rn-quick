@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
   },
   headerImg: {
     marginLeft: p(17),

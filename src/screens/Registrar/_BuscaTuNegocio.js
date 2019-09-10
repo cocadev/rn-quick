@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
     paddingLeft: p(20)
   },
   box: {
     flexDirection: 'row',
-    borderWidth: p(2.4),
+    borderWidth: p(3.4),
     width: p(130),
     height: p(36),
     justifyContent: 'center',
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     height: p(34),
-    borderLeftWidth: p(2.1),
+    borderLeftWidth: p(3.4),
     paddingHorizontal: p(4),
     justifyContent: 'center'
   },
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   btn: {
-    borderWidth: p(2.4),
+    borderWidth: p(3.4),
     marginHorizontal: p(40),
     height: p(36),
     justifyContent: 'center',

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
 import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
@@ -16,78 +16,91 @@ export default class _Registrar5 extends Component {
     super();
     this.state = {
       check: false,
+      cvv: ''
     }
   }
 
   Board() {
     return (
       <View style={styles.view}>
+
         <View style={styles.board}>
           <Text style={styles.h0}>Resumen de Negocios</Text>
         </View>
 
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.boarding}>
-            <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-            <View style={{ marginLeft: p(12) }}>
-              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
-              <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
-              <Text style={styles.h5}>{"Restaurante"}</Text>
+        <ScrollView>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.boarding}>
+              <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
+              <View style={{ marginLeft: p(12) }}>
+                <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
+                <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
+                <Text style={styles.h5}>{"Restaurante"}</Text>
+              </View>
+            </View>
+            <View style={styles.round}>
+              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
+              <Text style={styles.h7}>{"Premium"}</Text>
             </View>
           </View>
-          <View style={styles.round}>
-            <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
-            <Text style={styles.h7}>{"Premium"}</Text>
-          </View>
-        </View>
 
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.boarding}>
-            <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-            <View style={{ marginLeft: p(12) }}>
-              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
-              <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
-              <Text style={styles.h5}>{"Restaurante"}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.boarding}>
+              <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
+              <View style={{ marginLeft: p(12) }}>
+                <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
+                <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
+                <Text style={styles.h5}>{"Restaurante"}</Text>
+              </View>
+            </View>
+            <View style={styles.round}>
+              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
+              <Text style={styles.h7}>{"Básico"}</Text>
             </View>
           </View>
-          <View style={styles.round}>
-            <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
-            <Text style={styles.h7}>{"Básico"}</Text>
+
+          <View style={styles.board}>
+            <Text style={styles.h0}>Método de pago</Text>
           </View>
-        </View>
-
-        <View style={styles.board}>
-          <Text style={styles.h0}>Método de pago</Text>
-        </View>
-        <View style={styles.board}>
-          <Text style={styles.h0}>Visa</Text>
-          <FontAwesome name={'cc-visa'} size={p(30)} color={'#4c55a4'} style={{ marginLeft: p(26) }} />
-        </View>
-        <View style={styles.board}>
-          <Text style={styles.h0}>Nombre</Text>
-          <Text style={styles.h4}>Mariana Desiree Murillo Sánchez</Text>
-        </View>
-        <View style={styles.board}>
-          <Text style={styles.h0}>Número</Text>
-          <Text style={styles.h4}>**** / **** / ****/ 7856</Text>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={[styles.board, { flex: 1 }]}>
-            <Text style={styles.h0}>Caduca</Text>
-            <Text style={styles.h4}>10/21</Text>
+          <View style={styles.board}>
+            <Text style={styles.h0}>Visa</Text>
+            <FontAwesome name={'cc-visa'} size={p(30)} color={'#4c55a4'} style={{ marginLeft: p(26) }} />
           </View>
-          <View style={[styles.board, { flex: 1 }]}>
-            <Text style={styles.h0}>CVV</Text>
-            <Text style={styles.h4}>***</Text>
+          <View style={styles.board}>
+            <Text style={styles.h0}>Nombre</Text>
+            <Text style={styles.h4}>Mariana Desiree Murillo Sánchez</Text>
           </View>
-        </View>
+          <View style={styles.board}>
+            <Text style={styles.h0}>Número</Text>
+            <Text style={styles.h4}>**** / **** / ****/ 7856</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={[styles.board, { flex: 1 }]}>
+              <Text style={styles.h0}>Caduca</Text>
+              <Text style={styles.h4}>10/21</Text>
+            </View>
+            <View style={[styles.board, { flex: 1 }]}>
+              <Text style={styles.h0}>CVV</Text>
+              {/* <Text style={styles.h4}>***</Text> */}
+              <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                secureTextEntry={true} 
+                autoCorrect={false}
+                style={[styles.input, { flex: 1 }]}
+                ref={(input) => this.cvvInput = input}
+                onChangeText={value => this.setState({ cvv: value.trim() })}
+              />
+            </View>
+          </View>
 
+          <Text style={styles.h1}>Total a pagar  $ 500.00</Text>
 
-        <Text style={styles.h1}>Total a pagar  $ 500.00</Text>
-
-        <TouchableOpacity onPress={()=> this.setState({ check: true})} style={styles.btn}>
-          <Text style={styles.h0}>Pagar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.setState({ check: true })} style={styles.btn}>
+            <Text style={styles.h0}>Pagar</Text>
+          </TouchableOpacity>
+        </ScrollView>
 
       </View>
     )
@@ -96,7 +109,8 @@ export default class _Registrar5 extends Component {
   render() {
     const { check } = this.state
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container} enabled>
+
         <Header
           title={'Registrar'}
           right={(
@@ -104,18 +118,28 @@ export default class _Registrar5 extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
-          onBack={()=>this.props.navigation.pop()}
+          onBack={() => this.props.navigation.pop()}
         />
-        <ScrollView>
+        <ScrollView style={{ flex: 1 }}>
 
           <AwesomeBar check={4} />
 
-          { !check && this.Board()}
-          { check && <Text style={[styles.h1, { marginTop: p(50)}]}>{'Diríjase a su carrito\n de compras'}</Text>}
+          {!check && this.Board()}
+          {check &&
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={[styles.h1, { marginTop: p(50) }]}>{'Diríjase a su carrito\n de compras'}</Text>
+              <TouchableOpacity
+                style={styles.btnLast}
+                onPress={() => this.props.navigation.popToTop()}
+              >
+                <Text style={{ fontSize: p(18), fontFamily: 'GeosansLight', color: '#fff' }}>Send</Text>
+              </TouchableOpacity>
+            </View>
+          }
 
         </ScrollView>
 
-      </View>
+      </KeyboardAvoidingView>
 
     )
 
@@ -127,6 +151,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   view: {
+    flex: 1,
     paddingVertical: p(22),
     justifyContent: 'flex-start',
   },
@@ -171,7 +196,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
     paddingLeft: p(20)
   },
   text: {
@@ -204,7 +229,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginVertical: p(7),
     borderColor: '#f26D03',
-    borderWidth: p(2),
+    borderWidth: p(3),
     borderTopWidth: p(6),
     borderTopRightRadius: p(12),
     borderTopLeftRadius: p(12)
@@ -223,5 +248,17 @@ const styles = StyleSheet.create({
     borderColor: '#c4c5c7',
     borderRadius: p(10),
     marginRight: p(20)
+  },
+  btnLast: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: p(18),
+    width: p(100),
+    height: p(30),
+    marginTop: p(20),
+    backgroundColor: 'grey'
+  },
+  input: {
+    paddingLeft: p(12)
   }
 })

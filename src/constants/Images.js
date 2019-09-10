@@ -40,6 +40,7 @@ const Images = {
   
   share: require('../assets/images/shareIcon.png'),
   paquetesCheck: require('../assets/images/paquetesCheck.png'),
+  paquetesUnCheck: require('../assets/images/paquetesUncheck.png'),
 
   tarjetaCredito: require('../assets/images/tarjetaCredito.png'),
   monosEsos: require('../assets/images/monosEsos.png'),

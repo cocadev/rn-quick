@@ -33,9 +33,9 @@ export default class AwesomeBar extends Component {
           <View style={[styles.talkBubbleTriangle, { left: p(280) }, check == 3 ? { borderColor: '#A7CE38' } : { borderColor: '#939598' }]} />
         </View>
 
-        <View style={[styles.talkBubble, { marginTop: p(25), left: p(1) }]}>
-          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(211), }]} />
-          <View style={[styles.talkBubbleTriangle, { left: p(211), borderColor: '#fff' }]} />
+        <View style={[styles.talkBubble, { marginTop: p(25), left: p(1.5) }]}>
+          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(211.5), }]} />
+          <View style={[styles.talkBubbleTriangle, { left: p(211.5), borderColor: '#fff' }]} />
         </View>
 
         <View style={[styles.talkBubble, { marginTop: p(25) }]}>
@@ -44,8 +44,8 @@ export default class AwesomeBar extends Component {
         </View>
 
         <View style={[styles.talkBubble, { marginTop: p(25), left: p(1) }]}>
-          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(141), }]} />
-          <View style={[styles.talkBubbleTriangle, { left: p(141), borderColor: '#fff' }]} />
+          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(141.5), }]} />
+          <View style={[styles.talkBubbleTriangle, { left: p(141.5), borderColor: '#fff' }]} />
         </View>
 
         <View style={[styles.talkBubble, { marginTop: p(25) }]}>
@@ -53,9 +53,9 @@ export default class AwesomeBar extends Component {
           <View style={[styles.talkBubbleTriangle, { left: p(140) }, check == 1 ? { borderColor: '#A7CE38' } : { borderColor: '#939598' }]} />
         </View>
 
-        <View style={[styles.talkBubble, { marginTop: p(25), left: p(1) }]}>
-          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(71), }]} />
-          <View style={[styles.talkBubbleTriangle, { left: p(71), borderColor: '#fff' }]} />
+        <View style={[styles.talkBubble, { marginTop: p(25), left: p(1.5) }]}>
+          <View style={[styles.talkBubbleSquare, { backgroundColor: '#fff', width: p(71.5), }]} />
+          <View style={[styles.talkBubbleTriangle, { left: p(71.5), borderColor: '#fff' }]} />
         </View>
 
         <View style={styles.talkBubble}>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   talkBubbleSquare: {
     width: p(70),
-    height: p(39),
+    height: p(37),
     backgroundColor: '#A7CE38',
   },
   talkBubbleTriangle: {
@@ -104,9 +104,9 @@ const styles = StyleSheet.create({
   text: {
     position: 'absolute',
     fontFamily: 'CaviarDreams',
-    fontSize: p(22),
+    fontSize: p(26),
     color: '#fff',
-    top: p(32),
+    top: p(29),
     left: p(40)
   },
   img: {

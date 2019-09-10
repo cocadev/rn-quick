@@ -32,7 +32,7 @@ export const Header = props => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 24
+    // paddingTop: 24
   },
   imageBack: {
     resizeMode: "contain",

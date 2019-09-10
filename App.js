@@ -1,6 +1,6 @@
 import React from 'react';
 import { Font } from 'expo';
-import { ActivityIndicator, View, StyleSheet, Alert } from 'react-native';
+import { ActivityIndicator, View, StyleSheet, Alert, KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 import { AppPermissions } from './src/config/AppPermissions';
 import MainNavigation from './src/navigation/MainNavigation';
 import _Likes from './src/screens/_Likes';
@@ -40,6 +40,12 @@ Description: This function is the main fo the app for do the correct navigation
 Made: Fernando Mondragón 01/04/2019
 Return: ""
 */
+
+const MyStatusBar = ({ backgroundColor, ...props }) => (
+  <View style={[styles.statusBar, { backgroundColor }]}>
+    <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+  </View>
+);
 export default class App extends React.Component {
 
   constructor(props) {
@@ -52,9 +58,9 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     await Font.loadAsync({
-      'CaviarDreams' : require('./src/assets/fonts/CaviarDreams.ttf'),
-      'GeosansLight' : require('./src/assets/fonts/GeosansLight.ttf'),
-      'Caviar_Dreams_Bold' : require('./src/assets/fonts/Caviar_Dreams_Bold.ttf'),
+      'CaviarDreams': require('./src/assets/fonts/CaviarDreams.ttf'),
+      'GeosansLight': require('./src/assets/fonts/GeosansLight.ttf'),
+      'Caviar_Dreams_Bold': require('./src/assets/fonts/Caviar_Dreams_Bold.ttf'),
       // 'CaviarDreams_BoldItalic' : require('./src/assets/fonts/CaviarDreams_BoldItalic.ttf'),
       // 'CaviarDreams_Italic' : require('./src/assets/fonts/CaviarDreams_Italic.ttf'),
       // 'GeosansLight-Oblique' : require('./src/assets/fonts/GeosansLight-Oblique.ttf'),
@@ -79,7 +85,7 @@ export default class App extends React.Component {
             text: 'OK'
           }],
         );
-    });
+      });
 
     AppPermissions.cameraRoll()
       .catch(error => {
@@ -89,13 +95,19 @@ export default class App extends React.Component {
             text: 'OK'
           }],
         );
-    });
+      });
   }
 
   render() {
-      return (
-        this.state.fontLoaded ? (
-          // <_Likes />
+    return (
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : null} enabled
+        style={{ flex: 1 }}
+      >
+        <MyStatusBar backgroundColor="#2699FB" barStyle="light-content" />
+
+        {this.state.fontLoaded ? (
+          /* // <_Likes />
           // <_Mensajes />
           // <_Editor />
           // <_Productos />
@@ -129,24 +141,21 @@ export default class App extends React.Component {
           // <_Agregar />
           // <_Registrar2 />
 
-          // <_DropDown />
-
-
-
-
-
-          <MainNavigation/>
+          // <_DropDown /> */
+          <MainNavigation />
         ) : (
-          <View style={styles.appContainer}>
-            <ActivityIndicator size="large" />
-          </View>
-        )
-      );
+            <View style={styles.appContainer}>
+              <ActivityIndicator size="large" />
+            </View>
+          )
+        }
+      </KeyboardAvoidingView>
+    );
 
-      /* 1. Navigate to the Details route with params */
-      this.props.navigation.navigate('MainNavigation', {
-        type: 'failure',
-      });
+    /* 1. Navigate to the Details route with params */
+    this.props.navigation.navigate('MainNavigation', {
+      type: 'failure',
+    });
   }
 }
 
@@ -155,5 +164,15 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     justifyContent: 'center'
-  }
+  },
+  container: {
+    flex: 1,
+  },
+  statusBar: {
+    height: 24,
+  },
+  content: {
+    flex: 1,
+    backgroundColor: '#2699FB',
+  },
 });

@@ -72,7 +72,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ nombre: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>Apellido</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>Apellido</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -84,19 +84,19 @@ export default class _Verificación extends Component {
               />
 
               <View style={styles.board}>
-                <Text style={[styles.text, { marginTop: p(2) }]}>Género</Text>
+                <Text style={[styles.text, { marginTop: p(12) }]}>Género</Text>
                 <TouchableOpacity style={styles.check}>
-                  <Text style={[styles.text, { marginTop: p(2) }]}>F</Text>
+                  <Text style={[styles.text, { marginTop: p(12) }]}>F</Text>
                   <FontAwesome name={'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.check}>
-                  <Text style={[styles.text, { marginTop: p(2) }]}>M</Text>
+                  <Text style={[styles.text, { marginTop: p(12) }]}>M</Text>
                   <FontAwesome name={'circle'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
                 </TouchableOpacity>
               </View>
 
-              <Text style={[styles.text, { marginTop: p(5) }]}>Dirección</Text>
+              <Text style={[styles.text, { marginTop: p(15) }]}>Dirección</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -107,7 +107,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ dirección: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>Municipio</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>Municipio</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -118,7 +118,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ estado: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>Número telefónico</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>Número telefónico</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -129,7 +129,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ municipio: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>Estado</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>Estado</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -140,7 +140,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ telefónico: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>E-mail</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>E-mail</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -151,7 +151,7 @@ export default class _Verificación extends Component {
                 onChangeText={value => this.setState({ email: value.trim() })}
               />
 
-              <Text style={[styles.text, { marginTop: p(2) }]}>CURP</Text>
+              <Text style={[styles.text, { marginTop: p(12) }]}>CURP</Text>
               <TextInput
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
@@ -200,19 +200,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
     borderLeftColor: '#e3e4e5',
-    borderLeftWidth: p(2),
+    borderLeftWidth: p(3),
     paddingLeft: p(20)
   },
   text: {
     fontFamily: 'GeosansLight',
-    fontSize: p(13),
+    fontSize: p(17),
   },
   input: {
-    height: p(22),
+    height: p(32),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     marginBottom: 10,
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(14),
+    fontSize: p(17),
     fontFamily: 'GeosansLight',
     paddingHorizontal: 10,
     borderRadius: 20
