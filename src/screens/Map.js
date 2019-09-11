@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Platform, Dimensions, Image, StatusBar } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { MapView } from "expo";
+import MapView from 'react-native-maps';
 import Text  from '../components/CustomText';
 
 import Images from "../constants/Images";

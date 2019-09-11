@@ -5,7 +5,7 @@
  * @date 18 JUN 2019
  * @version v1.1
  */
-import {Permissions} from 'expo';
+import * as Permissions from 'expo-permissions';
 import { Alert, Linking } from 'react-native';
 
 /**

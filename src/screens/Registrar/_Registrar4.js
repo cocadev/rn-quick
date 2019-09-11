@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, TextInput, Text, ScrollView } from 'react-native';
 import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
@@ -18,11 +18,43 @@ export default class _Registrar4 extends Component {
     super();
     this.state = {
       check: 0,
-      innerCheck: 0
+      innerCheck: 0,
+
+      cvv: '',
+      caduca: '',
+      card: '',
+      name: ''
     }
   }
 
+  handleCard = (text) => {
+    let formattedText = text.split(' ').join('');
+    if (formattedText.length > 16) {
+      return false
+    }
+    if (formattedText.length > 0) {
+      formattedText = formattedText.match(new RegExp('.{1,4}', 'g')).join(' ');
+    }
+    this.setState({ card: formattedText });
+    return formattedText;
+  }
+
+  handleCaduca = (text) => {
+    let formattedText = text.split(' ').join('');
+    if (formattedText.length > 4) {
+      return false
+    }
+    if (formattedText.length > 0) {
+      formattedText = formattedText.match(new RegExp('.{1,2}', 'g')).join(' ');
+    }
+    this.setState({ caduca: formattedText });
+    return formattedText;
+  }
+
   Board() {
+
+    const { caduca, cvv, card, name } = this.state
+
     return (
       <View style={styles.view}>
         <View style={styles.board}>
@@ -31,20 +63,75 @@ export default class _Registrar4 extends Component {
         </View>
         <View style={styles.boardy}>
           <Text style={styles.h0}>Nombre</Text>
-          <Text style={styles.h4}>Mariana Desiree Murillo Sánchez</Text>
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            returnKeyType="next"
+            autoCapitalize="none"
+            // keyboardType='numeric'
+            placeholder={'Mariana Desiree Murillo Sánchez'}
+            autoCorrect={false}
+            // secureTextEntry={true} 
+            style={[styles.input, { flex: 1 }]}
+            ref={(input) => this.cardInput = input}
+            onChangeText={value => this.setState({ name: value })}
+            // onChangeText={this.handleCard}
+            value={name}
+
+          />
         </View>
         <View style={styles.boardy}>
           <Text style={styles.h0}>Número</Text>
-          <Text style={styles.h4}>4915 / 2158 / 3658 / 7856</Text>
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            returnKeyType="next"
+            autoCapitalize="none"
+            placeholder={'4915 / 2158 / 3658 / 7856'}
+            keyboardType='numeric'
+            autoCorrect={false}
+            // secureTextEntry={true} 
+            style={[styles.input, { flex: 1 }]}
+            ref={(input) => this.cardInput = input}
+            // onChangeText={value => this.setState({ card: value })}
+            onChangeText={this.handleCard}
+            value={card}
+
+          />
         </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={[styles.boardy, { flex: 1 }]}>
             <Text style={styles.h0}>Caduca</Text>
-            <Text style={styles.h4}>10/21</Text>
+            <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                placeholder={'10/21'}
+                keyboardType='numeric'
+                autoCorrect={false}
+                style={[styles.input, { flex: 1 }]}
+                ref={(input) => this.caducaInput = input}
+                // onChangeText={value => this.setState({ cvv: value.trim() })}
+                onChangeText={this.handleCaduca}
+                value={caduca}
+
+              />
           </View>
           <View style={[styles.boardy, { flex: 1 }]}>
             <Text style={styles.h0}>CVV</Text>
-            <Text style={styles.h4}>***</Text>
+            <TextInput
+                placeTextColor="rgba(44, 62, 80,0.9)"
+                returnKeyType="next"
+                autoCapitalize="none"
+                keyboardType='numeric'
+                secureTextEntry={true}
+                autoCorrect={false}
+                style={[styles.input, { flex: 1 }]}
+                ref={(input) => this.cvvInput = input}
+                maxLength={3}
+                onChangeText={value => { 
+                  this.setState({ cvv: value.trim() })
+                }}
+                value={cvv}
+              />
           </View>
         </View>
       </View>
@@ -180,14 +267,14 @@ const styles = StyleSheet.create({
     fontSize: p(13),
   },
   input: {
-    height: p(22),
+    height: p(30),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     marginBottom: 10,
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(14),
+    fontSize: p(20),
     fontFamily: 'GeosansLight',
     paddingHorizontal: 10,
-    borderRadius: 20
+    borderRadius: p(20)
   },
   icon: {
     resizeMode: "contain",

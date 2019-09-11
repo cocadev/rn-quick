@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, TextInput, Image, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Platform, Image, Text, PermissionsAndroid } from 'react-native';
 import { Header } from '../../components/Headers'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
 import { SearchBar } from 'react-native-elements';
-import { MapView } from 'expo'
+import MapView from 'react-native-maps';
 import { MAPREGION } from '../../config/staticData'
 
 export default class _Map extends Component {
@@ -50,7 +50,68 @@ export default class _Map extends Component {
     this.setState({
       initialPosition
     })
-    alert(JSON.stringify(initialPosition))
+    // alert(JSON.stringify(initialPosition))
+  }
+
+  hasLocationPermission = async () => {
+    if (Platform.OS === 'ios' ||
+        (Platform.OS === 'android' && Platform.Version < 23)) {
+        return true;
+    }
+
+    const hasPermission = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
+
+    if (hasPermission) return true;
+
+    const status = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
+
+    if (status === PermissionsAndroid.RESULTS.GRANTED) return true;
+
+    if (status === PermissionsAndroid.RESULTS.DENIED) {
+        ToastAndroid.show('Location permission denied by user.', ToastAndroid.LONG);
+    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+        ToastAndroid.show('Location permission revoked by user.', ToastAndroid.LONG);
+    }
+    return false;
+}
+
+  getLocation = async () => {
+    // alert('hi')
+    const hasLocationPermission = await this.hasLocationPermission();
+    console.log( ' hasLocationPermission ~ ', hasLocationPermission)
+
+    if (!hasLocationPermission) return;
+
+    this.setState({ loading: true }, () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log( ' my location ~ ', position)
+          this.setState({
+            // position: {
+            //   latitude: position.coords.latitude,
+            //   longitude: position.coords.longitude,
+            // },
+            loading: false,
+            initialPosition: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+              latitudeDelta: 1,
+              longitudeDelta: 1
+            },
+          });
+          console.log(position);
+        },
+        (error) => {
+          this.setState({ location: error, loading: false });
+          console.log(error);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000, distanceFilter: 50, forceRequestLocation: true }
+      );
+    });
   }
 
   render() {
@@ -87,7 +148,8 @@ export default class _Map extends Component {
             />
             <TouchableOpacity
               style={styles.searchButton}
-            // onPress={() => this._search()}
+              // onPress={() => this._search()}
+              // onPress={this.getLocation}
             >
               <Image
                 source={Images.search}
@@ -112,7 +174,7 @@ export default class _Map extends Component {
             />
             <TouchableOpacity
               style={styles.searchButton}
-            // onPress={() => this._search()}
+              onPress={this.getLocation}
             >
               <MaterialCommunityIcons name={'map-marker'} size={p(30)} color={'#111'} />
             </TouchableOpacity>
@@ -127,6 +189,7 @@ export default class _Map extends Component {
             style={{ ...styles.map }}
             showsCompass={false}
             initialRegion={initialPosition}
+            region={initialPosition}
             showsMyLocationButton={true}
             showsUserLocation={true}
             // cacheEnabled={true}

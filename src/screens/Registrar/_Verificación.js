@@ -205,14 +205,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'GeosansLight',
-    fontSize: p(17),
+    fontSize: p(20),
   },
   input: {
     height: p(32),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     marginBottom: 10,
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(17),
+    fontSize: p(21),
     fontFamily: 'GeosansLight',
     paddingHorizontal: 10,
     borderRadius: 20

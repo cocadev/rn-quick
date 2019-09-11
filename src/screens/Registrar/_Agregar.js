@@ -85,7 +85,7 @@ export default class _Agregar extends Component {
             onChangeText={value => this.setState({ nombre: value.trim() })}
           />
 
-          <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
+          {/* <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{categoria}</Text>
@@ -103,7 +103,7 @@ export default class _Agregar extends Component {
               color={'#111'}
               style={{ marginLeft: p(6), marginRight: p(30) }}
             />
-          </View>
+          </View> */}
 
           {/* {
               dropDown1 &&
@@ -116,7 +116,7 @@ export default class _Agregar extends Component {
               </View>
             } */}
 
-          <Text style={[styles.text, { marginTop: p(12) }]}>SubCategoria</Text>
+          {/* <Text style={[styles.text, { marginTop: p(12) }]}>SubCategoria</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{subCategoria}</Text>
@@ -134,7 +134,7 @@ export default class _Agregar extends Component {
               color={'#111'}
               style={{ marginLeft: p(6), marginRight: p(30) }}
             />
-          </View>
+          </View> */}
 
           <Text style={[styles.text, { marginTop: p(12) }]}>Horarios</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -241,14 +241,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'GeosansLight',
-    fontSize: p(17),
+    fontSize: p(20),
   },
   input: {
     height: p(30),
     backgroundColor: 'rgba(236, 240, 241,0.6)',
     marginBottom: 10,
     color: 'rgba(44, 62, 80,0.9)',
-    fontSize: p(17),
+    fontSize: p(21),
     fontFamily: 'GeosansLight',
     paddingHorizontal: 10,
     borderRadius: 20

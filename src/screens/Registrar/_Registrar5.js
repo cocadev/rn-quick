@@ -185,7 +185,8 @@ export default class _Registrar5 extends Component {
                 style={styles.btnLast}
                 onPress={() => this.props.navigation.popToTop()}
               >
-                <Text style={{ fontSize: p(18), fontFamily: 'GeosansLight', color: '#fff' }}>Send</Text>
+                <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#fff'} />
+
               </TouchableOpacity>
             </View>
           }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Font } from 'expo';
+import * as Font from 'expo-font';
 import { ActivityIndicator, View, StyleSheet, Alert, KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 import { AppPermissions } from './src/config/AppPermissions';
 import MainNavigation from './src/navigation/MainNavigation';
@@ -33,6 +33,7 @@ import _Contacto from './src/screens/_Contacto';
 import _Favoritos from './src/screens/_Favoritos';
 import _Cuenta from './src/screens/_Cuenta';
 import _DropDown from './src/components/_DropDown';
+import FlashMessage from "react-native-flash-message";
 
 /*
 Name: App
@@ -149,6 +150,7 @@ export default class App extends React.Component {
             </View>
           )
         }
+        <FlashMessage position="bottom" />
       </KeyboardAvoidingView>
     );
 

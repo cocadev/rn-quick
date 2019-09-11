@@ -1,11 +1,13 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import { Header } from '../../components/Headers'
 import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import AwesomeBar from '../../components/awesomeBar';
+import * as DATA from '../../config/staticData'
+import axios from 'axios';
 
 const MyBox = (props) => {
   const add = props.add
@@ -14,7 +16,7 @@ const MyBox = (props) => {
       <View style={{ flex: 1 }}>
         <Text style={styles.h1}>{props.title}</Text>
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={[styles.iconBox, add && { borderLeftWidth: 0 }]}
         onPress={props.onClick}
       >
@@ -35,7 +37,29 @@ export default class _BuscaTuNegocio extends Component {
     header: null
   });
 
+  constructor(){
+    super();
+    this.state = {
+      Mycategories: [],
+      subCategoria: 'Subcat',
+      categoria: 'Categoria',
+      isLoading: false
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ isLoading: true})
+    axios.get(`https://admin.quickb.mx/Apis/Category/List`)
+      .then(res => {
+        const Mycategories = res.data;
+        console.log( ' **** data', Mycategories)
+        this.setState({ Mycategories, isLoading: false });
+      })
+  }
+
   render() {
+
+    const { subCategoria, categoria, Mycategories, isLoading } = this.state
 
     return (
       <View style={styles.container}>
@@ -46,8 +70,10 @@ export default class _BuscaTuNegocio extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
-          onBack={()=>this.props.navigation.pop()}
+          onBack={() => this.props.navigation.pop()}
         />
+
+        { isLoading && <ActivityIndicator />}
 
         <AwesomeBar />
 
@@ -55,20 +81,45 @@ export default class _BuscaTuNegocio extends Component {
           <Text style={styles.h1}>{'Busca tu negocio'}</Text>
 
           <View style={styles.line}>
-            <MyBox title={'Buscar'} />
-            <MyBox title={'Categoria'} />
+            <MyBox
+              title={'Buscar'}
+              
+            />
+            <MyBox 
+              title={categoria}
+              onClick={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Categoria',
+                  data: Mycategories,
+                  update: (x) => this.setState({ categoria: x })
+                })
+              } 
+            />
           </View>
 
           <View style={styles.line}>
-            <MyBox title={'Subcat'} />
-            <MyBox title={'Agregar'} add={true} onClick={()=>this.props.navigation.navigate('registerBussinesScreen6')}/>
+            <MyBox 
+              title={subCategoria} 
+              onClick={
+                () => this.props.navigation.navigate('dropDownScreen', {
+                  title: 'Subcategoria',
+                  data: DATA.CATEGORIES_SUBCATEGORIA,
+                  update: (x) => this.setState({ subCategoria: x })
+                })
+              }
+            />
+            <MyBox 
+              title={'Agregar'} 
+              add={true} 
+              onClick={() => this.props.navigation.navigate('registerBussinesScreen6')} 
+            />
           </View>
 
         </View>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.btn}
-          onPress={()=>this.props.navigation.navigate('registerBussinesScreen3')}
+          onPress={() => this.props.navigation.navigate('registerBussinesScreen3')}
         >
           <Text style={styles.h1}>{'Buscar'}</Text>
         </TouchableOpacity>
@@ -88,7 +139,7 @@ const styles = StyleSheet.create({
   },
   view: {
     marginTop: p(20),
-    padding: p(40),
+    padding: p(35),
     paddingTop: p(25)
   },
   h1: {
@@ -120,7 +171,7 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
     borderWidth: p(3.4),
-    width: p(130),
+    width: p(140),
     height: p(36),
     justifyContent: 'center',
     alignItems: 'center'
@@ -138,7 +189,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderWidth: p(3.4),
-    marginHorizontal: p(40),
+    marginHorizontal: p(35),
     height: p(36),
     justifyContent: 'center',
     alignItems: 'center'

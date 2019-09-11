@@ -33,7 +33,7 @@ export default class _DropDown extends Component {
             <TouchableOpacity 
               style={styles.rightHeader}
               onPress={()=> {
-                 navigation.state.params.update(title == 'Categoria' ? data[mykey].nombre : data[mykey])
+                 mykey !== -1 && navigation.state.params.update(title == 'Categoria' ? data[mykey].nombre : data[mykey])
                  navigation.pop()
               }}
             >
