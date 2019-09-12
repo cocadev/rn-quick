@@ -113,7 +113,6 @@ export const Comentarios = props => {
 }
 
 export const FavoritosItem = props => {
-  console.log(' **** item *****', props)
   return (
     <TouchableOpacity
       style={{ flexDirection: 'row'}}
@@ -123,11 +122,11 @@ export const FavoritosItem = props => {
         <Image style={styles.img3} source={{ uri: props.item.logo }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
           <View style={{ justifyContent: 'space-between', height: p(50) }}>
-            <View>
-              <Text style={styles.h1}>{props.item.nombreNegocio}</Text>
-              <Text style={styles.h2}>{props.item.direccion}</Text>
+            <View style={{ marginLeft: p(5)}}>
+              <Text style={styles.h1} numberOfLines={1}>{props.item.nombreNegocio}</Text>
+              <Text style={styles.h2} numberOfLines={1}>{props.item.direccion}</Text>
             </View>
-            <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center', marginLeft: p(5) }}>
               <StarRating
                 disabled={true}
                 maxStars={5}
@@ -137,7 +136,6 @@ export const FavoritosItem = props => {
                 starStyle={styles.start}
               />
             </View>
-            <Text>Hello</Text>
           </View>
 
         </View>
@@ -157,7 +155,7 @@ export const FavoritosItem = props => {
 export const MISComentariosItem = props => {
   full = props.item.full;
   return (
-    <TouchableOpacity
+    <View
       style={[styles.misContainer, { backgroundColor: props.color }, { height: p(60), marginHorizontal: p(4), borderColor: props.color, }]}
       onPress={props.onClick}
     >
@@ -166,7 +164,7 @@ export const MISComentariosItem = props => {
         <Text style={[styles.h4, full && { color: '#fff' }]}>{props.item.nameCategory}</Text>
       </View>
 
-    </TouchableOpacity>
+    </View>
   )
 }
 

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, FlatList, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import { Header } from '../components/Headers'
 import { p } from '../components/normalize';
 import { FavoritosItem, MISComentariosItem } from '../components/listItems';
@@ -22,12 +22,6 @@ export default class _Favoritos extends Component {
       search: '',
     };
   };
-
-  _renderItem({ item, index }) {
-    return (
-      <FavoritosItem item={item} count={index} onClick={() => console.log('hey')} edit={true} />
-    )
-  }
 
   _head(item) {
     var categoryColor;
@@ -63,52 +57,27 @@ export default class _Favoritos extends Component {
         categoryColor = 'nada';
     }
     return (
-      <MISComentariosItem item={item} color={categoryColor}/>
+      <MISComentariosItem item={item} color={categoryColor} />
     );
   }
 
   _body(item) {
-    console.log(' * * * ** * *  * =', item.list)
-    var categoryColor;
-    switch (item.idCategory) {
-      case 'CAT_G4S':
-        categoryColor = '#577D68';
-        break;
-      case 'CAT_EBT':
-        categoryColor = '#FFEA2E';
-        break;
-      case 'CAT_RMF':
-        categoryColor = '#D60B7B';
-        break;
-      case 'CAT_RK1':
-        categoryColor = '#D12E28';
-        break;
-      case 'CAT_W9O':
-        categoryColor = '#DE6225';
-        break;
-      case 'CAT_05M':
-        categoryColor = '#009EDC';
-        break;
-      case 'CAT_3WB':
-        categoryColor = '#A12D86';
-        break;
-      case 'CAT_SRO':
-        categoryColor = '#D61F50';
-        break;
-      case 'CAT_Y4G':
-        categoryColor = '#A7C349'
-        break;
-      default:
-        categoryColor = null;
-    }
+
     return (
       <FlatList
         data={item.list}
-        keyExtractor={(item, i) => String(i)}
-        renderItem={this._renderItem}
+        keyExtractor={item => item.idNegocio.toString()}
+        renderItem={({ item }) => (
+          <FavoritosItem
+            item={item}
+            onClick={() => console.log('hey')} edit={true}
+          />
+        )
+        }
       />
-    );
+    )
   }
+
 
 
   render() {
