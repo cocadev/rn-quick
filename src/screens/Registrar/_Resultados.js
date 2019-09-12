@@ -149,7 +149,7 @@ export default class _Resultados extends Component {
             <View style={styles.searchBarContainer}>
               <SearchBar
                 lightTheme
-                placeholder="Argentinos"
+                placeholder="Buscar"
                 onChangeText={this.handleSearch}
                 value={search}
                 searchIcon={false}

@@ -1,13 +1,13 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList, Text } from 'react-native';
+import { StyleSheet, View, FlatList, Text, TouchableOpacity } from 'react-native';
 import { Header } from '../components/Headers'
 import { p } from '../components/normalize';
 import { Mis } from '../components/listItems';
 import * as ICON from '../components/Icons'
 
 export default class _MisNegocios extends Component {
-  
+
   static navigationOptions = () => ({
     header: null
   });
@@ -24,12 +24,12 @@ export default class _MisNegocios extends Component {
 
   _renderItem({ item, index }) {
     return (
-      <Mis 
-        item={item} 
-        count={index} 
+      <Mis
+        item={item}
+        count={index}
         // onClick={()=>console.log('hey')} 
-        onEdit={()=>alert(item.name + ' you can edit')} 
-        onDelete={()=>alert(item.name + ' you can delete')} 
+        onEdit={() => alert(item.name + ' you can edit')}
+        onDelete={() => alert(item.name + ' you can delete')}
       />
     )
   }
@@ -40,21 +40,24 @@ export default class _MisNegocios extends Component {
     if (!loading) {
       return (
         <View style={styles.container}>
-          <Header 
+          <Header
             title={'Mis Negocios'}
-            onBack={()=>this.props.navigation.pop()}
+            onBack={() => this.props.navigation.pop()}
           />
           <View style={styles.view}>
-            
+
             <View style={styles.header}>
-              <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                <ICON.MonosEsos right={p(5)}/>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <ICON.MonosEsos right={p(5)} />
                 <Text style={styles.text}>Negocios Registrados</Text>
               </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-                <ICON.Pencil right={p(5)}/>
+              <TouchableOpacity
+                style={{ flexDirection: 'row', alignItems: 'center' }}
+                onPress={() => this.props.navigation.navigate('registerBussinesScreen2')}
+              >
+                <ICON.Pencil right={p(5)} />
                 <Text style={styles.text}>Agregar Negocio</Text>
-              </View>
+              </TouchableOpacity>
             </View>
 
             <FlatList
@@ -73,17 +76,17 @@ export default class _MisNegocios extends Component {
 }
 
 const FILTERDATA = [
-  { 
-    img: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png', 
-    name: 'Garufa (3.8kms)', 
-    address: 'Jardín Juárez, 135, Centro', 
+  {
+    img: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/Android_O_Preview_Logo.png',
+    name: 'Garufa (3.8kms)',
+    address: 'Jardín Juárez, 135, Centro',
     phone: '01 492 924 29 10',
     rating: 20
   },
-  { 
-    img: 'https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png', 
-    name: 'Tierra Roja (10kms)', 
-    address: 'José López Portillo, 224, Las Arboledas', 
+  {
+    img: 'https://www.freepnglogos.com/uploads/eagle-png-logo/morehead-state-eagle-png-logo-8.png',
+    name: 'Tierra Roja (10kms)',
+    address: 'José López Portillo, 224, Las Arboledas',
     phone: '01 492 924 29 10',
     rating: 15
   }
@@ -99,8 +102,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   header: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: p(12)
   },
@@ -108,5 +111,5 @@ const styles = StyleSheet.create({
     fontFamily: 'GeosansLight',
     fontSize: p(12),
   }
-  
+
 })
