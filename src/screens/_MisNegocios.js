@@ -24,7 +24,13 @@ export default class _MisNegocios extends Component {
 
   _renderItem({ item, index }) {
     return (
-      <Mis item={item} count={index} onClick={()=>console.log('hey')} />
+      <Mis 
+        item={item} 
+        count={index} 
+        // onClick={()=>console.log('hey')} 
+        onEdit={()=>alert(item.name + ' you can edit')} 
+        onDelete={()=>alert(item.name + ' you can delete')} 
+      />
     )
   }
 

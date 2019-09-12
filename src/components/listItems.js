@@ -41,9 +41,9 @@ export const Likes = props => {
 
 export const Mis = props => {
   return (
-    <TouchableOpacity
+    <View
       style={styles.misContainer}
-      onPress={props.onClick}
+      // onPress={props.onClick}
     >
       <Image style={styles.img} source={{ uri: props.item.img }} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
@@ -68,12 +68,16 @@ export const Mis = props => {
         {
           !props.disable &&
           <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-            <ICON.Pencil left={p(12)} />
-            <ICON.Delete left={p(12)} />
+            <TouchableOpacity onPress={props.onEdit}>
+              <ICON.Pencil left={p(12)} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={props.onDelete}>
+              <ICON.Delete left={p(12)} />
+            </TouchableOpacity>
           </View>
         }
       </View>
-    </TouchableOpacity>
+    </View>
   )
 }
 
@@ -115,14 +119,14 @@ export const Comentarios = props => {
 export const FavoritosItem = props => {
   return (
     <TouchableOpacity
-      style={{ flexDirection: 'row'}}
+      style={{ flexDirection: 'row' }}
       onPress={props.onClick}
     >
       <View style={[styles.misContainer, { height: p(60), marginHorizontal: p(12), flex: 1 }]}>
         <Image style={styles.img3} source={{ uri: props.item.logo }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
           <View style={{ justifyContent: 'space-between', height: p(50) }}>
-            <View style={{ marginLeft: p(5)}}>
+            <View style={{ marginLeft: p(5) }}>
               <Text style={styles.h1} numberOfLines={1}>{props.item.nombreNegocio}</Text>
               <Text style={styles.h2} numberOfLines={1}>{props.item.direccion}</Text>
             </View>
