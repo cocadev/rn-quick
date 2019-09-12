@@ -4,10 +4,11 @@ import { StyleSheet, View, FlatList, Text, TouchableOpacity, Image } from 'react
 import { Header } from '../components/Headers'
 import { p } from '../components/normalize';
 import { FavoritosItem, MISComentariosItem } from '../components/listItems';
-import { FAVORITOS } from '../config/staticData'
+import { FAVORITOS2 } from '../config/staticData'
 import { SearchBar } from 'react-native-elements';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Images from '../constants/Images';
+import { AccordionList } from 'accordion-collapse-react-native';
 
 export default class _Favoritos extends Component {
 
@@ -28,45 +29,127 @@ export default class _Favoritos extends Component {
     )
   }
 
+  _head(item) {
+    var categoryColor;
+    switch (item.idCategory) {
+      case 'CAT_G4S':
+        categoryColor = '#577D68';
+        break;
+      case 'CAT_EBT':
+        categoryColor = '#FFEA2E';
+        break;
+      case 'CAT_RMF':
+        categoryColor = '#D60B7B';
+        break;
+      case 'CAT_RK1':
+        categoryColor = '#D12E28';
+        break;
+      case 'CAT_W9O':
+        categoryColor = '#DE6225';
+        break;
+      case 'CAT_05M':
+        categoryColor = '#009EDC';
+        break;
+      case 'CAT_3WB':
+        categoryColor = '#A12D86';
+        break;
+      case 'CAT_SRO':
+        categoryColor = '#D61F50';
+        break;
+      case 'CAT_Y4G':
+        categoryColor = '#A7C349'
+        break;
+      default:
+        categoryColor = 'nada';
+    }
+    return (
+      <MISComentariosItem item={item} color={categoryColor}/>
+    );
+  }
+
+  _body(item) {
+    console.log(' * * * ** * *  * =', item.list)
+    var categoryColor;
+    switch (item.idCategory) {
+      case 'CAT_G4S':
+        categoryColor = '#577D68';
+        break;
+      case 'CAT_EBT':
+        categoryColor = '#FFEA2E';
+        break;
+      case 'CAT_RMF':
+        categoryColor = '#D60B7B';
+        break;
+      case 'CAT_RK1':
+        categoryColor = '#D12E28';
+        break;
+      case 'CAT_W9O':
+        categoryColor = '#DE6225';
+        break;
+      case 'CAT_05M':
+        categoryColor = '#009EDC';
+        break;
+      case 'CAT_3WB':
+        categoryColor = '#A12D86';
+        break;
+      case 'CAT_SRO':
+        categoryColor = '#D61F50';
+        break;
+      case 'CAT_Y4G':
+        categoryColor = '#A7C349'
+        break;
+      default:
+        categoryColor = null;
+    }
+    return (
+      <FlatList
+        data={item.list}
+        keyExtractor={(item, i) => String(i)}
+        renderItem={this._renderItem}
+      />
+    );
+  }
+
+
   render() {
 
     const { search } = this.state;
 
     return (
       <View style={styles.container}>
-        <Header 
+        <Header
           title={'Favoritos'}
-          color={'#FACA0A'} 
-          onBack={()=>this.props.navigation.pop()}
+          color={'#FACA0A'}
+          onBack={() => this.props.navigation.pop()}
         />
         <View style={styles.view}>
-            <View style={styles.searchContainer}>
-              <View style={styles.searchBarContainer}>
-                <SearchBar
-                  lightTheme
-                  placeholder="Buscar"
-                  onChangeText={this.handleSearch}
-                  value={search}
-                  searchIcon={false}
-                  onSubmitEditing={() => this._search()}
-                  inputContainerStyle={styles.searchbar}
-                  inputStyle={styles.searchbarText}
-                  containerStyle={styles.containerStyle}
+          <View style={styles.searchContainer}>
+            <View style={styles.searchBarContainer}>
+              <SearchBar
+                lightTheme
+                placeholder="Buscar"
+                onChangeText={this.handleSearch}
+                value={search}
+                searchIcon={false}
+                onSubmitEditing={() => this._search()}
+                inputContainerStyle={styles.searchbar}
+                inputStyle={styles.searchbarText}
+                containerStyle={styles.containerStyle}
 
+              />
+              <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
+                <Image
+                  source={Images.search}
+                  fadeDuration={0}
+                  style={styles.searchFilterImage}
                 />
-                <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
-                  <Image
-                    source={Images.search}
-                    fadeDuration={0}
-                    style={styles.searchFilterImage}
-                  />
-                </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
+        </View>
         <View style={styles.view}>
 
-          {
+          {/* {
             FAVORITOS.map((item, key) =>
               <View key={key}>
                 <MISComentariosItem item={item}/>
@@ -77,7 +160,13 @@ export default class _Favoritos extends Component {
                 />
               </View>
             )
-          }
+          } */}
+
+          <AccordionList
+            list={FAVORITOS2}
+            header={this._head}
+            body={this._body}
+          />
 
         </View>
       </View>

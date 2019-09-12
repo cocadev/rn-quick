@@ -113,29 +113,31 @@ export const Comentarios = props => {
 }
 
 export const FavoritosItem = props => {
+  console.log(' **** item *****', props)
   return (
     <TouchableOpacity
       style={{ flexDirection: 'row'}}
       onPress={props.onClick}
     >
       <View style={[styles.misContainer, { height: p(60), marginHorizontal: p(12), flex: 1 }]}>
-        <Image style={styles.img3} source={{ uri: props.item.img }} />
+        <Image style={styles.img3} source={{ uri: props.item.logo }} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
           <View style={{ justifyContent: 'space-between', height: p(50) }}>
             <View>
-              <Text style={styles.h1}>{props.item.name}</Text>
-              <Text style={styles.h2}>{props.item.address}</Text>
+              <Text style={styles.h1}>{props.item.nombreNegocio}</Text>
+              <Text style={styles.h2}>{props.item.direccion}</Text>
             </View>
             <View style={{ width: p(60), flexDirection: 'row', alignItems: 'center' }}>
               <StarRating
                 disabled={true}
                 maxStars={5}
-                rating={parseFloat(5)}
+                rating={parseFloat(props.item.rating)}
                 fullStarColor={'gold'}
                 starSize={p(11)}
                 starStyle={styles.start}
               />
             </View>
+            <Text>Hello</Text>
           </View>
 
         </View>
@@ -156,12 +158,12 @@ export const MISComentariosItem = props => {
   full = props.item.full;
   return (
     <TouchableOpacity
-      style={[styles.misContainer, full && { backgroundColor: props.item.color }, { height: p(60), marginHorizontal: p(4), borderColor: props.item.color, }]}
+      style={[styles.misContainer, { backgroundColor: props.color }, { height: p(60), marginHorizontal: p(4), borderColor: props.color, }]}
       onPress={props.onClick}
     >
-      <Image style={styles.img} source={{ uri: props.item.img }} />
+      <Image style={styles.img} source={{ uri: props.item.imagen }} />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
-        <Text style={[styles.h4, full && { color: '#fff' }]}>{props.item.title}</Text>
+        <Text style={[styles.h4, full && { color: '#fff' }]}>{props.item.nameCategory}</Text>
       </View>
 
     </TouchableOpacity>

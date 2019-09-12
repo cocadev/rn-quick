@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react-native';
 import Images from '../constants/Images';
 import { p } from './normalize';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 
 export const Header = props => {
@@ -9,7 +10,7 @@ export const Header = props => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', paddingHorizontal: p(15) }}>
-        <View style={{ flexDirection: 'row', flex: 1 }}>
+        <View style={{ flexDirection: 'row', flex: 1, paddingTop: 24, }}>
           <TouchableOpacity style={styles.leftHeader} onPress={props.onBack}>
             <Image
               source={Images.left}
@@ -32,7 +33,8 @@ export const Header = props => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingTop: 24
+    
+    height: hp('20%'),
   },
   imageBack: {
     resizeMode: "contain",
@@ -44,12 +46,16 @@ const styles = StyleSheet.create({
     marginLeft: p(5)
   },
   text: {
-    fontSize: p(30),
     fontFamily: 'CaviarDreams',
-    marginLeft: p(16)
+    fontSize: Platform.OS === 'ios' ? hp('4%') : hp('7%'),
+    paddingLeft: 15
   },
   footer: {
-    height: p(22),
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    borderBottomWidth: hp('5%'),
+    borderBottomColor: '#000',
+    elevation: 0,
+    shadowOpacity: 0,
+    height: hp('5%'),
   }
 });

@@ -288,3 +288,45 @@ export const CATEGORIES_HORARIOS=[
     '10 : 00 PM',
     '11 : 00 PM',
 ]
+
+export const FAVORITOS2 = [{
+    "idCategory": "CAT_G4S",
+    "nameCategory": "Deportes",
+    "imagen": "https://admin.quickb.mx/AppDelivery/Imagenes/CAT_G4S/M5K04Z5B87.png",
+    "list": [{
+        "idCategory": "CAT_G4S",
+        "idNegocio": "4631894",
+        "nombreNegocio": "SANTINO RESTAURANTE BAR",
+        "distancia": "6.58",
+        "direccion": "AVENIDA UNIVERSIDAD 201B INT LOMAS DEL PTROCINIO",
+        "telefonos": "4924913300",
+        "logo": "http://3.bp.blogspot.com/-Or24w3s6KXE/UmMkLjxV5hI/AAAAAAABHo8/b2jYEwPDQrI/s1600/wallpaper-28484.jpg",
+        "rating": 0,
+        "reviews": 0
+    },{
+        "idCategory": "CAT_G4S",
+        "idNegocio": "4435334",
+        "nombreNegocio": "FELIPE RESTAURANTE BAR",
+        "distancia": "6.58",
+        "direccion": "AVENIDA UNIVERSIDAD 201B INT LOMAS DEL PTROCINIO",
+        "telefonos": "4924913300",
+        "logo": "http://3.bp.blogspot.com/-Or24w3s6KXE/UmMkLjxV5hI/AAAAAAABHo8/b2jYEwPDQrI/s1600/wallpaper-28484.jpg",
+        "rating": 0,
+        "reviews": 0
+    }]
+  },{
+    "idCategory": "CAT_EBT",
+    "nameCategory": "Restaurantes",
+    "imagen": "https://admin.quickb.mx/AppDelivery/Imagenes/CAT_W9O/H38KGMBE48.png",
+    "list": [{
+        "idCategory": "CAT_EBT",
+        "idNegocio": "4631894",
+        "nombreNegocio": "SANTINO RESTAURANTE BAR",
+        "distancia": "6.58",
+        "direccion": "AVENIDA UNIVERSIDAD 201B INT LOMAS DEL PTROCINIO",
+        "telefonos": "4924913300",
+        "logo": "http://3.bp.blogspot.com/-Or24w3s6KXE/UmMkLjxV5hI/AAAAAAABHo8/b2jYEwPDQrI/s1600/wallpaper-28484.jpg",
+        "rating": 0,
+        "reviews": 0
+    }]
+  }];
