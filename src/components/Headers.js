@@ -33,8 +33,8 @@ export const Header = props => {
 
 const styles = StyleSheet.create({
   container: {
-    
     height: hp('20%'),
+    marginBottom: p(20)
   },
   imageBack: {
     resizeMode: "contain",
