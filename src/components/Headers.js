@@ -10,7 +10,7 @@ export const Header = props => {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: 'row', paddingHorizontal: p(15) }}>
-        <View style={{ flexDirection: 'row', flex: 1, paddingTop: 24, }}>
+        <View style={{ flexDirection: 'row', flex: 1, paddingTop: 12, }}>
           <TouchableOpacity style={styles.leftHeader} onPress={props.onBack}>
             <Image
               source={Images.left}
