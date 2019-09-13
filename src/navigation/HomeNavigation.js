@@ -55,6 +55,11 @@ import _Notificaciones from '../screens/_Notificaciones';
 import _MisComentarios from '../screens/_MisComentarios';
 import _Favoritos from '../screens/_Favoritos';
 import _Contacto from '../screens/_Contacto';
+import _Productos2 from '../screens/_Productos2';
+import _Editor from '../screens/_Editor';
+import _Productos from '../screens/_Productos';
+
+
 
 /**
  * @proyect QuickB
@@ -143,10 +148,17 @@ const ComunityStack = createStackNavigator({
   promotionsBussinesScreen: _Promociones,
   vistapreviaScreen: _Vistaprevia,
 
-  profileBussinesScreen: _EditarPerfil,
+  // profileBussinesScreen: _EditarPerfil,
+  profileBussinesScreen: _Productos2,
+  productScreen: _Productos,
 
   fotodePerfilScreen: _FotoDePerfil,
-  fotoPortadaScreen: _FotoPortada
+  fotoPortadaScreen: _FotoPortada,
+
+  editorScreen: _Editor,
+
+  
+
 });
 
 ComunityStack.navigationOptions = {
@@ -164,7 +176,9 @@ ComunityStack.navigationOptions = {
  * @const  {*} MessageStack
  */
 const MessageStack = createStackNavigator({
-  MessageContainer: MessageContainerScreen,
+  // MessageContainer: MessageContainerScreen,
+  MessageContainer: _Mensajes,
+
   MessageSc: MessageScreen
 });
 
@@ -183,7 +197,7 @@ MessageStack.navigationOptions = {
  * @const  {*} NotificationStack
  */
 const NotificationStack = createStackNavigator({
-  Notification: NotificationScreen
+  Notification: _Notificaciones
 });
 
 NotificationStack.navigationOptions = {

@@ -148,7 +148,7 @@ export default class _Registrar4 extends Component {
           <FontAwesome name={check == 1 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => this.setState({ check: 2 })} style={styles.board}>
+        {/* <TouchableOpacity onPress={() => this.setState({ check: 2 })} style={styles.board}>
           <Text style={styles.h2}>Debito</Text>
           <FontAwesome name={check == 2 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
@@ -164,15 +164,15 @@ export default class _Registrar4 extends Component {
               <FontAwesome name={innerCheck == 2 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 0.4 }} />
             </TouchableOpacity>
           </View>
-        }
+        } */}
 
         <TouchableOpacity onPress={() => this.setState({ check: 3 })} style={styles.board}>
-          <Text style={styles.h2}>Crédito</Text>
+          <Text style={styles.h2}>OpenPay</Text>
           <FontAwesome name={check == 3 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.setState({ check: 4 })} style={styles.board}>
-          <Text style={styles.h2}>Oxxo</Text>
+          <Text style={styles.h2}>MercadoPago</Text>
           <FontAwesome name={check == 4 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
 

@@ -44,7 +44,7 @@ export default class _Editor extends Component {
       return (
         <View style={styles.container}>
           <Header
-            title={'Editar Perfil'}
+            title={'Productos'}
             right={(
               <View style={styles.rightHeader}>
                   <Image source={Images.ok} style={styles.headerImg} />
@@ -92,9 +92,12 @@ export default class _Editor extends Component {
             </View>
 
             <View style={styles.circleView}>
-              <View style={styles.circle}>
+              <TouchableOpacity 
+                style={styles.circle}
+                onPress={()=>this.props.navigation.navigate('productScreen')}
+              >
                 <MaterialCommunityIcons name={'plus'} size={p(30)} color={'#111'} />
-              </View>
+              </TouchableOpacity>
             </View>
 
           </View>

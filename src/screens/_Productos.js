@@ -40,6 +40,8 @@ export default class _Productos extends Component {
           />
           <View style={styles.view}>
 
+            <Text style={styles.textHeader}>{'Añade tus productos y la cantidad disponible'}</Text>
+
             <View style={styles.viewContainer}>
               <Text style={styles.text}>Nombre del producto</Text>
               <TextInput
@@ -112,10 +114,6 @@ export default class _Productos extends Component {
                   style={styles.searchFilterImage}
                 />
               </TouchableOpacity>
-            </View>
-
-            <View style={styles.bottomView}>
-              <Text style={[styles.text, { textAlign: 'center' }]}>{'Añade tu inventario para que la gente ubique\ntus productos y la cantidad disponible'}</Text>
             </View>
 
           </View>
@@ -215,4 +213,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 20
   },
+  textHeader: {
+    fontFamily: 'GeosansLight',
+    fontSize: p(22),
+    marginTop: p(-8),
+    marginBottom: p(8),
+    alignSelf: 'center',
+    textAlign: 'center'
+  }
 })

@@ -126,7 +126,7 @@ export default class SideMenu extends Component {
         <View style={styles.bottomContainer}>
             <TouchableOpacity onPress={() => this._signOutAsync()}>
               <Text style={styles.text} type="CaviarDreams">
-                Contacto / Legal
+                 Cerrar sesión
               </Text>
             </TouchableOpacity>
         </View>

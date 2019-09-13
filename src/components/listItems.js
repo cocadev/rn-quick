@@ -39,6 +39,28 @@ export const Likes = props => {
   )
 }
 
+export const ProductosItem = props => {
+  count = props.count % 2;
+  return (
+    <TouchableOpacity
+      style={[styles.likesContainer,
+      (count == 1 && { borderColor: '#00AEEF' })
+      ]}
+      onPress={props.onClick}
+    >
+      <Image style={styles.img} source={{ uri: props.item.img }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
+        <View style={{ justifyContent: 'space-between' }}>
+          <View>
+            <Text style={styles.h1}>{props.item.name}</Text>
+            <Text style={styles.h2}>{props.item.service}</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
 export const Mis = props => {
   return (
     <View
