@@ -66,14 +66,21 @@ export default class _Resultados extends Component {
 
             }}>
             {mylist.includes(index) ?
-              <Image
-                source={Images.paquetesCheck}
-                style={{ width: p(25), height: p(25), marginLeft: p(12) }}
-              /> :
-              <Image
-                source={Images.paquetesUnCheck}
-                style={{ width: p(25), height: p(25), marginLeft: p(12) }}
-              />
+              <View style={styles.circle}>
+                <MaterialCommunityIcons
+                  name={'minus'}
+                  size={p(30)}
+                  color={'#111'}
+                />
+              </View>
+              :
+              <View style={styles.circle}>
+                <MaterialCommunityIcons
+                  name={'plus'}
+                  size={p(30)}
+                  color={'#111'}
+                />
+              </View>
             }
           </TouchableOpacity>
           {/* <View style={styles.circle}>
@@ -127,10 +134,10 @@ export default class _Resultados extends Component {
     this.fetchData()
   }
 
-  next(){
+  next() {
     const { mylist, dataSource } = this.state
     let myBusiness = []
-    for ( let i = 0; i < mylist.length; i++){
+    for (let i = 0; i < mylist.length; i++) {
       myBusiness.push({
         bussinesName: dataSource[mylist[i]].title,
         bussinesAddress: dataSource[mylist[i]].overview,
@@ -140,7 +147,7 @@ export default class _Resultados extends Component {
       })
     }
     // console.log(' myBusiness = ', myBusiness)
-    this.props.navigation.navigate('registerBussinesScreen7', { myBusiness: myBusiness})
+    this.props.navigation.navigate('registerBussinesScreen7', { myBusiness: myBusiness })
   }
 
   render() {

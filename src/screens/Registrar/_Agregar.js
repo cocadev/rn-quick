@@ -7,6 +7,7 @@ import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
 import * as DATA from '../../config/staticData'
 import ValidationService from '../../config/validation';
+import { ApiClient } from '../../components/Api';
 
 
 export default class _Agregar extends Component {
@@ -31,7 +32,10 @@ export default class _Agregar extends Component {
       subCategoria: '',
       horarios: '',
       time: '',
-      Mycategories: []
+      categoriaId: null,
+      subCategoriaId: null,
+      Mycategories: [],
+      image: null
 
 
     };
@@ -45,7 +49,11 @@ export default class _Agregar extends Component {
       dropDown1,
       horarios,
       time,
-      Mycategories
+      categoria,
+      subCategoria,
+      Mycategories,
+      categoriaId,
+      subCategoriaId
     } = this.state;
 
     return (
@@ -74,17 +82,17 @@ export default class _Agregar extends Component {
             onChangeText={value => this.setState({ nombre: value.trim() })}
           />
 
-          {/* <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
+          <Text style={[styles.text, { marginTop: p(2) }]}>Categoria</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{categoria}</Text>
             </View>
             <SimpleLineIcons
               onPress={
-                () => this.props.navigation.navigate('dropDownScreen', {
+                () => this.props.navigation.navigate('updatedDropDownScreen', {
                   title: 'Categoria',
-                  data: Mycategories,
-                  update: (x) => this.setState({ categoria: x })
+                  api: ApiClient.getCategoriesItems(),
+                  update: (x) => this.setState({ categoria: x.nombre, categoriaId: x.idCategoria, image: x.imagen })
                 })
               }
               name={'arrow-down'}
@@ -92,7 +100,7 @@ export default class _Agregar extends Component {
               color={'#111'}
               style={{ marginLeft: p(6), marginRight: p(30) }}
             />
-          </View> */}
+          </View>
 
           {/* {
               dropDown1 &&
@@ -105,7 +113,7 @@ export default class _Agregar extends Component {
               </View>
             } */}
 
-          {/* <Text style={[styles.text, { marginTop: p(12) }]}>SubCategoria</Text>
+          <Text style={[styles.text, { marginTop: p(12) }]}>SubCategoria</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={styles.dropDown} >
               <Text style={styles.text}>{subCategoria}</Text>
@@ -113,17 +121,22 @@ export default class _Agregar extends Component {
             <SimpleLineIcons
               name={'arrow-down'}
               onPress={
-                () => this.props.navigation.navigate('dropDownScreen', {
-                  title: 'Subcategoria',
-                  data: DATA.CATEGORIES_SUBCATEGORIA,
-                  update: (x) => this.setState({ subCategoria: x })
-                })
+                () => {
+                  if (ValidationService.register_subcat(categoria)) {
+                    return false
+                  }
+                  this.props.navigation.navigate('updatedDropDownScreen', {
+                    title: 'Subcat',
+                    api: ApiClient.getBussinesSubcategoryList({ c: categoriaId }),
+                    update: (x) => this.setState({ subCategoria: 'selected!', subCategoriaId: x.idSubcategoria })
+                  })
+                }
               }
               size={p(19)}
               color={'#111'}
               style={{ marginLeft: p(6), marginRight: p(30) }}
             />
-          </View> */}
+          </View>
 
           <Text style={[styles.text, { marginTop: p(12) }]}>Horarios</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -206,15 +219,15 @@ export default class _Agregar extends Component {
   }
   next() {
     // alert('hey')
-    const { nombre, horarios, time, dirección, telefono } = this.state;
+    const { nombre, horarios, time, dirección, telefono, categoriaId, subCategoriaId, image, categoria } = this.state;
     if (ValidationService.register_agregar(nombre, horarios, time, dirección, telefono)) {
       return false
     }
-
-    this.props.navigation.state.params.update({
-        nombre, horarios, time, dirección, telefono
+    this.props.navigation.navigate('mapScreen', {
+      myData: {
+        nombre, horarios, time, dirección, telefono, categoriaId, subCategoriaId, image, categoria
+      }
     })
-    this.props.navigation.pop()
   }
 }
 

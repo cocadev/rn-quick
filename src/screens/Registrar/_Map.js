@@ -115,11 +115,22 @@ export default class _Map extends Component {
   }
 
   next(){
-    this.props.navigation.state.params.update({
-        latitiude: this.state.initialPosition.latitude,
-        longitude: this.state.initialPosition.longitude
+    // this.props.navigation.state.params.update({
+    //     latitiude: this.state.initialPosition.latitude,
+    //     longitude: this.state.initialPosition.longitude
+    // })
+    // this.props.navigation.pop()
+    myData = this.props.navigation.state.params.myData
+    this.props.navigation.navigate('registerBussinesScreen7', { 
+      myData: myData,
+      myBusiness: [{
+        bussinesName: myData.nombre,
+        bussinesAddress: myData.dirección,
+        categoryName: myData.categoria,
+        image: myData.image,
+        membership: 1
+      }]
     })
-    this.props.navigation.pop()
   }
 
   render() {

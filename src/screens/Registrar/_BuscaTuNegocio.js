@@ -36,7 +36,7 @@ export default class _BuscaTuNegocio extends Component {
     header: null
   });
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       Mycategories: [],
@@ -70,81 +70,83 @@ export default class _BuscaTuNegocio extends Component {
         <AwesomeBar />
 
         <View style={styles.view}>
-          <Text style={styles.h1}>{'Busca tu negocio'}</Text>
+          <Text style={styles.h1}>{'Busca o crea tu negocio'}</Text>
 
-          <View style={styles.line}>
-            
-            <MyBox 
-              title={categoria ? categoria : 'Categoria'}
-              onClick={
-                () => this.props.navigation.navigate('updatedDropDownScreen', {
-                  title: 'Categoria',
-                  api:ApiClient.getCategoriesItems(),
-                  update: (x) => this.setState({ categoria: 'selected!', categoriaId: x.idCategoria })
-                })
-              } 
-            />
-            <MyBox 
-              title={subCategoria ? subCategoria : 'SubCat'} 
-              onClick={
-                () => {
-                  if(ValidationService.register_subcat(categoria)){
-                    return false
-                  }
-                  this.props.navigation.navigate('updatedDropDownScreen', {
+          <MyBox
+            title={categoria ? categoria : '1. Selecciona una categoría'}
+            onClick={
+              () => this.props.navigation.navigate('updatedDropDownScreen', {
+                title: 'Categoria',
+                api: ApiClient.getCategoriesItems(),
+                update: (x) => this.setState({ categoria: x.nombre, categoriaId: x.idCategoria })
+              })
+            }
+          />
+          <MyBox
+            title={subCategoria ? subCategoria : '2. Selecciona una subcategoría'}
+            onClick={
+              () => {
+                if (ValidationService.register_subcat(categoria)) {
+                  return false
+                }
+                this.props.navigation.navigate('updatedDropDownScreen', {
                   title: 'Subcat',
-                  api:ApiClient.getBussinesSubcategoryList({ c: categoriaId}),
+                  api: ApiClient.getBussinesSubcategoryList({ c: categoriaId }),
                   update: (x) => this.setState({ subCategoria: 'selected!', subCategoriaId: x.idSubcategoria })
-                })}
+                })
               }
-            />
-          </View>
+            }
+          />
 
-          <View style={styles.line}>
-            
-            <MyBox 
-              title={agregar ? 'selected!' : 'Agregar'} 
-              add={true} 
-              onClick={() => this.props.navigation.navigate('registerBussinesScreen6', {
-                update: (x) => this.setState({ agregar: x })
-              })} 
-            />
-            <MyBox
-              title={location ? 'selected!' : 'Location'}
-              onClick={() => this.props.navigation.navigate('mapScreen', {
-                update: (x) => this.setState({ location: x })
-              })} 
-            />
-          </View>
+          <MyBox
+            title={agregar ? 'selected!' : '3. Selecciona una ubicación'}
+          // add={true}
+          // onClick={() => this.props.navigation.navigate('registerBussinesScreen6', {
+          //   update: (x) => this.setState({ agregar: x })
+          // })}
+          />
+          {/* <MyBox
+            title={location ? 'selected!' : '4. Busca tu negocio'}
+            onClick={() => this.props.navigation.navigate('mapScreen', {
+              update: (x) => this.setState({ location: x })
+            })}
+          /> */}
 
         </View>
 
         <TouchableOpacity
-          style={styles.btn}
+          style={[styles.btn, { marginBottom: p(12) }]}
           onPress={() => this.next()}
         >
-          <Text style={styles.h1}>{'Buscar'}</Text>
+          <Text style={styles.h1}>{'4. Busca tu negocio'}</Text>
         </TouchableOpacity>
 
-        {/* <View style={styles.bottom}>
-          <Image source={Images.right} style={styles.icon} />
-        </View> */}
+        <TouchableOpacity
+          style={[styles.btn, { marginTop: p(22) }]}
+          onPress={() => this.props.navigation.navigate('registerBussinesScreen6', {
+            update: (x) => this.setState({ agregar: x })
+          })}
+        >
+          <Text style={styles.h1}>{'o crea uno nuevo'}</Text>
+        </TouchableOpacity>
+
+
       </View>
     )
 
   }
 
-  next(){
+  next() {
     const { subCategoriaId, categoriaId, agregar, location } = this.state
 
-    if(ValidationService.register_busca(categoriaId, subCategoriaId, agregar, location)){
-      return false
-    }
+    // if (ValidationService.register_busca(categoriaId, subCategoriaId, agregar, location)) {
+    //   return false
+    // }
     let mydata = { categoriaId, subCategoriaId, agregar, location }
     this.props.navigation.navigate('registerBussinesScreen3', mydata)
     // this.props.navigation.navigate('registerBussinesScreen8')
 
-    
+
   }
 }
 
@@ -155,12 +157,13 @@ const styles = StyleSheet.create({
   view: {
     marginTop: p(20),
     padding: p(35),
-    paddingTop: p(25)
+    paddingTop: p(25),
+    paddingBottom: p(12),
   },
   h1: {
     fontFamily: 'GeosansLight',
     fontSize: p(22),
-    textAlign: 'center',
+    marginLeft: p(6),
     color: '#111'
   },
   icon: {
@@ -186,9 +189,9 @@ const styles = StyleSheet.create({
   box: {
     flexDirection: 'row',
     borderWidth: p(3.4),
-    width: p(140),
     height: p(36),
-    justifyContent: 'center',
+    marginTop: p(8),
+    // justifyContent: 'center',
     alignItems: 'center'
   },
   iconBox: {
