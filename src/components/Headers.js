@@ -19,7 +19,7 @@ export const Header = props => {
             />
           </TouchableOpacity>
           <View style={{ justifyContent: 'center' }}>
-            <Text style={styles.text}>{props.title}</Text>
+            <Text style={ props.title == 'Subcategoria' ? styles.text2 : styles.text}>{props.title}</Text>
           </View>
         </View>
         {props.right}
@@ -50,6 +50,12 @@ const styles = StyleSheet.create({
     fontSize: Platform.OS === 'ios' ? hp('4%') : hp('7%'),
     paddingLeft: 15
   },
+  text2: {
+    fontFamily: 'CaviarDreams',
+    fontSize: Platform.OS === 'ios' ? hp('3%') : hp('6%'),
+    paddingLeft: 15
+  },
+  
   footer: {
     backgroundColor: '#000',
     borderBottomWidth: hp('5%'),

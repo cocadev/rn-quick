@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 // import { RESULTADOS } from '../../config/staticData';
 import Images from '../../constants/Images';
 import _ from 'underscore'
+import { ApiClient } from '../../components/Api';
 
 export default class _Resultados extends Component {
 
@@ -21,7 +22,7 @@ export default class _Resultados extends Component {
     this.state = {
       search: '',
       refreshing: false,
-      dataSource: [],
+      dataSource: null,
       page: 10,
       seed: 1,
       isLoading: true,
@@ -39,11 +40,11 @@ export default class _Resultados extends Component {
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal: p(12) }}>
         <View style={styles.board}>
-          <Image source={{ uri: 'https://image.tmdb.org/t/p/w300/' + item.poster_path }} style={styles.Img} />
+          <Image source={{ uri: 'http://lequytong.com/Content/Images/no-image-02.png' }} style={styles.Img} resizeMode='contain' />
           <View style={{ marginLeft: p(12) }}>
-            <Text style={styles.h1} numberOfLines={1}>{item.original_title}</Text>
-            <Text style={styles.h2} numberOfLines={1}>{item.title}</Text>
-            <Text style={styles.h3} numberOfLines={1}>{item.release_date}</Text>
+            <Text style={styles.h1} numberOfLines={1}>{item.nombre}</Text>
+            <Text style={styles.h2} numberOfLines={1}>{item.domicilio}</Text>
+            <Text style={styles.h3} numberOfLines={1}>{item.nameCategoria}</Text>
           </View>
         </View>
 
@@ -99,26 +100,38 @@ export default class _Resultados extends Component {
     )
   }
   fetchData = () => {
-    const { page, seed } = this.state;
-    // const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=5`;
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=f3e9f7d1677c7aa63c9ab526381eeceb&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&page=${page}`;
+    this.setState({ dataSource: null, isLoading: true })
 
-    this.setState({ loading: true });
-    return fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        this.setState({
-          dataSource: page == 1 ? response.results : [...this.state.dataSource, ...response.results],
-          isLoading: false,
-          refreshing: false,
-        });
+    ApiClient.getBusinessSearch({ ss: this.state.search })
+      .then((res) => {
+        this.setState({ dataSource: res, isLoading: false })
       })
-      .catch((error) => { console.error(error); })
+      .catch((error) => {
+        console.log('________error_______________', error)
+
+        this.setState({ dataSource: null, isLoading: false })
+
+      })
+    // const { page, seed } = this.state;
+    // // const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=5`;
+    // const url = `https://api.themoviedb.org/3/discover/movie?api_key=f3e9f7d1677c7aa63c9ab526381eeceb&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&page=${page}`;
+
+    // this.setState({ loading: true });
+    // return fetch(url)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     this.setState({
+    //       dataSource: page == 1 ? response.results : [...this.state.dataSource, ...response.results],
+    //       isLoading: false,
+    //       refreshing: false,
+    //     });
+    //   })
+    //   .catch((error) => { console.error(error); })
   }
 
   onRefresh = () => {
     this.setState({
-      dataSource: [],
+      dataSource: null,
       isLoading: false,
       refreshing: true,
       seed: 1,
@@ -139,10 +152,10 @@ export default class _Resultados extends Component {
     let myBusiness = []
     for (let i = 0; i < mylist.length; i++) {
       myBusiness.push({
-        bussinesName: dataSource[mylist[i]].title,
-        bussinesAddress: dataSource[mylist[i]].overview,
-        categoryName: dataSource[mylist[i]].original_language,
-        image: 'https://image.tmdb.org/t/p/w300/' + dataSource[mylist[i]].poster_path,
+        bussinesName: dataSource[mylist[i]].nombre,
+        bussinesAddress: dataSource[mylist[i]].domicilio,
+        categoryName: dataSource[mylist[i]].nameCategoria,
+        image: 'http://lequytong.com/Content/Images/no-image-02.png',
         membership: 1
       })
     }
@@ -150,9 +163,18 @@ export default class _Resultados extends Component {
     this.props.navigation.navigate('registerBussinesScreen7', { myBusiness: myBusiness })
   }
 
+  handleSearch = (text) => {
+    if (!text || text === '' || text === null) {
+      this.setState({ search: text });
+      return
+    }
+    this.setState({ search: text });
+  }
+
   render() {
 
     const { search, isLoading, dataSource } = this.state;
+    console.log('  datasource = ', dataSource)
 
     return (
       <View style={styles.container}>
@@ -183,7 +205,7 @@ export default class _Resultados extends Component {
                 containerStyle={styles.containerStyle}
 
               />
-              <TouchableOpacity style={styles.searchButton} onPress={() => this._search()}>
+              <TouchableOpacity style={styles.searchButton} onPress={() => this.fetchData()}>
                 <Image
                   source={Images.search}
                   fadeDuration={0}
@@ -203,20 +225,25 @@ export default class _Resultados extends Component {
               renderItem={(item) => this._renderItem(item, this.props)}
               extraData={this.props}
               /> */}
-          <FlatList
-            style={{ marginTop: 12 }}
-            data={dataSource}
-            keyExtractor={(item, i) => String(i)}
-            numColumns={1}
-            ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
-            onRefresh={this.onRefresh}
-            refreshing={this.state.refreshing}
-            onEndReached={this.loadMore}
-            renderItem={(item) => this._renderItem(item, this.props)}
-            extraData={this.state}
 
-          />
+          {/* { dataSource !== [] && !isLoading && <Text style={[styles.h0, { textAlign: 'center', marginLeft: p(-18) }]}>No Results</Text> } */}
+          {
+            dataSource
+            ? <FlatList
+              style={{ marginTop: 12 }}
+              data={dataSource}
+              keyExtractor={(item, i) => String(i)}
+              numColumns={1}
+              ItemSeparatorComponent={this.renderSeparator}
+              ListHeaderComponent={this.renderHeader}
+              onRefresh={this.onRefresh}
+              refreshing={this.state.refreshing}
+              onEndReached={this.loadMore}
+              renderItem={(item) => this._renderItem(item, this.props)}
+              extraData={this.state}
+            />
+            : <Text style={[styles.h0, { textAlign: 'center', marginLeft: p(-18) }]}>{ !isLoading && 'No Results'}</Text>
+          }
 
         </View>
       </View>
@@ -315,7 +342,8 @@ const styles = StyleSheet.create({
     fontFamily: 'GeosansLight',
     fontSize: p(22),
     marginBottom: p(10),
-    marginLeft: p(18)
+    marginLeft: p(18),
+    color: '#111'
   },
   board: {
     width: p(260),
@@ -331,7 +359,8 @@ const styles = StyleSheet.create({
   },
   Img: {
     width: p(60),
-    height: p(46)
+    height: p(46),
+    resizeMode: 'contain',
   },
   rightHeader: {
     alignItems: 'flex-end',

@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
   h4: {
     fontFamily: 'GeosansLight',
     fontSize: p(15),
+    maxWidth: p(240)
   },
   h5: {
     fontFamily: 'GeosansLight',

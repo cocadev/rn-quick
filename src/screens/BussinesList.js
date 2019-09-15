@@ -141,15 +141,15 @@ export default class BusinessList extends Component {
     this.setState({ search: text });
   }
 
-  _search() { 
-    this.handleRefresh();
-  }
+
 
   _filter() {
     var { idCategoria, nombreCategoria, colorCategoria } = this.state;
     this.state.navigation.navigate('BussinesListFilter', { idCategoria: idCategoria, nombreCategoria: nombreCategoria, colorCategoria, colorCategoria });
   }
-
+  _search() { 
+    this.handleRefresh();
+  }
   handleRefresh = () => {
     clearTimeout(this.timer);
     this.setState({

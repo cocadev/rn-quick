@@ -16,6 +16,7 @@ export const ApiClient = {
     getRegisterResponse,
     getCategoriesItems,
     getBusinessList,
+    getBusinessSearch,
     getBusinessDetail,
     getBussinesSetting,
     getBussinesSubcategoryList,
@@ -37,6 +38,8 @@ const apiRoutes = {
     register: 'Apis/User/Register',
     categoryList: 'Apis/Category/List',
     bussinesList: 'Apis/Business/List',
+    bussinesSearch: 'apis/business/search',
+
     businessDetail: 'apis/business/detail',
     bussinesSetting: 'Apis/Icon/List',
     bussinesSubcategoryList: 'apis/subcategory/list',
@@ -103,6 +106,10 @@ function getCategoriesItems() {
 function getBusinessList(params) {
     return fetch(baseUrl + apiRoutes.bussinesList, getRequestConfig(params)).then(responseHandler);
 }
+function getBusinessSearch(params) {
+    return fetch(baseUrl + apiRoutes.bussinesSearch, getRequestConfig(params)).then(responseHandler);
+}
+
 
 /**
  * @function getBusinessDetail()

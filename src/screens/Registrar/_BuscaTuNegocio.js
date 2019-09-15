@@ -90,7 +90,7 @@ export default class _BuscaTuNegocio extends Component {
                   return false
                 }
                 this.props.navigation.navigate('updatedDropDownScreen', {
-                  title: 'Subcat',
+                  title: 'Subcategoria',
                   api: ApiClient.getBussinesSubcategoryList({ c: categoriaId }),
                   update: (x) => this.setState({ subCategoria: 'selected!', subCategoriaId: x.idSubcategoria })
                 })
