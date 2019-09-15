@@ -58,6 +58,7 @@ import _Contacto from '../screens/_Contacto';
 import _Productos2 from '../screens/_Productos2';
 import _Editor from '../screens/_Editor';
 import _Productos from '../screens/_Productos';
+import _UpdatedDropDown from '../components/_UpdatedDropDown';
 
 
 
@@ -141,6 +142,8 @@ const ComunityStack = createStackNavigator({
   registerBussinesScreen8: _Verificación,
 
   dropDownScreen: _DropDown,
+  updatedDropDownScreen: _UpdatedDropDown,
+
   mapScreen: _Map,
 
   packageBussinesScreen: _Paquetes,

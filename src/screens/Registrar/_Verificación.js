@@ -6,6 +6,7 @@ import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import { NextBtn } from '../../components/Icons'
 import AwesomeBar from '../../components/awesomeBar';
+import ValidationService from '../../config/validation';
 
 export default class _Verificación extends Component {
 
@@ -18,7 +19,7 @@ export default class _Verificación extends Component {
     this.state = {
       nombre:'',
       apellido: '',
-      género: '',
+      género: 1,
       dirección: '',
       estado:'',
       municipio: '',
@@ -85,14 +86,14 @@ export default class _Verificación extends Component {
 
               <View style={styles.board}>
                 <Text style={[styles.text, { marginTop: p(12) }]}>Género</Text>
-                <TouchableOpacity style={styles.check}>
+                <TouchableOpacity onPress={()=>this.setState({ género: 2 })} style={styles.check}>
                   <Text style={[styles.text, { marginTop: p(12) }]}>F</Text>
-                  <FontAwesome name={'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
+                  <FontAwesome name={género == 2 ? 'circle' : 'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.check}>
+                <TouchableOpacity onPress={()=>this.setState({ género: 1 })} style={styles.check}>
                   <Text style={[styles.text, { marginTop: p(12) }]}>M</Text>
-                  <FontAwesome name={'circle'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
+                  <FontAwesome name={género == 1 ? 'circle' : 'circle-o'} size={p(9)} color={'#111'} style={{ marginLeft: p(6) }} />
                 </TouchableOpacity>
               </View>
 
@@ -166,7 +167,14 @@ export default class _Verificación extends Component {
 
           </View>
 
-          <NextBtn onClick={() => navigation.navigate('registerBussinesScreen4')} />
+          <NextBtn 
+            onClick={() => { 
+              if(ValidationService.register_verification(nombre, apellido, género, dirección, estado, municipio, telefónico, email, curp )){
+                return false
+              }
+              navigation.navigate('registerBussinesScreen4', { myMemberships: this.props.navigation.state.params.myMemberships})
+            }}
+          />
 
         </ScrollView>
       </KeyboardAvoidingView>

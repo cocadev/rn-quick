@@ -5,6 +5,7 @@ import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import AwesomeBar from '../../components/awesomeBar';
+import UtilService from '../../config/utils';
 
 export default class _Registrar5 extends Component {
 
@@ -20,6 +21,10 @@ export default class _Registrar5 extends Component {
       caduca: '',
       card: ''
     }
+  }
+
+  componentDidMount() {
+    alert(JSON.stringify(this.props.navigation.state.params.myMemberships))
   }
 
   handleCard = (text) => {
@@ -47,7 +52,10 @@ export default class _Registrar5 extends Component {
   }
 
   Board() {
+
     const { caduca, cvv, card } = this.state
+    const { myMemberships } = this.props.navigation.state.params
+
     return (
       <View style={styles.view}>
 
@@ -56,35 +64,23 @@ export default class _Registrar5 extends Component {
         </View>
 
         <ScrollView>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.boarding}>
-              <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-              <View style={{ marginLeft: p(12) }}>
-                <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
-                <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
-                <Text style={styles.h5}>{"Restaurante"}</Text>
-              </View>
-            </View>
-            <View style={styles.round}>
-              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
-              <Text style={styles.h7}>{"Premium"}</Text>
-            </View>
-          </View>
-
-          <View style={{ flexDirection: 'row' }}>
-            <View style={styles.boarding}>
-              <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-              <View style={{ marginLeft: p(12) }}>
-                <Text style={[styles.h4, { marginLeft: 0 }]}>{"Garufa"}</Text>
-                <Text style={styles.h6}>{"Jardín Juárez, 135, Centro"}</Text>
-                <Text style={styles.h5}>{"Restaurante"}</Text>
-              </View>
-            </View>
-            <View style={styles.round}>
-              <Text style={[styles.h4, { marginLeft: 0 }]}>{"Paquete"}</Text>
-              <Text style={styles.h7}>{"Básico"}</Text>
-            </View>
-          </View>
+          {
+            myMemberships.map((item, index) =>
+              <View style={{ flexDirection: 'row' }} key={index}>
+                <View style={styles.boarding}>
+                  <Image source={{ uri: item.image }} style={styles.Img} />
+                  <View style={{ marginLeft: p(12) }}>
+                    <Text style={[styles.h4, { marginLeft: 0 }]}>{item.bussinesName}</Text>
+                    <Text numberOfLines={1} style={styles.h6}>{item.bussinesAddress}</Text>
+                    <Text style={styles.h5}>{item.categoryName}</Text>
+                  </View>
+                </View>
+                <View style={styles.round}>
+                  <Text numberOfLines={1} style={[styles.h4, { marginLeft: 0 }]}>{item.categoryName}</Text>
+                  <Text style={styles.h7}>{ UtilService.membership(item.membership) }</Text>
+                </View>
+              </View>)
+          }
 
           <View style={styles.board}>
             <Text style={styles.h0}>Método de pago</Text>
@@ -100,19 +96,19 @@ export default class _Registrar5 extends Component {
           <View style={styles.board}>
             <Text style={styles.h0}>Número</Text>
             <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                autoCapitalize="none"
-                keyboardType='numeric'
-                autoCorrect={false}
-                secureTextEntry={true} 
-                style={[styles.input, { flex: 1 }]}
-                ref={(input) => this.cardInput = input}
-                // onChangeText={value => this.setState({ cvv: value.trim() })}
-                onChangeText={this.handleCard}
-                value={card}
+              placeTextColor="rgba(44, 62, 80,0.9)"
+              returnKeyType="next"
+              autoCapitalize="none"
+              keyboardType='numeric'
+              autoCorrect={false}
+              secureTextEntry={true}
+              style={[styles.input, { flex: 1 }]}
+              ref={(input) => this.cardInput = input}
+              // onChangeText={value => this.setState({ cvv: value.trim() })}
+              onChangeText={this.handleCard}
+              value={card}
 
-              />
+            />
           </View>
           <View style={{ flexDirection: 'row' }}>
             <View style={[styles.board, { flex: 1 }]}>
@@ -138,7 +134,7 @@ export default class _Registrar5 extends Component {
                 placeTextColor="rgba(44, 62, 80,0.9)"
                 returnKeyType="next"
                 autoCapitalize="none"
-                secureTextEntry={true} 
+                secureTextEntry={true}
                 autoCorrect={false}
                 style={[styles.input, { flex: 1 }]}
                 ref={(input) => this.cvvInput = input}
@@ -241,6 +237,7 @@ const styles = StyleSheet.create({
   h6: {
     fontFamily: 'GeosansLight',
     fontSize: p(11),
+    maxWidth: p(160)
   },
   h7: {
     fontFamily: 'CaviarDreams',

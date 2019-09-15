@@ -6,7 +6,7 @@ import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import Images from '../../constants/Images';
 import * as DATA from '../../config/staticData'
-import axios from 'axios';
+import ValidationService from '../../config/validation';
 
 
 export default class _Agregar extends Component {
@@ -37,24 +37,13 @@ export default class _Agregar extends Component {
     };
   };
 
-  componentDidMount() {
-    axios.get(`https://admin.quickb.mx/Apis/Category/List`)
-      .then(res => {
-        const Mycategories = res.data;
-        console.log( ' **** data', Mycategories)
-        this.setState({ Mycategories });
-      })
-  }
-
   render() {
-    const { 
-      nombre, 
-      dirección, 
-      telefono, 
-      dropDown1, 
-      categoria, 
-      subCategoria, 
-      horarios, 
+    const {
+      nombre,
+      dirección,
+      telefono,
+      dropDown1,
+      horarios,
       time,
       Mycategories
     } = this.state;
@@ -69,7 +58,7 @@ export default class _Agregar extends Component {
               <MaterialCommunityIcons name={'cart'} size={p(30)} color={'#6D6E71'} />
             </View>
           )}
-          onBack={()=>this.props.navigation.pop()}
+          onBack={() => this.props.navigation.pop()}
         />
         <ScrollView style={styles.view}>
 
@@ -195,7 +184,7 @@ export default class _Agregar extends Component {
             // onSubmitEditing={() => this.telefonoInput.focus()}
             autoCapitalize="none"
             autoCorrect={false}
-            style={[styles.input, { marginBottom: 30}]}
+            style={[styles.input, { marginBottom: 30 }]}
             ref={(input) => this.telefonoInput = input}
             onChangeText={value => this.setState({ telefono: value.trim() })}
           />
@@ -206,14 +195,26 @@ export default class _Agregar extends Component {
 
         </ScrollView>
 
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.bottom}
-          onPress={()=>this.props.navigation.navigate('mapScreen')}
+          onPress={() => this.next()}
         >
           <Image source={Images.right} style={styles.icon} />
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
+  }
+  next() {
+    // alert('hey')
+    const { nombre, horarios, time, dirección, telefono } = this.state;
+    if (ValidationService.register_agregar(nombre, horarios, time, dirección, telefono)) {
+      return false
+    }
+
+    this.props.navigation.state.params.update({
+        nombre, horarios, time, dirección, telefono
+    })
+    this.props.navigation.pop()
   }
 }
 

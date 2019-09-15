@@ -22,10 +22,11 @@ export default class _Resultados extends Component {
       search: '',
       refreshing: false,
       dataSource: [],
-      page: 1,
+      page: 10,
       seed: 1,
       isLoading: true,
       mylist: [],
+      myBusiness: []
     };
   };
 
@@ -51,7 +52,7 @@ export default class _Resultados extends Component {
             onPress={() => {
 
               var array = mylist
-              console.log(array)
+              // console.log(array)
               var myIndex = array.indexOf(index);
 
               if (myIndex > -1) {
@@ -61,7 +62,7 @@ export default class _Resultados extends Component {
                 var array = mylist.concat(index);
                 this.setState({ mylist: array })
               }
-              console.log(' mylistmylistmylist', mylist)
+              // console.log(' mylistmylistmylist', mylist)
 
             }}>
             {mylist.includes(index) ?
@@ -126,9 +127,25 @@ export default class _Resultados extends Component {
     this.fetchData()
   }
 
+  next(){
+    const { mylist, dataSource } = this.state
+    let myBusiness = []
+    for ( let i = 0; i < mylist.length; i++){
+      myBusiness.push({
+        bussinesName: dataSource[mylist[i]].title,
+        bussinesAddress: dataSource[mylist[i]].overview,
+        categoryName: dataSource[mylist[i]].original_language,
+        image: 'https://image.tmdb.org/t/p/w300/' + dataSource[mylist[i]].poster_path,
+        membership: 1
+      })
+    }
+    // console.log(' myBusiness = ', myBusiness)
+    this.props.navigation.navigate('registerBussinesScreen7', { myBusiness: myBusiness})
+  }
+
   render() {
 
-    const { search, isLoading } = this.state;
+    const { search, isLoading, dataSource } = this.state;
 
     return (
       <View style={styles.container}>
@@ -137,7 +154,7 @@ export default class _Resultados extends Component {
           right={(
             <TouchableOpacity
               style={styles.rightHeader}
-              onPress={() => this.props.navigation.navigate('registerBussinesScreen7')}
+              onPress={() => this.next()}
             >
               <Image source={Images.ok} style={styles.headerImg} />
             </TouchableOpacity>
@@ -181,7 +198,7 @@ export default class _Resultados extends Component {
               /> */}
           <FlatList
             style={{ marginTop: 12 }}
-            data={this.state.dataSource}
+            data={dataSource}
             keyExtractor={(item, i) => String(i)}
             numColumns={1}
             ItemSeparatorComponent={this.renderSeparator}

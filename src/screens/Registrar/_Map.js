@@ -21,7 +21,7 @@ export default class _Map extends Component {
     this.state = {
       search: '',
       location: '',
-      initialPosition: MAPREGION
+      initialPosition: MAPREGION,
     };
   };
 
@@ -114,7 +114,16 @@ export default class _Map extends Component {
     });
   }
 
+  next(){
+    this.props.navigation.state.params.update({
+        latitiude: this.state.initialPosition.latitude,
+        longitude: this.state.initialPosition.longitude
+    })
+    this.props.navigation.pop()
+  }
+
   render() {
+
     const { search, location, initialPosition } = this.state;
 
     return (
@@ -124,7 +133,7 @@ export default class _Map extends Component {
           right={(
             <TouchableOpacity
               style={styles.rightHeader}
-              onPress={() => this.props.navigation.navigate('registerBussinesScreen7')}
+              onPress={() => this.next()}
             >
               <Image source={Images.ok} style={styles.headerImg} />
             </TouchableOpacity>

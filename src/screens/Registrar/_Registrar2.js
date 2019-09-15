@@ -1,12 +1,12 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { Header } from '../../components/Headers'
+import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { Header } from '../../components/Headers';
 import { p } from '../../components/normalize';
-import { PAQUETES } from '../../config/staticData'
+import { PAQUETES } from '../../config/staticData';
+import { NextBtn } from '../../components/Icons';
 import Images from '../../constants/Images';
 import AwesomeBar from '../../components/awesomeBar';
-import { NextBtn } from '../../components/Icons'
 
 export default class _Registrar2 extends Component {
 
@@ -14,141 +14,121 @@ export default class _Registrar2 extends Component {
     header: null
   });
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       check: 2,
-      _check: 2
+      _check: 2,
+      myMemberships: props.navigation.state.params.myBusiness,
     }
+  }
+
+  componentDidMount() {
+    alert(JSON.stringify(this.state.myMemberships))
+  }
+
+  _renderItem({ item, index }, state) {
+    let that = this
+    return (
+
+      <View key={index}>
+        <View style={styles.boarding}>
+          <Image source={{ uri: item.image }} style={styles.Img} />
+          <View style={{ marginLeft: p(12) }}>
+            <Text style={styles.h4} numberOfLines={1}>{item.bussinesName}</Text>
+            <Text style={styles.h2} numberOfLines={1}>{item.bussinesAddress}</Text>
+            <Text style={styles.h5} numberOfLines={1}>{item.categoryName}</Text>
+          </View>
+        </View>
+
+        <Text style={[styles.h1, { margin: p(12) }]}>{item.bussinesName}</Text>
+
+        <View style={styles.view}>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: p(12) }}>
+            <TouchableOpacity 
+              onPress={()=> {
+                var newArray = state.myMemberships;
+                newArray[index].membership = 3
+                that.setState({   
+                  myMemberships: newArray
+                })
+              }} 
+              style={styles.circle}>
+              { item.membership == 3 && <Image source={Images.ok} style={styles.checkImg} />}
+            </TouchableOpacity >
+            <TouchableOpacity onPress={()=> {
+                var newArray = state.myMemberships;
+                newArray[index].membership = 2
+                that.setState({   
+                  myMemberships: newArray
+                })
+              }} style={styles.circle}>
+            { item.membership == 2 && <Image source={Images.ok} style={styles.checkImg} />}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={()=> {
+                var newArray = state.myMemberships;
+                newArray[index].membership = 1
+                that.setState({   
+                  myMemberships: newArray
+                })
+              }} style={styles.circle}>
+            { item.membership == 1 && <Image source={Images.ok} style={styles.checkImg} />}
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.viewing}>
+            <View style={styles.board}>
+              {
+                PAQUETES.map((item, key) => (
+                  <View key={key} style={[styles.item, { borderColor: item.color }]}>
+                    <Text style={[styles.h1, { color: item.color }]}>{item.name}</Text>
+
+                    <View style={{ marginTop: p(12), flex: 1 }}>
+                      {item.content.map((x, key) => (
+                        <Text key={key} style={styles.h2}>-{x}</Text>
+                      ))}
+                    </View>
+
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                      <Text style={[styles.h3, { color: item.color }]}>{item.price}</Text>
+                      <Text style={[styles.h3, { color: item.color }]}>{item.note}</Text>
+                    </View>
+                  </View>
+                ))
+              }
+            </View>
+          </View>
+        </View>
+      </View>
+    )
   }
 
   render() {
 
-    const { check, _check } = this.state
+    const { myMemberships } = this.state
     const { navigation } = this.props
 
     return (
       <View style={styles.container}>
-        <Header 
-          title={'Registrar'} 
-          onBack={()=>navigation.pop()}
+        <Header
+          title={'Registrar'}
+          onBack={() => navigation.pop()}
         />
-
         <ScrollView>
 
           <AwesomeBar check={1} />
 
           <Text style={[styles.h1, { textAlign: 'left', marginVertical: p(20), marginLeft: p(20) }]}>Mis Negocios</Text>
 
-          <View style={styles.boarding}>
-            <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-            <View style={{ marginLeft: p(12) }}>
-              <Text style={styles.h4}>{"Garufa"}</Text>
-              <Text style={styles.h2}>{"Jardín Juárez, 135, Centro"}</Text>
-              <Text style={styles.h5}>{"Restaurante"}</Text>
-            </View>
-          </View>
+          <FlatList
+            data={myMemberships}
+            keyExtractor={(item, i) => String(i)}
+            renderItem={(item)=>this._renderItem(item, this.state)}
+            extraData={this.state}
+          />
 
-          <Text style={[styles.h1, { margin: p(12) }]}>Paquete</Text>
-
-          <View style={styles.view}>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: p(12) }}>
-              <TouchableOpacity onPress={() => this.setState({ check: 0 })} style={styles.circle}>
-                {check == 0 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.setState({ check: 1 })} style={styles.circle}>
-                {check == 1 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.setState({ check: 2 })} style={styles.circle}>
-                {check == 2 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-            </View>
-
-
-            <View style={styles.viewing}>
-
-              <View style={styles.board}>
-
-                {
-                  PAQUETES.map((item, key) => (
-                    <View key={key} style={[styles.item, { borderColor: item.color }]}>
-                      <Text style={[styles.h1, { color: item.color }]}>{item.name}</Text>
-
-                      <View style={{ marginTop: p(12), flex: 1 }}>
-                        {item.content.map((x, key) => (
-                          <Text key={key} style={styles.h2}>-{x}</Text>
-                        ))}
-                      </View>
-
-                      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                        <Text style={[styles.h3, { color: item.color }]}>{item.price}</Text>
-                        <Text style={[styles.h3, { color: item.color }]}>{item.note}</Text>
-                      </View>
-                    </View>
-                  ))
-                }
-
-              </View>
-            </View>
-
-          </View>
-
-          <View style={styles.boarding}>
-            <Image source={{ uri: 'https://dailyresearchchronicle.com/wp-content/uploads/2019/08/Beer.jpg' }} style={styles.Img} />
-            <View style={{ marginLeft: p(12) }}>
-              <Text style={styles.h4}>{"Garufa"}</Text>
-              <Text style={styles.h2}>{"Jardín Juárez, 135, Centro"}</Text>
-              <Text style={styles.h5}>{"Restaurante"}</Text>
-            </View>
-          </View>
-
-          <Text style={[styles.h1, { margin: p(12) }]}>Paquete</Text>
-
-          <View style={styles.view}>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: p(12) }}>
-              <TouchableOpacity onPress={() => this.setState({ _check: 0 })} style={styles.circle}>
-                {_check == 0 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.setState({ _check: 1 })} style={styles.circle}>
-                {_check == 1 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.setState({ _check: 2 })} style={styles.circle}>
-                {_check == 2 && <Image source={Images.ok} style={styles.checkImg} />}
-              </TouchableOpacity>
-            </View>
-
-
-            <View style={styles.viewing}>
-
-              <View style={styles.board}>
-
-                {
-                  PAQUETES.map((item, key) => (
-                    <View key={key} style={[styles.item, { borderColor: item.color }]}>
-                      <Text style={[styles.h1, { color: item.color }]}>{item.name}</Text>
-
-                      <View style={{ marginTop: p(12), flex: 1 }}>
-                        {item.content.map((x, key) => (
-                          <Text key={key} style={styles.h2}>-{x}</Text>
-                        ))}
-                      </View>
-
-                      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                        <Text style={[styles.h3, { color: item.color }]}>{item.price}</Text>
-                        <Text style={[styles.h3, { color: item.color }]}>{item.note}</Text>
-                      </View>
-                    </View>
-                  ))
-                }
-
-              </View>
-            </View>
-
-          </View>
-
-          <NextBtn onClick={()=>navigation.navigate('registerBussinesScreen8')}/>
+          <NextBtn onClick={() => navigation.navigate('registerBussinesScreen8', { myMemberships: myMemberships})} />
 
         </ScrollView>
       </View>
@@ -174,6 +154,7 @@ const styles = StyleSheet.create({
   h2: {
     fontFamily: 'GeosansLight',
     fontSize: p(10),
+    maxWidth: p(230)
   },
   h3: {
     fontFamily: 'Caviar_Dreams_Bold',

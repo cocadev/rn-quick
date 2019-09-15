@@ -1,13 +1,12 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Header } from '../../components/Headers'
 import { p } from '../../components/normalize';
-import Images from '../../constants/Images';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import AwesomeBar from '../../components/awesomeBar';
-import * as DATA from '../../config/staticData'
-import axios from 'axios';
+import ValidationService from '../../config/validation';
+import { ApiClient } from '../../components/Api';
 
 const MyBox = (props) => {
   const add = props.add
@@ -37,29 +36,24 @@ export default class _BuscaTuNegocio extends Component {
     header: null
   });
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       Mycategories: [],
-      subCategoria: 'Subcat',
-      categoria: 'Categoria',
-      isLoading: false
-    }
-  }
+      subCategoria: null,
+      categoria: null,
+      agregar: null,
+      location: null,
 
-  componentDidMount() {
-    this.setState({ isLoading: true})
-    axios.get(`https://admin.quickb.mx/Apis/Category/List`)
-      .then(res => {
-        const Mycategories = res.data;
-        console.log( ' **** data', Mycategories)
-        this.setState({ Mycategories, isLoading: false });
-      })
+      categoriaId: null,
+      subCategoriaId: null,
+
+    }
   }
 
   render() {
 
-    const { subCategoria, categoria, Mycategories, isLoading } = this.state
+    const { subCategoria, categoria, categoriaId, agregar, subCategoriaId, location } = this.state
 
     return (
       <View style={styles.container}>
@@ -73,45 +67,53 @@ export default class _BuscaTuNegocio extends Component {
           onBack={() => this.props.navigation.pop()}
         />
 
-        { isLoading && <ActivityIndicator />}
-
         <AwesomeBar />
 
         <View style={styles.view}>
           <Text style={styles.h1}>{'Busca tu negocio'}</Text>
 
           <View style={styles.line}>
-            <MyBox
-              title={'Buscar'}
-              
-            />
+            
             <MyBox 
-              title={categoria}
+              title={categoria ? categoria : 'Categoria'}
               onClick={
-                () => this.props.navigation.navigate('dropDownScreen', {
+                () => this.props.navigation.navigate('updatedDropDownScreen', {
                   title: 'Categoria',
-                  data: Mycategories,
-                  update: (x) => this.setState({ categoria: x })
+                  api:ApiClient.getCategoriesItems(),
+                  update: (x) => this.setState({ categoria: 'selected!', categoriaId: x.idCategoria })
                 })
               } 
+            />
+            <MyBox 
+              title={subCategoria ? subCategoria : 'SubCat'} 
+              onClick={
+                () => {
+                  if(ValidationService.register_subcat(categoria)){
+                    return false
+                  }
+                  this.props.navigation.navigate('updatedDropDownScreen', {
+                  title: 'Subcat',
+                  api:ApiClient.getBussinesSubcategoryList({ c: categoriaId}),
+                  update: (x) => this.setState({ subCategoria: 'selected!', subCategoriaId: x.idSubcategoria })
+                })}
+              }
             />
           </View>
 
           <View style={styles.line}>
+            
             <MyBox 
-              title={subCategoria} 
-              onClick={
-                () => this.props.navigation.navigate('dropDownScreen', {
-                  title: 'Subcategoria',
-                  data: DATA.CATEGORIES_SUBCATEGORIA,
-                  update: (x) => this.setState({ subCategoria: x })
-                })
-              }
-            />
-            <MyBox 
-              title={'Agregar'} 
+              title={agregar ? 'selected!' : 'Agregar'} 
               add={true} 
-              onClick={() => this.props.navigation.navigate('registerBussinesScreen6')} 
+              onClick={() => this.props.navigation.navigate('registerBussinesScreen6', {
+                update: (x) => this.setState({ agregar: x })
+              })} 
+            />
+            <MyBox
+              title={location ? 'selected!' : 'Location'}
+              onClick={() => this.props.navigation.navigate('mapScreen', {
+                update: (x) => this.setState({ location: x })
+              })} 
             />
           </View>
 
@@ -119,17 +121,30 @@ export default class _BuscaTuNegocio extends Component {
 
         <TouchableOpacity
           style={styles.btn}
-          onPress={() => this.props.navigation.navigate('registerBussinesScreen3')}
+          onPress={() => this.next()}
         >
           <Text style={styles.h1}>{'Buscar'}</Text>
         </TouchableOpacity>
 
-        <View style={styles.bottom}>
+        {/* <View style={styles.bottom}>
           <Image source={Images.right} style={styles.icon} />
-        </View>
+        </View> */}
       </View>
     )
 
+  }
+
+  next(){
+    const { subCategoriaId, categoriaId, agregar, location } = this.state
+
+    if(ValidationService.register_busca(categoriaId, subCategoriaId, agregar, location)){
+      return false
+    }
+    let mydata = { categoriaId, subCategoriaId, agregar, location }
+    this.props.navigation.navigate('registerBussinesScreen3', mydata)
+    // this.props.navigation.navigate('registerBussinesScreen8')
+
+    
   }
 }
 

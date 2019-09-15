@@ -5,7 +5,7 @@ import { Header } from '../../components/Headers'
 import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { p } from '../../components/normalize';
 import { NextBtn, PrevBtn } from '../../components/Icons'
-import Images from '../../constants/Images';
+import ValidationService from '../../config/validation';
 import AwesomeBar from '../../components/awesomeBar';
 
 export default class _Registrar4 extends Component {
@@ -101,37 +101,37 @@ export default class _Registrar4 extends Component {
           <View style={[styles.boardy, { flex: 1 }]}>
             <Text style={styles.h0}>Caduca</Text>
             <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                autoCapitalize="none"
-                placeholder={'10/21'}
-                keyboardType='numeric'
-                autoCorrect={false}
-                style={[styles.input, { flex: 1 }]}
-                ref={(input) => this.caducaInput = input}
-                // onChangeText={value => this.setState({ cvv: value.trim() })}
-                onChangeText={this.handleCaduca}
-                value={caduca}
+              placeTextColor="rgba(44, 62, 80,0.9)"
+              returnKeyType="next"
+              autoCapitalize="none"
+              placeholder={'10/21'}
+              keyboardType='numeric'
+              autoCorrect={false}
+              style={[styles.input, { flex: 1 }]}
+              ref={(input) => this.caducaInput = input}
+              // onChangeText={value => this.setState({ cvv: value.trim() })}
+              onChangeText={this.handleCaduca}
+              value={caduca}
 
-              />
+            />
           </View>
           <View style={[styles.boardy, { flex: 1 }]}>
             <Text style={styles.h0}>CVV</Text>
             <TextInput
-                placeTextColor="rgba(44, 62, 80,0.9)"
-                returnKeyType="next"
-                autoCapitalize="none"
-                keyboardType='numeric'
-                secureTextEntry={true}
-                autoCorrect={false}
-                style={[styles.input, { flex: 1 }]}
-                ref={(input) => this.cvvInput = input}
-                maxLength={3}
-                onChangeText={value => { 
-                  this.setState({ cvv: value.trim() })
-                }}
-                value={cvv}
-              />
+              placeTextColor="rgba(44, 62, 80,0.9)"
+              returnKeyType="next"
+              autoCapitalize="none"
+              keyboardType='numeric'
+              secureTextEntry={true}
+              autoCorrect={false}
+              style={[styles.input, { flex: 1 }]}
+              ref={(input) => this.cvvInput = input}
+              maxLength={3}
+              onChangeText={value => {
+                this.setState({ cvv: value.trim() })
+              }}
+              value={cvv}
+            />
           </View>
         </View>
       </View>
@@ -166,14 +166,14 @@ export default class _Registrar4 extends Component {
           </View>
         } */}
 
-        <TouchableOpacity onPress={() => this.setState({ check: 3 })} style={styles.board}>
+        <TouchableOpacity onPress={() => this.setState({ check: 2 })} style={styles.board}>
           <Text style={styles.h2}>OpenPay</Text>
-          <FontAwesome name={check == 3 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
+          <FontAwesome name={check == 2 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => this.setState({ check: 4 })} style={styles.board}>
+        <TouchableOpacity onPress={() => this.setState({ check: 3 })} style={styles.board}>
           <Text style={styles.h2}>MercadoPago</Text>
-          <FontAwesome name={check == 4 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
+          <FontAwesome name={check == 3 ? 'circle' : 'circle-o'} size={p(15)} color={'#676767'} style={{ flex: 1 }} />
         </TouchableOpacity>
 
         <Text style={styles.h1}>Total a pagar $ 500.00 </Text>
@@ -184,7 +184,7 @@ export default class _Registrar4 extends Component {
 
   render() {
 
-    const { innerCheck } = this.state
+    const { innerCheck, check } = this.state
     const { navigation } = this.props
 
     return (
@@ -211,7 +211,15 @@ export default class _Registrar4 extends Component {
               {innerCheck !== 0 && <PrevBtn onClick={() => this.setState({ innerCheck: 0 })} />}
             </View>
 
-            <NextBtn onClick={() => navigation.navigate('registerBussinesScreen5')} />
+            <NextBtn
+              onClick={() => {
+                if(ValidationService.register_payment(check)){
+                  return false
+                }
+                navigation.navigate('registerBussinesScreen5', { myMemberships: this.props.navigation.state.params.myMemberships})
+              }
+              }
+            />
           </View>
 
         </ScrollView>
