@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { Header } from '../../components/Headers'
 import { p } from '../../components/normalize';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
@@ -44,7 +44,7 @@ export default class _BuscaTuNegocio extends Component {
       categoria: null,
       agregar: null,
       location: null,
-
+      nombre: '',
       categoriaId: null,
       subCategoriaId: null,
 
@@ -70,10 +70,21 @@ export default class _BuscaTuNegocio extends Component {
         <AwesomeBar />
 
         <View style={styles.view}>
-          <Text style={styles.h1}>{'Busca o crea tu negocio'}</Text>
+          <Text style={[styles.h1, { textAlign: 'center', marginBottom: p(12) }]}>{'Busca o crea tu negocio'}</Text>
+
+          <TextInput
+            placeTextColor="rgba(44, 62, 80,0.9)"
+            placeholder="1. Ingresa nombre del negocio"
+            returnKeyType="next"
+            autoCapitalize="none"
+            autoCorrect={false}
+            style={styles.input}
+            ref={(input) => this.nombreInput = input}
+            onChangeText={value => this.setState({ nombre: value.trim() })}
+          />
 
           <MyBox
-            title={categoria ? categoria : '1. Selecciona una categoría'}
+            title={categoria ? categoria : '2. Selecciona una categoría'}
             onClick={
               () => this.props.navigation.navigate('updatedDropDownScreen', {
                 title: 'Categoria',
@@ -83,7 +94,7 @@ export default class _BuscaTuNegocio extends Component {
             }
           />
           <MyBox
-            title={subCategoria ? subCategoria : '2. Selecciona una subcategoría'}
+            title={subCategoria ? subCategoria : '3. Selecciona una subcategoría'}
             onClick={
               () => {
                 if (ValidationService.register_subcat(categoria)) {
@@ -98,20 +109,6 @@ export default class _BuscaTuNegocio extends Component {
             }
           />
 
-          <MyBox
-            title={agregar ? 'selected!' : '3. Selecciona una ubicación'}
-          // add={true}
-          // onClick={() => this.props.navigation.navigate('registerBussinesScreen6', {
-          //   update: (x) => this.setState({ agregar: x })
-          // })}
-          />
-          {/* <MyBox
-            title={location ? 'selected!' : '4. Busca tu negocio'}
-            onClick={() => this.props.navigation.navigate('mapScreen', {
-              update: (x) => this.setState({ location: x })
-            })}
-          /> */}
-
         </View>
 
         <TouchableOpacity
@@ -122,7 +119,7 @@ export default class _BuscaTuNegocio extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.btn, { marginTop: p(22) }]}
+          style={[styles.btn, { marginTop: p(22), marginHorizontal: p(35) }]}
           onPress={() => this.props.navigation.navigate('registerBussinesScreen6', {
             update: (x) => this.setState({ agregar: x })
           })}
@@ -155,16 +152,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   view: {
-    marginTop: p(20),
-    padding: p(35),
-    paddingTop: p(25),
+    marginTop: p(10),
+    padding: p(20),
     paddingBottom: p(12),
   },
   h1: {
     fontFamily: 'GeosansLight',
     fontSize: p(22),
     marginLeft: p(6),
-    color: '#111'
+    color: '#111',
   },
   icon: {
     resizeMode: "contain",
@@ -188,6 +184,7 @@ const styles = StyleSheet.create({
   },
   box: {
     flexDirection: 'row',
+    marginHorizontal: p(16),
     borderWidth: p(3.4),
     height: p(36),
     marginTop: p(8),
@@ -207,9 +204,22 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderWidth: p(3.4),
-    marginHorizontal: p(35),
+    marginHorizontal: p(20),
     height: p(36),
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+  input: {
+    height: p(36),
+    // backgroundColor: 'rgba(236, 240, 241,0.6)',
+    marginBottom: 10,
+    color: 'rgba(44, 62, 80, 0.9)',
+    fontSize: p(14),
+    fontFamily: 'GeosansLight',
+    paddingLeft: p(10),
+    marginHorizontal: p(16),
+    borderWidth: p(3.4),
+    fontSize: p(22),
+
+  },
 })
