@@ -38,15 +38,15 @@
     "underscore": "^1.9.1"
   },
   "android": {
-    "package": "com.map.wangharry",
+    "package": "com.map",
     "config": {
       "googleMaps": {
-        "apiKey": "AIzaSyBTFwGaraAS6YkKyeyZWH-jSY10mdkoD2E"
+        "apiKey": "-"
       }
     }
   },
   "ios": {
-    "bundleIdentifier": "com.map.wangharry"
+    "bundleIdentifier": "com.map"
   },
   "devDependencies": {
     "babel-preset-expo": "^6.0.0"
